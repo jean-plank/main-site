@@ -1,4 +1,5 @@
-﻿image market1 = "market1.jpg"
+image menu = "jpthestory.jpg"
+image market1 = "market1.jpg"
 image market2 = "market2.jpg"
 image entrepot = "entrepot.jpg"
 image chambre = "chambre.jpg"

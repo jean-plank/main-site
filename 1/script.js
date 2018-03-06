@@ -73,6 +73,7 @@ Sound.prototype.load = function() {
 // hide current scene and show img as new one
 FUNCTIONS.show_scene = function(img) {
     DIV_SCENE.empty()
+    DIV_CHAR_IMG.empty()
     if (img.elt === null) throw new TypeError('img.elt is null')
     DIV_SCENE.append(img.elt)
 }

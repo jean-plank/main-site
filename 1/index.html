@@ -8,37 +8,33 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        window.story = { state: {} }
+    </script>
+
 </head>
 <body>
 
-    <div id="passage">
-        <!-- <div id="scene"></div>
-        <div id="char_img"></div> -->
+    <div id="scene"><img src="http://jp1.blbl.ch/images/market1.jpg"></div>
 
-        <div id="passages">
-            <div class="passage">
-                <div id="footer">
-                    <div id="dialog">
-                        <div id="char_name"></div>
-                        <div id="text"></div>
-                    </div>
-                    <div class="buttons">
-                        <tw-link>precedent</tw-link>
-                        <tw-link>suivant</tw-link>
-                    </div>
-                </div>
+    <div id="char_img"><img src="http://jp1.blbl.ch/images/gp_posey.png"></div>
+
+    <div id="passage">
+        <div id="footer">
+            <div id="dialog">
+                <div id="char_name" style="color:green;">Jean Plank</div>
+                <div id="text">Jean Plank après un combat long et douloureux devait ravitailler son navire.</div>
+            </div>
+            <div id="buttons">
+                <!-- <a href="javascript:void(0)" data-passage="market1-2">précédent</a> -->
+                <span></span>
+                <a href="javascript:void(0)" data-passage="market1-2">suivant</a>
             </div>
         </div>
     </div>
 
-
     <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript">
-        show_scene(IMG_MARKET1)
-        // play_music("theme_gp.ogg")
-        show_char(IMG_GP2)
-        say(CHAR_J, "Jean Plank après un combat long et douloureux devait ravitailler son navire.")
-    </script>
 
 </body>
 </html>

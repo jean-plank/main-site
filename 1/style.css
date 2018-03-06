@@ -1,4 +1,16 @@
-#story {
+body {
+    margin: 0;
+    font-family: Arial;
+    background-color: black;
+    font-size: 18pt;
+}
+
+p  {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 #scene, #char_img {
@@ -14,67 +26,57 @@
     width: 100%;
 }
 
-
-/**, ::before, ::after {
-    position: static;
-    box-sizing: inherit;
-}*/
-
-/*.container {
+#passage {
     display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
+    flex-direction: column;
     height: 100vh;
-    background-size: cover;
-    flex-direction: column;
-}*/
+    max-width: none;
+    line-height: 110%;
+}
 
-/*.perso {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-}*/
-
-/*.conteneur .grow {
+#passage::before {
+    content: '';
+    display: block;
     flex-grow: 1;
-}*/
+}
 
-/*.conteneur .footer {
+#footer {
     display: flex;
     flex-direction: column;
-    z-index: 10;
-    width: 100%;
+    letter-spacing: 1px;
     height: 20%;
     background-color: rgba(0, 0, 0, 0.8);
+    color: white;
 }
 
-.conteneur .footer .dialogue {
-    padding: 0.33em 20%;
+#dialog {
+    flex-grow: 1;
+    font-size: 1.2em;
+    padding: 0.2em;
 }
 
-.conteneur .footer p {
+#char_name {
     font-weight: bold;
-    margin: 0;
-}*/
+    font-size: 1.1em;
+    margin-bottom: 0.2em;
+}
 
-/*.boutons {
+#buttons {
     display: flex;
     justify-content: space-between;
-}*/
+    padding: 0.67em 1em;
 
+}
 
-tw-link, .visited, .visited:hover {
+#buttons a {
     display: inline-block;
     color: #b99d83;
     background-color: #59452d;
-    padding: 0.1em 0.67em;
-    border: 3px solid rgba(121, 99, 53, 0.8);
+    padding: 0.1em 1em;
+    border: 6px solid rgba(121, 99, 53, 0.8);
 }
 
-tw-link:hover {
+#buttons a:hover {
     color: #b99d83;
     background-color: #916b41;
 }

@@ -32,6 +32,7 @@ a {
     height: 100vh;
     max-width: none;
     line-height: 110%;
+    color: white;
 }
 
 #passage::before {
@@ -46,7 +47,6 @@ a {
     letter-spacing: 1px;
     height: 20%;
     background-color: rgba(0, 0, 0, 0.8);
-    color: white;
 }
 
 #dialog {

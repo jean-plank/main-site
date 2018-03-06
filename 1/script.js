@@ -73,26 +73,24 @@ Sound.prototype.load = function() {
 // hide current scene and show img as new one
 FUNCTIONS.show_scene = function(img) {
     DIV_SCENE.empty()
-    img.load()
+    if (img.elt === null) throw new TypeError('img.elt is null')
     DIV_SCENE.append(img.elt)
 }
 
 
 // show image as character
 FUNCTIONS.show_char = function(img) {
-    // DIV_CHAR_IMG.empty()
-    img.load()
+    if (img.elt === null) throw new TypeError('img.elt is null')
     DIV_CHAR_IMG.append(img.elt)
 }
 
 
 FUNCTIONS.hide_char = function(img) {
-    DIV_CHAR_IMG.removeChild(img.elt)
+    img.elt.remove()
 }
 
 
 FUNCTIONS.play_music = function(sound) {
-    sound.load()
     sound.elt.prop('loop', true)
     sound.elt[0].play()
 }
@@ -103,7 +101,6 @@ FUNCTIONS.stop_music = function(sound) {
 
 
 FUNCTIONS.play_sound = function(sound) {
-    sound.load()
     sound.elt.prop('loop', false)
     sound.elt[0].play()
 }

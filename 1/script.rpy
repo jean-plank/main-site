@@ -99,7 +99,7 @@ label start:
     ""
 
     play sound "juteux.ogg"
-    j "Aaaah bien juteux ! "
+    j "Aaaah bien juteux !"
 
     ""
 
@@ -127,14 +127,14 @@ label start:
     "Mais Jean Plank ne voulait pas dépenser son trésor."
 
     "Il trouva alors un arrangement."
-    play sound "pan.mp3"
 
+    play sound "pan.mp3"
     hide gp3
     "..."
 
     "..."
-    play music "pirate.mp3" fadeout 1.0
 
+    play music "pirate.mp3" fadeout 1.0
     "N\'ayant plus rien à faire et voulant découvrir de nouveaux horizons,"
 
     "Sa nouvelle carrière ne faisait que commencer !"

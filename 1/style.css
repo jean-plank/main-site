@@ -11,6 +11,12 @@ p  {
 
 a {
     text-decoration: none;
+    border: none;
+}
+
+#passage {
+    color: white;
+    text-shadow: 0 0 5px black;
 }
 
 #scene, #char_img {
@@ -26,7 +32,7 @@ a {
     width: 100%;
 }
 
-#passage {
+#container {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -35,7 +41,7 @@ a {
     color: white;
 }
 
-#passage::before {
+#container::before {
     content: '';
     display: block;
     flex-grow: 1;
@@ -61,6 +67,12 @@ a {
     margin-bottom: 0.2em;
 }
 
+#choices {
+    display: flex;
+    flex-direction: column;
+}
+
+/*
 #buttons {
     display: flex;
     justify-content: space-between;
@@ -81,3 +93,4 @@ a {
     color: #b99d83;
     background-color: #916b41;
 }
+*/

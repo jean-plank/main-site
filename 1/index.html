@@ -10,31 +10,316 @@
 
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-        window.story = { state: {} }
+        /* mocks */
+        window.story = {
+            render: function () { console.log('default render'); }
+        }
+
+        _ = {
+            extend: function (a, b) {},
+            template: function (source) {
+                return function (data) { return source }
+            },
+            unescape: function (a) { return a }
+        }
+
+        Passage = { prototype: function () {} }
+    </script>
+
+    <script role="script" id="twine-user-script" type="text/twine-javascript">
+        /* user constants */
+        const DOMAIN = "http://jp1.blbl.ch/"
+
+        const IMG_MENU = new Image("jpthestory.jpg")
+        const IMG_MARKET1 = new Image("market1.jpg")
+        const IMG_MARKET2 = new Image("market2.jpg")
+        const IMG_ENTREPOT = new Image("entrepot.jpg")
+        const IMG_CHAMBRE = new Image("chambre.jpg")
+        const IMG_FIN = new Image("fin.jpg")
+        const IMG_MF = new Image("mf.png")
+        const IMG_GP2 = new Image("gp_posey.png")
+        const IMG_GP1 = new Image("gp1.png")
+        const IMG_GP3 = new Image("Gp_interogatoire.png")
+        const IMG_HENTAI = new Image("mfhentai.png")
+        const IMG_DEALER = new Image("dealer.png")
+        const IMG_VORANGE = new Image("vendeuse_orange.png")
+
+        const SND_JEVEUX = new Sound("jeveux.ogg")
+        const SND_JOUI = new Sound("joui.ogg")
+        const SND_JUTEUX = new Sound("juteux.ogg")
+        const SND_MAIN_THEME = new Sound("main_theme.ogg")
+        const SND_ORANGE = new Sound("orange.ogg")
+        const SND_PAN = new Sound("pan.mp3")
+        const SND_PIRATE = new Sound("pirate.mp3")
+        const SND_PLUSDEPOUDRE = new Sound("plusdepoudre.ogg")
+        const SND_THEME_GP = new Sound("theme_gp.ogg")
+        const SND_TOUTLEMONDE = new Sound("toutlemonde.ogg")
+        const SND_UNCOUP = new Sound("uncoup.ogg")
+
+        const CHAR_J = new Char('Jean Plank', "#fefefe")
+        const CHAR_MF = new Char('Miss Fourtune', "#d671a9")
+        const CHAR_V = new Char('La Vendeuse', "#d671a9")
+        const CHAR_D = new Char('Dealer', "#d671a9")
+
+
+        /* api constants */
+        const DIV_SCENE = $('<div id="scene">')
+        const DIV_CHAR_IMG = $('<div id="char_img">')
+        const DIV_CONTAINER = $('<div id="container">')
+        const DIV_CHAR_NAME = $('<div id="char_name">')
+        const DIV_TEXT = $('<div id="text">')
+        const DIV_CHOICES = $('<div id="choices">')
+
+
+        const STATE = {
+            scene: null, // Image
+            music: null, // Sound
+            chars: [], // Array<Image>
+            char_name: null, // Char
+        }
+
+        const REGEX_LINK = new RegExp("\[\[(.*?)\]\]", 'g')
+
+
+        /* classes */
+        function Image(name) {
+            this.name = name // String
+            this.elt = null // $(DOM)
+        }
+
+        Image.prototype.load = function () {
+            if (this.elt === null)
+            this.elt = $('<img>').attr('src', DOMAIN+'images/'+this.name)
+        }
+
+
+        function Sound(name) {
+            this.name = name // String
+            this.elt = null // $(DOM)
+        }
+
+        Sound.prototype.load = function () {
+            if (this.elt === null)
+            this.elt = $('<audio>').attr({
+                'src': DOMAIN+'sounds/'+this.name,
+                'preload': 'auto'
+            })
+        }
+
+
+        function Char(name, color) {
+            this.name = name // String
+            this.color = color // String
+        }
+
+
+        function Next(display, target) {
+            this.display = display // String
+            this.target = target // String
+        }
+
+
+        /* functions */
+        function show_scene(scene/*: Image*/) {
+            if (STATE.scene !== scene) {
+                DIV_SCENE.empty()
+                if (scene.elt === null) throw new TypeError('scene.elt is null')
+                DIV_SCENE.append(scene.elt)
+                STATE.scene = scene
+            }
+        }
+
+
+        function play_music(music/*: Sound*/) {
+            if (STATE.music !== music) {
+                if (STATE.music !== null) STATE.music[0].pause()
+                music.elt.prop('loop', true)
+                music.elt[0].play()
+                STATE.music = music
+            }
+        }
+
+
+        function show_char(char/*: Image*/) {
+            if (STATE.chars.indexOf(char) === -1) {
+                if (char.elt === null) throw new TypeError('char.elt is null')
+                DIV_CHAR_IMG.append(char.elt)
+                STATE.chars.push(char)
+            }
+        }
+
+
+        function hide_char(char/*: Char*/) {
+            i = STATE.chars.indexOf(char)
+            if (i !== -1) {
+                char.elt.remove()
+                STATE.chars.splice(i, 1)
+            }
+        }
+
+
+        function play_sound(sound/*: Sound*/) {
+            sound.elt.prop('loop', false)
+            sound.elt[0].play()
+        }
+
+
+        function char_says(char/*: Char*/, text/*: String*/) {
+            DIV_CHAR_NAME.css('color', char.color).text(char.name)
+            set_text(text)
+        }
+
+
+        function set_text(text/*: String*/) {
+            DIV_TEXT.text(text)
+        }
+
+
+        function set_nexts(nexts/*: Array<Next>*/) {
+            if (nexts.length === 1) {
+                DIV_CONTAINER.attr('data-passage', nexts[0].target)
+            } else {
+                for (i = 0; i < nexts.length; i++) {
+                    DIV_CHOICES.append($('<div>')
+                        .attr('data-passage', nexts[i].target)
+                        .text(nexts[i].display))
+                }
+            }
+        }
+
+
+        function load_ress(/* *vars: any*/) {
+            for (i = 0; i < arguments.length; i++) arguments[i].load()
+        }
+
+
+        function my_render(source) {
+            var nexts = []
+
+            console.log('source ="'+source+'"');
+            var result = _.template(source)()
+
+            // result = result.replace(/\[\[(.*?)\]\]/g, 'toto')
+
+            /* [[links]] */
+            var result = source.replace(REGEX_LINK, function (match, target) {
+                var display = target
+
+                /* display|target format */
+                var barIndex = target.indexOf('|')
+
+                if (barIndex !== -1) {
+                    display = target.substr(0, barIndex)
+                    target = target.substr(barIndex + 1);
+                } else {
+                    /* display->target format */
+                    var rightArrIndex = target.indexOf('->')
+
+                    if (rightArrIndex !== -1) {
+                        display = target.substr(0, rightArrIndex)
+                        target = target.substr(rightArrIndex + 2)
+                    } else {
+                        /* target<-display format */
+                        var leftArrIndex = target.indexOf('<-')
+
+                        if (leftArrIndex !== -1) {
+                            display = target.substr(leftArrIndex + 2)
+                            target = target.substr(0, leftArrIndex)
+                        }
+                    }
+                }
+
+                nexts.push(new Next(display, target))
+
+                return ''
+            })
+
+
+            DIV_CONTAINER.removeAttr('data-passage')
+            DIV_CHAR_NAME.text('')
+            DIV_CHOICES.empty()
+            eval(result)
+            set_nexts(nexts)
+
+            console.log('result =', result);
+            console.log('nexts =', nexts);
+
+            return ''
+        }
+
+
+        /* script */
+        _.extend(Passage.prototype, {
+            render: function () { return my_render(_.unescape(this.source)) }
+        })
+
+
+        $('body')
+            .prepend(
+                DIV_CONTAINER.append(
+                    $('<div id="footer">').append(
+                        $('<div id="dialog">').append(
+                            DIV_CHAR_NAME,
+                            DIV_TEXT
+                        ),
+                        DIV_CHOICES
+                    )
+                )
+            )
+            .prepend(DIV_CHAR_IMG)
+            .prepend(DIV_SCENE)
+
+        /*
+            <div id="scene"></div>
+            <div id="char_img"></div>
+            <a id="container">
+                <div id="footer">
+                    <div id="dialog">
+                        <div id="char_name"></div>
+                        <div id="text"></div>
+                    </div>
+                    <div id="choices">
+                </div>
+            </a>
+        */
     </script>
 
 </head>
 <body>
 
-    <div id="scene"><img src="http://jp1.blbl.ch/images/market1.jpg"></div>
-
-    <div id="char_img"><img src="http://jp1.blbl.ch/images/gp_posey.png"></div>
 
     <div id="passage">
-        <div id="footer">
-            <div id="dialog">
-                <div id="char_name" style="color:green;">Jean Plank</div>
-                <div id="text">Jean Plank après un combat long et douloureux devait ravitailler son navire.</div>
-            </div>
-            <div id="buttons">
-                <!-- <a href="javascript:void(0)" data-passage="market1-2">précédent</a> -->
-                <span></span>
-                <a href="javascript:void(0)" data-passage="market1-2">suivant</a>
-            </div>
-        </div>
+        <!--
+            <div id="scene"></div>
+            <div id="char_img"></div>
+            <a id="container">
+                <div id="footer">
+                    <div id="dialog">
+                        <div id="char_name"></div>
+                        <div id="text"></div>
+                    </div>
+                    <div id="choices"></div>
+                </div>
+            </a>
+        -->
     </div>
 
-    <script type="text/javascript" src="script.js"></script>
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <script>
+        eval($('*[type="text/twine-javascript"]').html())
+
+    // [[Aller acheter des oranges->market1-2]]
+    // [[Aller acheter des mandarines->market1-3]]
+    // [[Commencer->market1-1]]
+        my_render(`
+
+            load_ress(IMG_MENU, SND_MAIN_THEME, IMG_GP2)
+            show_scene(IMG_MENU)
+            play_music(SND_MAIN_THEME)
+            show_char(IMG_GP2)
+            set_text('Jean Plank après un combat long et douloureux devait ravitailler son navire.')
+        `)
+    </script>
 
 </body>
 </html>

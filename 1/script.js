@@ -1,5 +1,6 @@
 /* user constants */
-const DOMAIN = "http://jp1.blbl.ch/"
+// const DOMAIN = "http://jp1.blbl.ch/"
+const DOMAIN = "http://localhost:8675/"
 
 const IMG_MENU = new Image("jpthestory.jpg")
 const IMG_MARKET1 = new Image("market1.jpg")
@@ -45,7 +46,7 @@ const DIV_CHOICES = $('<div id="choices">')
 const STATE = {
     scene: null, // Image
     music: null, // Sound
-    chars: [], // Array<Image>
+    imgs: [], // Array<Image>
     char_name: null, // Char
 }
 
@@ -91,18 +92,38 @@ function Next(display, target) {
 
 
 /* functions */
-function show_scene(scene/*: Image*/) {
-    if (STATE.scene !== scene) {
+function scene(sc/*: Image*/) {
+    if (STATE.scene !== sc) {
         DIV_SCENE.empty()
         DIV_CHAR_IMG.empty()
-        if (scene.elt === null)
-            throw new TypeError(scene.name+': scene.elt is null')
-        DIV_SCENE.append(scene.elt)
-        STATE.scene = scene
+        if (sc.elt === null)
+            throw new TypeError(sc.name+': sc.elt is null')
+        DIV_SCENE.append(sc.elt)
+        STATE.scene = sc
     }
 }
 
 
+function show(img/*: Image*/) {
+    if (STATE.imgs.indexOf(img) === -1) {
+        if (img.elt === null)
+            throw new TypeError(img.name+': img.elt is null')
+        DIV_CHAR_IMG.append(img.elt)
+        STATE.imgs.push(img)
+    }
+}
+
+
+function hide(img/*: Image*/) {
+    var i = STATE.imgs.indexOf(img)
+    if (i !== -1) {
+        img.elt.detach()
+        STATE.imgs.splice(i, 1)
+    }
+}
+
+
+// plays Sound music in a loop
 function play_music(music/*: Sound*/) {
     if (STATE.music !== music) {
         if (music.elt === null)
@@ -115,25 +136,7 @@ function play_music(music/*: Sound*/) {
 }
 
 
-function show_char(char/*: Image*/) {
-    if (STATE.chars.indexOf(char) === -1) {
-        if (char.elt === null)
-            throw new TypeError(char.name+': char.elt is null')
-        DIV_CHAR_IMG.append(char.elt)
-        STATE.chars.push(char)
-    }
-}
-
-
-function hide_char(char/*: Char*/) {
-    var i = STATE.chars.indexOf(char)
-    if (i !== -1) {
-        char.elt.detach()
-        STATE.chars.splice(i, 1)
-    }
-}
-
-
+// plays Sound sound one time
 function play_sound(sound/*: Sound*/) {
     if (sound.elt === null)
         throw new TypeError(sound.name+': sound.elt is null')
@@ -142,15 +145,13 @@ function play_sound(sound/*: Sound*/) {
 }
 
 
-function char_says(char/*: Char*/, text/*: String*/) {
+function char_says(char/*: Char*/, txt/*: String*/) {
     DIV_CHAR_NAME.css('color', char.color).text(char.name)
-    set_text(text)
+    text(txt)
 }
 
 
-function set_text(text/*: String*/) {
-    DIV_TEXT.html(text)
-}
+function text(txt/*: String*/) { DIV_TEXT.html(txt) }
 
 
 function set_nexts(nexts/*: Array<Next>*/) {
@@ -166,8 +167,10 @@ function set_nexts(nexts/*: Array<Next>*/) {
 }
 
 
-function load_ress(/* *vars: any*/) {
-    for (var i = 0; i < arguments.length; i++) arguments[i].load()
+function load(/* *vars: any*/) {
+    for (var i = 0; i < arguments.length; i++) {
+        arguments[i].load()
+    }
 }
 
 

@@ -1,1 +1,4 @@
-- multiple choice
+- css for multiple choices
+- `set_nexts`: different behavior depending on which passage it is using tags (for menu, for example)
+- direct jump to chapters
+- better image pre-loading

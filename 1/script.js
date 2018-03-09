@@ -1,6 +1,6 @@
 /* user constants */
-// const DOMAIN = "http://jp1.blbl.ch/"
 const DOMAIN = "http://localhost:8675/"
+// const DOMAIN = "./"
 
 const IMG_MENU = new Image("jpthestory.jpg")
 const IMG_MARKET1 = new Image("market1.jpg")
@@ -230,20 +230,19 @@ _.extend(Passage.prototype, {
 
 
 /* script */
-$('body')
-    .append(DIV_SCENE)
-    .append(DIV_CHAR_IMG)
-    .append(
-        DIV_CONTAINER.append(
-            $('<div id="footer">').append(
-                $('<div id="dialog">').append(
-                    DIV_CHAR_NAME,
-                    DIV_TEXT
-                ),
-                DIV_CHOICES
-            )
+$('body').append(
+    DIV_SCENE,
+    DIV_CHAR_IMG,
+    DIV_CONTAINER.append(
+        $('<div id="footer">').append(
+            $('<div id="dialog">').append(
+                DIV_CHAR_NAME,
+                DIV_TEXT
+            ),
+            DIV_CHOICES
         )
     )
+)
 
 /*
     <div id="scene"></div>

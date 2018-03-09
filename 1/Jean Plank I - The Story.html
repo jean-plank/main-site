@@ -15,6 +15,7 @@ Jean Plank I - The Story
     font-family: Arial;
     background-color: black;
     font-size: 18pt;
+    overflow: hidden;
 }
 
 p  {
@@ -29,14 +30,34 @@ a {
 #passage {
     color: white;
     text-shadow: 0 0 5px black;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+#scene, #char_img, #container {
+    height: 100vh;
+    width: calc(100vh * 1920 / 1080);
+}
+
+@media (max-aspect-ratio: 1920/1080) {
+    body {
+        flex-direction: column;
+    }
+
+    #scene, #char_img, #container {
+        width: 100vw;
+        height: calc(100vw * 1080 / 1920);
+    }
 }
 
 #scene, #char_img {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
+    position: absolute;
     z-index: -1;
 }
 
@@ -46,24 +67,16 @@ a {
 
 #container {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-width: none;
+    flex-direction: column-reverse;
     line-height: 110%;
     color: white;
-}
-
-#container::before {
-    content: '';
-    display: block;
-    flex-grow: 1;
 }
 
 #footer {
     display: flex;
     flex-direction: column;
     letter-spacing: 1px;
-    height: 20%;
+    height: 21%;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -107,8 +120,8 @@ a {
 }
 */
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* user constants */
-// const DOMAIN = "http://jp1.blbl.ch/"
 const DOMAIN = "http://localhost:8675/"
+// const DOMAIN = "./"
 
 const IMG_MENU = new Image("jpthestory.jpg")
 const IMG_MARKET1 = new Image("market1.jpg")
@@ -338,20 +351,19 @@ _.extend(Passage.prototype, {
 
 
 /* script */
-$('body')
-    .append(DIV_SCENE)
-    .append(DIV_CHAR_IMG)
-    .append(
-        DIV_CONTAINER.append(
-            $('<div id="footer">').append(
-                $('<div id="dialog">').append(
-                    DIV_CHAR_NAME,
-                    DIV_TEXT
-                ),
-                DIV_CHOICES
-            )
+$('body').append(
+    DIV_SCENE,
+    DIV_CHAR_IMG,
+    DIV_CONTAINER.append(
+        $('<div id="footer">').append(
+            $('<div id="dialog">').append(
+                DIV_CHAR_NAME,
+                DIV_TEXT
+            ),
+            DIV_CHOICES
         )
     )
+)
 
 /*
     <div id="scene"></div>

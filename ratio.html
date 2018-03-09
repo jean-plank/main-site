@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Ratio</title>
+
+    <style media="screen">
+    body {
+        margin: 0;
+    }
+
+    .aspectwrapper {
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .content {
+        background-color: green;
+        height: 100vh;
+        width: calc(100vh * 1920 / 1080);
+    }
+
+    @media (max-aspect-ratio: 1920/1080) {
+        .aspectwrapper {
+            flex-direction: column;
+        }
+
+        .content {
+            background-color: yellow;
+            width: 100vw;
+            height: calc(100vw * 1080 / 1920);
+        }
+    }
+    </style>
+
+</head>
+<body>
+
+    <div class="aspectwrapper">
+        <div class="content">
+        </div>
+    </div>
+
+</body>
+</html>

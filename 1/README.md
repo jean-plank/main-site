@@ -3,19 +3,7 @@ Using format `Snowman`.
 
 
 ## Templating
-The templates aren't `Snowman`'s basics anymore (html, md) but directly js with `[[display1->target1]]` (and other `[[link]]`) tags are replaced with one `set_nexts([{display:'display1',target:'target1'}, {display:'display2',target:'target2'}])`.
-
-
-## Things which are done one each passage
-- setting 0 or 1 scene
-- setting 0 or 1 music
-- setting 0, 1 or more characters
-- playing 0, 1 or more sounds
-- setting 0 or 1 character's name as title
-- setting a text
-- defining 1 or more next passage (if only 1 next, clic anywhere)
-- loading 0, 1 or more ressources for next passage
-
+The templates aren't `Snowman`'s basics anymore (html, md) but directly js with `[[display1->target1]]` (and other `[[link]]`) tags are replaced with `''` and `set_nexts` is called once with all links as parameter.
 
 Interface :
 ```js

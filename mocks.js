@@ -5,3 +5,4 @@ _ = {
 }
 
 Passage = { prototype: function () {} }
+Story = { prototype: function () {} }

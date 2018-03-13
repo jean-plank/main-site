@@ -9,8 +9,6 @@
 **Passage**: whole passage. Can have 0, 1 or more blocks.  
 **Block**: start at the beginning of passage or at the end of previous block; ends when a `"text"` statement is found (exception: last `"text"` block goes to the end).
 
-53A56BAC6E
-
 ```
 [[choice1]]
 [[choice2]]

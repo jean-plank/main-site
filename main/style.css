@@ -1,0 +1,217 @@
+@font-face {
+    font-family: yarr;
+    src: url('fonts/Bucanera-FFP.eot');
+    src: url('fonts/Bucanera-FFP.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Bucanera-FFP.woff2') format('woff2'),
+        url('fonts/Bucanera-FFP.woff') format('woff'),
+        url('fonts/Bucanera-FFP.svg#Bucanera-FFP') format('svg');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: pieces_of_eight;
+    src: url('fonts/Pieces of Eight.ttf');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: yarr;
+    font-size: 30pt;
+    line-height: 1;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.center {
+    justify-content: center;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+#main-container {
+    height: 100%;
+    width: 100%;
+    background-image: url('img/background.jpeg');
+    background-size: cover;
+}
+
+#title {
+    color: #f1e6b7;
+    /* text-shadow: 0 0 3px #b05f17; */
+    text-shadow: 0 0 3px black;
+    font-weight: normal;
+    font-size: 2.1em;
+    letter-spacing: 4px;
+    padding: 0.2em 1.67em 0;
+    margin-top: 0.2em;
+}
+
+#title span {
+    font-size: 0.5em;
+    text-transform: uppercase;
+}
+
+#games-container {
+    font-family: pieces_of_eight;
+    flex-grow: 1;
+}
+
+.game-container {
+    perspective: 1000px;
+    position: relative;
+    max-width: 60%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.game-container>img {
+    width: 100%;
+}
+
+/* 570 x 853 */
+.game {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    box-shadow: 0 0 10px 2px black;
+    cursor: pointer;
+    -webkit-transition: transform 0.6s;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.game-container:hover .game {
+    -ms-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.launch-dl, .title {
+    backface-visibility: hidden;
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.launch-dl {
+    overflow: hidden;
+    -ms-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.title {
+    -ms-transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+
+.launch-dl .texts, .launch-dl .links {
+    position: absolute;
+    top: 0;
+}
+
+.launch-dl .texts {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('img/parchment.png');
+    background-size: 100% 100%;
+}
+
+.launch-dl .texts>div {
+    text-align: center;
+    margin: 20% 0;
+    /* border: 1px solid green; */
+}
+
+.launch:hover, .dl:hover {
+    text-decoration: underline;
+}
+
+.launch-dl .launch::before {
+    content: 'Jouer sur navigateur';
+}
+
+.launch-dl .dl::before {
+    content: 'Télécharger le jeu';
+}
+
+.launch-dl .links {
+    height: 120%;
+    width: 160%;
+    margin: -10% -30%;
+    display: flex;
+    flex-direction: column;
+    -ms-transform: rotate(-25deg);
+    -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+}
+
+.launch-dl .links a {
+    flex-grow: 1;
+    border-bottom: 8px double black;
+}
+
+.launch-dl .links a:last-child {
+    border-bottom: none;
+}
+
+.title img {
+    width: 100%;
+}
+
+.title .name {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: goldenrod;
+    text-shadow: 0 0 3px black;
+}
+
+.title .name div {
+    text-align: center;
+    padding: 0.3em;
+    background: rgba(0,0,0,0.5);
+    background: linear-gradient(to right,
+        rgba(0,0,0,0.3),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.3));
+}

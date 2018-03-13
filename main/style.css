@@ -54,6 +54,10 @@ body {
     justify-content: space-between;
 }
 
+.flex-end {
+    justify-content: flex-end;
+}
+
 .grow {
     flex-grow: 1;
 }
@@ -81,47 +85,64 @@ body {
     text-transform: uppercase;
 }
 
-#games-container {
+#game-containers {
     font-family: pieces_of_eight;
     max-width: 1500px;
     margin: 0 auto;
 }
 
-.game-container {
-    perspective: 1000px;
-    position: relative;
-    width: 60%;
-    display: flex;
-    margin: 0 auto;
+.flip-container, .flip-container .game {
+    -webkit-transition: 0.6s;
+    transition: 0.6s;
 }
 
-.game-container>img {
+.flip-container {
+    perspective: 1000px;
+    width: 60%;
+    left: 0;
+    margin: 0 auto;
+    cursor: pointer;
+    position: relative;
+}
+
+.flip-container:hover {
+    left: 30%;
+}
+
+.flip-container>img {
     width: 100%;
 }
 
 /* 570 x 853 */
-.game {
+.flip-container .game {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
-    box-shadow: 0 0 10px 2px black;
-    cursor: pointer;
-    -webkit-transition: transform 0.6s;
-    transition: transform 0.6s;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    -ms-transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+    transform-origin: 0% 0%;
 }
 
-.game-container:hover .game {
-    -ms-transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+.flip-container:hover .game {
+    /* left: -50%; */
+    -ms-transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+
+.game, .title {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .launch-dl, .title {
-    backface-visibility: hidden;
-    position: absolute;
     display: flex;
+    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
@@ -129,41 +150,44 @@ body {
 }
 
 .launch-dl {
-    overflow: hidden;
+    /* box-shadow: 0 0 10px 2px black; */
+    flex-direction: column;
+    background-image: url('img/book_left.png');
+    background-size: 100% 100%;
     -ms-transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
+    padding: 4% 8% 4% 10%;
 }
 
-.title {
-    -ms-transform: rotateY(0deg);
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-}
-
-.launch-dl .texts, .launch-dl .links {
+.flip-container .description {
     position: absolute;
+    font-size: 0.9em;
     top: 0;
-}
-
-.launch-dl .texts {
-    height: 100%;
+    left: 0;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url('img/parchment.png');
+    overflow: hidden;
+    background-image: url('img/book_right.png');
     background-size: 100% 100%;
+    padding: 4% 10% 4% 8%;
 }
 
-.launch-dl .texts>div {
+.launch-dl a {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    margin: 20% 0;
-    /* border: 1px solid green; */
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-.launch:hover, .dl:hover {
-    text-decoration: underline;
+.launch-dl a:hover {
+    text-shadow: 0 0 10px black;
 }
 
 .launch-dl .launch::before {
@@ -174,24 +198,19 @@ body {
     content: 'Télécharger le jeu';
 }
 
-.launch-dl .links {
-    height: 120%;
-    width: 160%;
-    margin: -10% -30%;
-    display: flex;
-    flex-direction: column;
-    -ms-transform: rotate(-25deg);
-    -webkit-transform: rotate(-25deg);
-    transform: rotate(-25deg);
+.title {
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
 }
 
-.launch-dl .links a {
-    flex-grow: 1;
-    border-bottom: 8px double black;
-}
-
-.launch-dl .links a:last-child {
-    border-bottom: none;
+.title::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-image: url('img/book_border.png');
+    background-size: 100% 100%;
 }
 
 .title img {
@@ -219,4 +238,12 @@ body {
         rgba(0,0,0,0.6),
         rgba(0,0,0,0.6),
         rgba(0,0,0,0.3));
+}
+
+.flip-container .description i {
+    font-size: 0.8em;
+}
+
+.flip-container .description .br {
+    height: 1em;
 }

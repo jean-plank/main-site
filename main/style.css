@@ -54,6 +54,10 @@ body {
     justify-content: space-between;
 }
 
+.grow {
+    flex-grow: 1;
+}
+
 #main-container {
     height: 100%;
     width: 100%;
@@ -79,13 +83,14 @@ body {
 
 #games-container {
     font-family: pieces_of_eight;
-    flex-grow: 1;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
 .game-container {
     perspective: 1000px;
     position: relative;
-    max-width: 60%;
+    width: 60%;
     display: flex;
     margin: 0 auto;
 }

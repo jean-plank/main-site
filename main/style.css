@@ -23,7 +23,7 @@ a {
 }
 
 body {
-    font-family: yarr;
+    font-family: pieces_of_eight;
     font-size: 30pt;
     line-height: 1;
     margin: 0;
@@ -42,20 +42,16 @@ body {
     flex-direction: row;
 }
 
-.center {
+.justify-center {
     justify-content: center;
 }
 
-.space-around {
+.justify-space-around {
     justify-content: space-around;
 }
 
-.space-between {
+.justify-space-between {
     justify-content: space-between;
-}
-
-.flex-end {
-    justify-content: flex-end;
 }
 
 .grow {
@@ -69,15 +65,15 @@ body {
     background-size: cover;
 }
 
+/* Title */
 #title {
+    font-family: yarr;
     color: #f1e6b7;
-    /* text-shadow: 0 0 3px #b05f17; */
     text-shadow: 0 0 3px black;
     font-weight: normal;
     font-size: 2.1em;
     letter-spacing: 4px;
     padding: 0.2em 1.67em 0;
-    margin-top: 0.2em;
 }
 
 #title span {
@@ -85,42 +81,55 @@ body {
     text-transform: uppercase;
 }
 
-#game-containers {
-    font-family: pieces_of_eight;
-    max-width: 1500px;
-    margin: 0 auto;
+/* Layout and animation */
+.game-containers {
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
-.flip-container, .flip-container .game {
+.game-container {
+    width: 33.33%;
+}
+
+.book-container, .book-container::before, .book-container .game {
     -webkit-transition: 0.6s;
     transition: 0.6s;
 }
 
-.flip-container {
-    perspective: 1000px;
-    width: 60%;
-    left: 0;
-    margin: 0 auto;
-    cursor: pointer;
+.book-container {
     position: relative;
+    width: 50%;
+    perspective: 1000px;
 }
 
-.flip-container:hover {
-    left: 30%;
+.book-container:hover {
+    margin-left: 50%;
 }
 
-.flip-container>img {
+.book-container::before {
+    /* needed to avoid glitch */
+    content: '';
+}
+
+.book-container:hover::before {
+    left: -100%;
+}
+
+.book-container>img {
     width: 100%;
 }
 
-/* 570 x 853 */
-.flip-container .game {
+.book-container::before, .description, .game, .launch-dl, .title, .name, .title::after {
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
+}
+
+.game {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -ms-transform-origin: 0% 0%;
@@ -128,52 +137,48 @@ body {
     transform-origin: 0% 0%;
 }
 
-.flip-container:hover .game {
-    /* left: -50%; */
+.book-container:hover .game {
     -ms-transform: rotateY(-180deg);
     -webkit-transform: rotateY(-180deg);
     transform: rotateY(-180deg);
 }
 
-.game, .title {
+.launch-dl {
+    -ms-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.game, .title, .launch-dl {
+    z-index: 2;
+}
+
+.game, .launch-dl, .title {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
-.launch-dl, .title {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.launch-dl {
-    /* box-shadow: 0 0 10px 2px black; */
-    flex-direction: column;
-    background-image: url('img/book_left.png');
-    background-size: 100% 100%;
-    -ms-transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-    padding: 4% 8% 4% 10%;
-}
-
-.flip-container .description {
-    position: absolute;
+/* details */
+.description {
     font-size: 0.9em;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     overflow: hidden;
     background-image: url('img/book_right.png');
     background-size: 100% 100%;
     padding: 4% 10% 4% 8%;
+}
+
+.description i {
+    font-size: 0.8em;
+}
+
+.description .br {
+    height: 1em;
+}
+
+.launch-dl {
+    background-image: url('img/book_left.png');
+    background-size: 100% 100%;
+    padding: 4% 8% 4% 10%;
 }
 
 .launch-dl a {
@@ -205,26 +210,16 @@ body {
 
 .title::after {
     content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
     background-image: url('img/book_border.png');
     background-size: 100% 100%;
 }
 
-.title img {
+.title>img {
+    height: 100%;
     width: 100%;
 }
 
-.title .name {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.name {
     color: goldenrod;
     text-shadow: 0 0 3px black;
 }
@@ -238,12 +233,4 @@ body {
         rgba(0,0,0,0.6),
         rgba(0,0,0,0.6),
         rgba(0,0,0,0.3));
-}
-
-.flip-container .description i {
-    font-size: 0.8em;
-}
-
-.flip-container .description .br {
-    height: 1em;
 }

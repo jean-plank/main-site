@@ -54,6 +54,10 @@ body {
     justify-content: space-between;
 }
 
+.align-center {
+    align-items: center;
+}
+
 .grow {
     flex-grow: 1;
 }
@@ -67,13 +71,16 @@ body {
 
 /* Title */
 #title {
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
     font-family: yarr;
     color: #f1e6b7;
     text-shadow: 0 0 3px black;
     font-weight: normal;
     font-size: 2.1em;
     letter-spacing: 4px;
-    padding: 0.2em 1.67em 0;
+    padding: 0.25em 1.67em 0;
+    align-items: baseline;
 }
 
 #title span {
@@ -83,7 +90,7 @@ body {
 
 /* Layout and animation */
 .game-containers {
-    align-items: center;
+    width: 98%;
     flex-wrap: wrap;
     align-content: center;
 }
@@ -120,7 +127,7 @@ body {
     width: 100%;
 }
 
-.book-container::before, .description, .game, .launch-dl, .title, .name, .title::after {
+.book-container::before, .launch-dl, .game, .description, .title, .name, .title::after {
     display: flex;
     position: absolute;
     top: 0;
@@ -144,43 +151,30 @@ body {
 }
 
 .launch-dl {
+    background-image: url('img/book_right.png');
+    background-size: 100% 100%;
+    padding: 4% 12% 4% 10%;
+}
+
+.description {
+    background-image: url('img/book_left.png');
+    background-size: 100% 100%;
+    padding: 4% 10% 4% 12%;
     -ms-transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
-.game, .title, .launch-dl {
+.game, .title {
     z-index: 2;
 }
 
-.game, .launch-dl, .title {
+.game, .description, .title {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
 /* details */
-.description {
-    font-size: 0.9em;
-    overflow: hidden;
-    background-image: url('img/book_right.png');
-    background-size: 100% 100%;
-    padding: 4% 10% 4% 8%;
-}
-
-.description i {
-    font-size: 0.8em;
-}
-
-.description .br {
-    height: 1em;
-}
-
-.launch-dl {
-    background-image: url('img/book_left.png');
-    background-size: 100% 100%;
-    padding: 4% 8% 4% 10%;
-}
-
 .launch-dl a {
     flex-grow: 1;
     display: flex;
@@ -189,10 +183,11 @@ body {
     text-align: center;
     -webkit-transition: 0.4s;
     transition: 0.4s;
+    color: darkred;
 }
 
 .launch-dl a:hover {
-    text-shadow: 0 0 10px black;
+    text-shadow: 0 0 20px black;
 }
 
 .launch-dl .launch::before {
@@ -201,6 +196,19 @@ body {
 
 .launch-dl .dl::before {
     content: 'Télécharger le jeu';
+}
+
+.description {
+    font-size: 0.8em;
+    overflow: hidden;
+}
+
+.description i {
+    font-size: 0.8em;
+}
+
+.description .br {
+    height: 1em;
 }
 
 .title {

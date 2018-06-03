@@ -20,6 +20,7 @@
 a {
     text-decoration: none;
     color: inherit;
+    outline: none;
 }
 
 body {
@@ -58,7 +59,11 @@ body {
     align-items: center;
 }
 
-.grow {
+.align-end {
+    align-items: flex-end;
+}
+
+.grow, .game-containers {
     flex-grow: 1;
 }
 
@@ -67,123 +72,209 @@ body {
     width: 100%;
     background-image: url('img/background.jpeg');
     background-size: cover;
+    overflow-y: auto;
 }
 
 /* Title */
 #title {
-    width: 100%;
+    position: relative;
     background-color: rgba(0,0,0,0.6);
-    font-family: yarr;
     color: #f1e6b7;
     text-shadow: 0 0 3px black;
-    font-weight: normal;
-    font-size: 2.1em;
-    letter-spacing: 4px;
-    padding: 0.25em 1.67em 0;
     align-items: baseline;
+    border-bottom: 3px solid black;
+}
+
+#title>div {
+    text-align: center;
+}
+
+.big {
+    font-size: 2.1em;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.big>img {
+    height: 0.9em;
+}
+
+.big>img:first-child {
+    margin-right: 0.2em;
+}
+
+.big>img:last-child {
+    margin-left: 0.2em;
+}
+
+.yarr {
+    font-family: yarr;
+    font-weight: normal;
+    letter-spacing: 4px;
+    position: absolute;
+    left: 1%;
+    bottom: 0;
 }
 
 #title span {
     font-size: 0.5em;
     text-transform: uppercase;
+    margin-bottom: 0.2em;
 }
 
 /* Layout and animation */
 .game-containers {
-    width: 98%;
-    flex-wrap: wrap;
-    align-content: center;
+    overflow-y: auto;
+
+}
+
+.game-containers>div {
+    width: 512px;
+    flex-shrink: 0;
+    /* height: 100%;; */
 }
 
 .game-container {
-    width: 33.33%;
-}
-
-.book-container, .book-container::before, .book-container .game {
-    -webkit-transition: 0.6s;
-    transition: 0.6s;
-}
-
-.book-container {
+    /* display: flex; */
     position: relative;
-    width: 50%;
-    perspective: 1000px;
 }
 
-.book-container:hover {
-    margin-left: 50%;
+.stroke-h, .stroke-v, .stroke-h-left, .stroke-h-right {
+    position: relative;
 }
 
-.book-container::before {
-    /* needed to avoid glitch */
-    content: '';
-}
-
-.book-container:hover::before {
-    left: -100%;
-}
-
-.book-container>img {
-    width: 100%;
-}
-
-.book-container::before, .launch-dl, .game, .description, .title, .name, .title::after {
-    display: flex;
+.stroke-h::before, .stroke-v::before, .stroke-h-left::before, .stroke-h-right::before {
+    content: "";
+    border-color: #daa520;
+    border-style: dotted;
+    border-width: 0;
     position: absolute;
-    top: 0;
+}
+
+.stroke-h::before, .stroke-h-left::before, .stroke-h-right::before {
+    border-top-width: 8px;
+}
+
+.stroke-h::before {
+    width: 98%;
+}
+
+.stroke-h-left::before, .stroke-h-right::before {
+    width: 49%;
+}
+
+.stroke-h-left::before {
+    left: 1%;
+}
+
+.stroke-h-right::before {
+    right: 1%;
+}
+
+.stroke-v::before {
+    border-left-width: 8px;
+    height: 48%;
     left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .game {
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -ms-transform-origin: 0% 0%;
-    -webkit-transform-origin: 0% 0%;
-    transform-origin: 0% 0%;
+    position: relative;
+    width: 50%;
+    cursor: pointer;
 }
 
-.book-container:hover .game {
-    -ms-transform: rotateY(-180deg);
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
+.game.empty {
+    border-color: transparent;
+    box-shadow: none;
 }
 
-.launch-dl {
-    background-image: url('img/book_right.png');
+.game>div {
+    position: absolute;
+}
+
+.game>img {
+    display: block;
+    width: 100%;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.cover>img {
+    width: 100%;
+}
+
+.title {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    font-size: 0.8em;
+    color: goldenrod;
+    text-shadow: 0 0 3px black;
+}
+
+.name {
+    height: 100%;
+}
+
+.name>div {
+    text-align: center;
+    padding: 0.2em;
+    line-height: 0.9;
+    background: rgba(0,0,0,0.5);
+    background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.6), rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+}
+
+.details {
+    font-size: 0.8em;
+    background-image: url('img/label.jpg');
     background-size: 100% 100%;
-    padding: 4% 12% 4% 10%;
+    width: 196%;
+    height: calc(100% + 12px);
+    left: -48%;
+    top: -6px;
+    opacity: 0;
+    -webkit-transition: 0.6s;
+    transition: 0.6s;
+    padding: 0.1em;
+}
+
+.game, .details {
+    border: 6px solid #4d0207;
+    box-shadow: 0 0 10px black;
+}
+
+.game:hover .details {
+    opacity: 1;
 }
 
 .description {
-    background-image: url('img/book_left.png');
-    background-size: 100% 100%;
-    padding: 4% 10% 4% 12%;
-    -ms-transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+    overflow: hidden;
+    position: relative;
 }
 
-.game, .title {
-    z-index: 2;
+.description i {
+    font-size: 0.8em;
 }
 
-.game, .description, .title {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+.description .br {
+    height: 1em;
 }
 
-/* details */
 .launch-dl a {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
     color: darkred;
+    padding: 0.33em 0;
+    font-size: 0.9em;
 }
 
 .launch-dl a:hover {
@@ -196,49 +287,4 @@ body {
 
 .launch-dl .dl::before {
     content: 'Télécharger le jeu';
-}
-
-.description {
-    font-size: 0.8em;
-    overflow: hidden;
-}
-
-.description i {
-    font-size: 0.8em;
-}
-
-.description .br {
-    height: 1em;
-}
-
-.title {
-    border-radius: 0 10px 10px 0;
-    overflow: hidden;
-}
-
-.title::after {
-    content: '';
-    background-image: url('img/book_border.png');
-    background-size: 100% 100%;
-}
-
-.title>img {
-    height: 100%;
-    width: 100%;
-}
-
-.name {
-    color: goldenrod;
-    text-shadow: 0 0 3px black;
-}
-
-.title .name div {
-    text-align: center;
-    padding: 0.3em;
-    background: rgba(0,0,0,0.5);
-    background: linear-gradient(to right,
-        rgba(0,0,0,0.3),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.3));
 }

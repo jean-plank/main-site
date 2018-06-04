@@ -3,6 +3,10 @@
 <head>
 
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Jean Plank, jeu, flammes, vengeance,visual novel, renpy">
+    <meta name="description" content="La saga des jeux Jean Plank, Les Flammes de la Vengeance.">
+    <meta name="author" content="Grimalkin8675">
 
     <title>Jean Plank</title>
 
@@ -13,49 +17,66 @@
 </head>
 <body>
 
-    <div id="main-container" class="column">
-        <div id="title" class="row justify-center">
-            <div class="yarr">La véritable histoire de</div>
-            <div class="big row align-center">
-                <img src="main/img/fire.gif">
-                <div>
-                    J<span>ean</span>
-                    P<span>lank</span>
-                </div>
-                <img src="main/img/fire.gif">
-            </div>
+    <div class="parallax column">
+        <div id="bg" class="parallax-layer parallax-layer-back row justify-center align-center">
+            <img src="main/img/background.jpg">
         </div>
 
-        <div class="game-containers grow row">
-            <div class="game-container stroke-h row justify-center align-center">
-                <div class="game">
-                    <img src="main/img/ratio_holder.png">
-                    <div class="cover">
-                        <img src="main/img/jp1.jpg">
-                        <div class="title">
-                            <div class="name column justify-space-between">
-                                <div>Jean Plank I</div>
-                                <div>The Story</div>
+        <div id="main-container" class="parallax-layer parallax-layer-front">
+            <div class="column">
+                <div id="title" class="row justify-center">
+                    <div class="yarr">La véritable histoire de</div>
+                    <div class="big row align-center">
+                        <img src="main/img/fire.gif">
+                        <div>
+                            J<span>ean</span>
+                            P<span>lank</span>
+                        </div>
+                        <img src="main/img/fire.gif">
+                    </div>
+                </div>
+
+                <div class="game-container stroke-v grow row justify-center align-center">
+                    <div class="game">
+                        <img src="main/img/ratio_holder.png">
+                        <div class="details column">
+                            <div class="description grow">
+                                Jean Plank fait une escale pour se ravitailler.
+                            </div>
+                            <div class="launch-dl column align-center">
+                                <a class="launch grow" href="TheStory" target="_blank"></a>
+                                <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20I%20-%20The%20Story.zip" download></a>
+                                <i>(déconseillé aux moins de 18 ans)</i>
+                            </div>
+                        </div>
+                        <div class="cover">
+                            <img src="main/img/jp1.jpg">
+                            <div class="title">
+                                <div class="name column justify-space-between">
+                                    <div>Jean Plank I</div>
+                                    <div>The Story</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="details column">
-                        <div class="description grow">
-                            <i>(déconseillé aux moins de 18 ans)</i>
-                            <div class="br"></div>
-                            Jean Plank fait une escale pour se ravitailler.
-                        </div>
-                        <div class="launch-dl row">
-                            <a class="launch grow" href="TheStory" target="_blank"></a>
-                            <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20I%20-%20The%20Story.zip" download></a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div class="game-container stroke-h row justify-center align-center">
+            <div class="game-container stroke-v row justify-center align-center">
                 <div class="game">
                     <img src="main/img/ratio_holder.png">
+                    <div class="details column">
+                        <div class="description grow">
+                            Les aventures de Jean Plank et de son Luchien.
+                            <div class="br"></div>
+                            Jean Plank retrouve de vieilles connaissances : Urgo et Saint Gède.
+                        </div>
+                        <div class="launch-dl column align-center">
+                            <a class="launch grow" href="NaissanceDesFlammesDeLaVengeance" target="_blank"></a>
+                            <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20II%20-%20Naissance%20des%20Flammes%20de%20la%20Vengeance.zip" download></a>
+                            <i>(déconseillé aux moins de 18 ans)</i>
+                        </div>
+                    </div>
                     <div class="cover">
                         <img src="main/img/jp2.jpg">
                         <div class="title">
@@ -65,54 +86,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="details column">
-                        <div class="description grow">
-                            <i>(déconseillé aux moins de 18 ans)</i>
-                            <div class="br"></div>
-                            Les aventures de Jean Plank et de son Luchien.
-                            <div class="br"></div>
-                            Jean Plank retrouve de vieilles connaissances : Urgo et Saint Gède.
-                        </div>
-                        <div class="launch-dl row">
-                            <a class="launch grow" href="NaissanceDesFlammesDeLaVengeance" target="_blank"></a>
-                            <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20II%20-%20Naissance%20des%20Flammes%20de%20la%20Vengeance.zip" download></a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div class="stroke-v column justify-space-around">
-                <div class="game-container stroke-h row justify-center align-center">
+            <div class="stroke-h row justify-center">
+                <div class="game-container stroke-v grow row justify-center align-center">
                     <div class="game">
                         <img src="main/img/ratio_holder.png">
+                        <div class="details column">
+                            <div class="description grow">
+                                <i>~ Suite de la première fin de Jean Plank II ~</i>
+                                <div class="br"></div>
+                                Jean-Plank, déformé par Saint Gède, part en quête de son visage.
+                            </div>
+                            <div class="launch-dl column align-center">
+                                <a class="launch grow" href="LesFlammesDeLaVengeance" target="_blank"></a>
+                                <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20III%20-%20Les%20Flammes%20de%20la%20Vengeance.zip" download></a>
+                                <i>(déconseillé aux moins de 18 ans)</i>
+                            </div>
+                        </div>
                         <div class="cover">
                             <img src="main/img/jp3.jpg">
                             <div class="title">
                                 <div class="name column justify-space-between">
                                     <div>Jean Plank III</div>
-                                    <div>Les Flammes de la Vengeance</div>
+                                    <div>Le Vrai Visage de la Vengeance</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="details column">
-                            <div class="description grow">
-                                <i>(déconseillé aux moins de 18 ans)</i>
-                                <div class="br"></div>
-                                <i>- Suite de la première fin de Jean Plank II -</i>
-                                <div class="br"></div>
-                                Jean-Plank, déformé par Saint Gède, part en quête de son visage.
-                            </div>
-                            <div class="launch-dl row">
-                                <a class="launch grow" href="LesFlammesDeLaVengeance" target="_blank"></a>
-                                <a class="dl grow" href="https://dl.blbl.ch/jean_plank/Jean%20Plank%20III%20-%20Les%20Flammes%20de%20la%20Vengeance.zip" download></a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="game-container stroke-h-left row justify-center align-center">
+                <div class="game-container stroke-v-top grow row justify-center align-center">
                     <div class="game">
                         <img src="main/img/ratio_holder.png">
+                        <div class="details column">
+                            <div class="description grow">
+                                <i>~ Suite de la deuxième fin de Jean Plank II ~</i>
+                                <div class="br"></div>
+                                Pas encore sorti.
+                            </div>
+                            <div class="launch-dl column align-center">
+                                <!-- <a class="launch grow" target="_blank"></a>
+                                <a class="dl grow" href="#" download></a> -->
+                                <i>(déjà déconseillé aux moins de 18 ans)</i>
+                            </div>
+                        </div>
                         <div class="cover">
                             <img src="main/img/paint.jpg">
                             <div class="title">
@@ -122,51 +141,39 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="details column">
-                            <div class="description grow">
-                                <i>(déconseillé aux moins de 18 ans)</i>
-                                <div class="br"></div>
-                                <i>- Suite de la deuxième fin de Jean Plank II -</i>
-                                <div class="br"></div>
-                                Jean-Plank III bis ?
-                            </div>
-                            <div class="launch-dl row">
-                                <a class="launch grow" target="_blank"></a>
-                                <a class="dl grow" href="#" download></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="column justify-space-around">
-                <div class="game-container stroke-h row justify-center align-center">
+            <div class="row">
+                <div class="game-container stroke-v grow row justify-center align-center">
                     <div class="game">
                         <img src="main/img/ratio_holder.png">
+                        <div class="details column">
+                            <div class="description grow">
+                                Pas encore sorti.
+                            </div>
+                            <div class="launch-dl column align-center">
+                                <!-- <a class="launch grow" target="_blank"></a>
+                                <a class="dl grow" href="#" download></a> -->
+                                <i>(déjà déconseillé aux moins de 18 ans)</i>
+                            </div>
+                        </div>
                         <div class="cover">
                             <img src="main/img/chat.jpg">
                             <div class="title">
                                 <div class="name column justify-space-between">
                                     <div>Jean Plank IV</div>
-                                    <!-- <div></div> -->
+                                    <div>Tout le Monde doit Payer</div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="details column">
-                            <div class="description grow">
-                                <i>(déconseillé aux moins de 18 ans)</i>
-                                <div class="br"></div>
-                                Jean-Plank IV ?
-                            </div>
-                            <div class="launch-dl row">
-                                <a class="launch grow" target="_blank"></a>
-                                <a class="dl grow" href="#" download></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="game empty">
-                    <img src="main/img/ratio_holder.png">
+                <div class="game-container grow row justify-center align-center">
+                    <div class="game empty">
+                        <img src="main/img/ratio_holder.png">
+                    </div>
                 </div>
             </div>
         </div>

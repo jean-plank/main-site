@@ -67,16 +67,40 @@ body {
     flex-grow: 1;
 }
 
-#main-container {
+.parallax {
+    perspective: 1px;
     height: 100%;
-    width: 100%;
-    background-image: url('img/background.jpeg');
-    background-size: cover;
     overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: -8px;
+}
+
+#bg>img {
+    height: 157.1vh;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.parallax-layer-front {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax-layer-back {
+    transform: translateZ(-20px) scale(21);
+}
+
+#main-container>div {
+    height: 100vh;
 }
 
 /* Title */
 #title {
+    width: 100%;;
     position: relative;
     background-color: rgba(0,0,0,0.6);
     color: #f1e6b7;
@@ -123,27 +147,16 @@ body {
 }
 
 /* Layout and animation */
-.game-containers {
-    overflow-y: auto;
-
-}
-
-.game-containers>div {
-    width: 512px;
-    flex-shrink: 0;
-    /* height: 100%;; */
-}
-
 .game-container {
-    /* display: flex; */
+    position: relative;
+    padding: 0 1%;
+}
+
+.stroke-h, .stroke-v {
     position: relative;
 }
 
-.stroke-h, .stroke-v, .stroke-h-left, .stroke-h-right {
-    position: relative;
-}
-
-.stroke-h::before, .stroke-v::before, .stroke-h-left::before, .stroke-h-right::before {
+.stroke-h::before, .stroke-v::before, .stroke-v-top::before {
     content: "";
     border-color: #daa520;
     border-style: dotted;
@@ -151,56 +164,64 @@ body {
     position: absolute;
 }
 
-.stroke-h::before, .stroke-h-left::before, .stroke-h-right::before {
-    border-top-width: 8px;
-}
-
 .stroke-h::before {
-    width: 98%;
-}
-
-.stroke-h-left::before, .stroke-h-right::before {
-    width: 49%;
-}
-
-.stroke-h-left::before {
-    left: 1%;
-}
-
-.stroke-h-right::before {
-    right: 1%;
+    border-top-width: 8px;
+    top: 4px;
+    width: calc(50% - 20px);
 }
 
 .stroke-v::before {
     border-left-width: 8px;
-    height: 48%;
-    left: 0;
+    height: calc(100% - 8px);
+}
+
+.stroke-v-top::before {
+    border-left-width: 8px;
+    height: calc(50% - 8px);
+    top: 4px;
 }
 
 .game {
     position: relative;
-    width: 50%;
     cursor: pointer;
 }
 
-.game.empty {
-    border-color: transparent;
-    box-shadow: none;
+.game, .empty {
+    width: 50%;
+    max-width: 384px;
+}
+
+.empty, .game>div, .game>img {
+    border: 6px solid transparent;
 }
 
 .game>div {
     position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+
 }
 
-.game>img {
+.game:hover .cover {
+    left: -50%;
+}
+
+.game:hover .details {
+    left: 50%;
+}
+
+.game>img, .empty>img {
     display: block;
     width: 100%;
 }
 
 .cover {
-    width: 100%;
-    height: 100%;
-    top: 0;
+    box-shadow: 0 0 10px black;
+    border-color: #4d0207 !important;
 }
 
 .cover>img {
@@ -226,35 +247,24 @@ body {
     padding: 0.2em;
     line-height: 0.9;
     background: rgba(0,0,0,0.5);
-    background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.6), rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+    background: linear-gradient(to right,
+        rgba(0,0,0,0.3),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.3));
 }
 
 .details {
     font-size: 0.8em;
-    background-image: url('img/label.jpg');
+    background-color: rgba(0,0,0,0.8);
     background-size: 100% 100%;
-    width: 196%;
-    height: calc(100% + 12px);
-    left: -48%;
-    top: -6px;
-    opacity: 0;
-    -webkit-transition: 0.6s;
-    transition: 0.6s;
-    padding: 0.1em;
-}
-
-.game, .details {
-    border: 6px solid #4d0207;
-    box-shadow: 0 0 10px black;
-}
-
-.game:hover .details {
-    opacity: 1;
+    color: #f1e6b7;
 }
 
 .description {
     overflow: hidden;
     position: relative;
+    padding: 0.2em;
 }
 
 .description i {
@@ -265,20 +275,21 @@ body {
     height: 1em;
 }
 
+.launch-dl i {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.3em;
+    padding: 0.67em 0 0.33em;
+}
+
 .launch-dl a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
-    color: darkred;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+    color: goldenrod;
     padding: 0.33em 0;
-    font-size: 0.9em;
 }
 
 .launch-dl a:hover {
-    text-shadow: 0 0 20px black;
+    text-shadow: 0 0 20px wheat;
 }
 
 .launch-dl .launch::before {

@@ -28,6 +28,7 @@ body {
     font-size: 30pt;
     line-height: 1;
     margin: 0;
+    background-color: black;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -67,16 +68,27 @@ body {
     flex-grow: 1;
 }
 
+.margin-auto {
+    margin: auto;
+}
+
 .parallax {
+    -webkit-perspective: 1px;
     perspective: 1px;
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-left: -8px;
+}
+
+#bg {
+    height: 300vh;
+    overflow: hidden;
+    width: auto;
 }
 
 #bg>img {
-    height: 157.1vh;
+    display: block;
+    height: 100%;
 }
 
 .parallax-layer {
@@ -87,11 +99,13 @@ body {
 }
 
 .parallax-layer-front {
-    transform: translateZ(-1px) scale(2);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .parallax-layer-back {
-    transform: translateZ(-20px) scale(21);
+    -webkit-transform: translateZ(-1px) scale(2);
+    transform: translateZ(-1px) scale(2);
 }
 
 #main-container>div {
@@ -101,22 +115,31 @@ body {
 /* Title */
 #title {
     width: 100%;;
-    position: relative;
+    /* position: relative; */
     background-color: rgba(0,0,0,0.6);
     color: #f1e6b7;
     text-shadow: 0 0 3px black;
-    align-items: baseline;
-    border-bottom: 3px solid black;
+    /* border-bottom: 3px solid black; */
+    padding: 0.33em 0;
+    flex-wrap: wrap;
 }
 
 #title>div {
-    text-align: center;
+    width: 33%;
+}
+
+.yarr {
+    font-family: yarr;
+    font-weight: normal;
+    letter-spacing: 4px;
+    padding-left: 0.67em;
 }
 
 .big {
     font-size: 2.1em;
     font-weight: bold;
     letter-spacing: -1px;
+    text-align: center;
 }
 
 .big>img {
@@ -131,15 +154,6 @@ body {
     margin-left: 0.2em;
 }
 
-.yarr {
-    font-family: yarr;
-    font-weight: normal;
-    letter-spacing: 4px;
-    position: absolute;
-    left: 1%;
-    bottom: 0;
-}
-
 #title span {
     font-size: 0.5em;
     text-transform: uppercase;
@@ -150,6 +164,7 @@ body {
 .game-container {
     position: relative;
     padding: 0 1%;
+    width: 50%;
 }
 
 .stroke-h, .stroke-v {
@@ -275,13 +290,26 @@ body {
     height: 1em;
 }
 
+.launch-dl {
+    overflow: hidden;
+}
+
+.launch-dl::before {
+    content: "";
+    width: 90%;
+    border-top: 1px solid goldenrod;
+}
+
 .launch-dl i {
+    align-self: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 0.3em;
     padding: 0.67em 0 0.33em;
 }
 
 .launch-dl a {
+    width: 100%;
+    text-align: center;
     -webkit-transition: 0.1s;
     transition: 0.1s;
     color: goldenrod;

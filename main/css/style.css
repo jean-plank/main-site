@@ -34,6 +34,7 @@ body {
     overflow: hidden;
 }
 
+/* Layout */
 .column {
     display: flex;
     flex-direction: column;
@@ -64,31 +65,17 @@ body {
     align-items: flex-end;
 }
 
-.grow, .game-containers {
+.grow {
     flex-grow: 1;
 }
 
-.margin-auto {
-    margin: auto;
-}
-
+/* Parallax */
 .parallax {
     -webkit-perspective: 1px;
     perspective: 1px;
     height: 100vh;
     overflow-y: auto;
-    overflow-x: hidden;
-}
-
-#bg {
-    height: 300vh;
-    overflow: hidden;
-    width: auto;
-}
-
-#bg>img {
-    display: block;
-    height: 100%;
+    overflow-x: hidden !important;
 }
 
 .parallax-layer {
@@ -108,24 +95,26 @@ body {
     transform: translateZ(-1px) scale(2);
 }
 
-#main-container>div {
-    height: 100vh;
+/* Background */
+#bg {
+    height: 300vh;
+    left: -8px;
+    overflow: hidden;
+}
+
+#bg>img {
+    display: block;
+    height: 100%;
 }
 
 /* Title */
 #title {
     width: 100%;;
-    /* position: relative; */
     background-color: rgba(0,0,0,0.6);
     color: #f1e6b7;
     text-shadow: 0 0 3px black;
-    /* border-bottom: 3px solid black; */
     padding: 0.33em 0;
     flex-wrap: wrap;
-}
-
-#title>div {
-    width: 33%;
 }
 
 .yarr {
@@ -160,80 +149,12 @@ body {
     margin-bottom: 0.2em;
 }
 
-/* Layout and animation */
-.game-container {
-    position: relative;
-    padding: 0 1%;
-    width: 50%;
-}
-
-.stroke-h, .stroke-v {
-    position: relative;
-}
-
-.stroke-h::before, .stroke-v::before, .stroke-v-top::before {
-    content: "";
-    border-color: #daa520;
-    border-style: dotted;
-    border-width: 0;
-    position: absolute;
-}
-
-.stroke-h::before {
-    border-top-width: 8px;
-    top: 4px;
-    width: calc(50% - 20px);
-}
-
-.stroke-v::before {
-    border-left-width: 8px;
-    height: calc(100% - 8px);
-}
-
-.stroke-v-top::before {
-    border-left-width: 8px;
-    height: calc(50% - 8px);
-    top: 4px;
-}
-
-.game {
-    position: relative;
-    cursor: pointer;
-}
-
-.game, .empty {
-    width: 50%;
-    max-width: 384px;
-}
-
-.empty, .game>div, .game>img {
+/* Game container */
+.game>div, .game>img {
     border: 6px solid transparent;
 }
 
-.game>div {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-
-}
-
-.game:hover .cover {
-    left: -50%;
-}
-
-.game:hover .details {
-    left: 50%;
-}
-
-.game>img, .empty>img {
-    display: block;
-    width: 100%;
-}
-
+/* Cover */
 .cover {
     box-shadow: 0 0 10px black;
     border-color: #4d0207 !important;
@@ -245,9 +166,6 @@ body {
 
 .title {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
     font-size: 0.8em;
     color: goldenrod;
     text-shadow: 0 0 3px black;
@@ -261,18 +179,10 @@ body {
     text-align: center;
     padding: 0.2em;
     line-height: 0.9;
-    background: rgba(0,0,0,0.5);
-    background: linear-gradient(to right,
-        rgba(0,0,0,0.3),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.3));
 }
 
+/* Details */
 .details {
-    font-size: 0.8em;
-    background-color: rgba(0,0,0,0.8);
-    background-size: 100% 100%;
     color: #f1e6b7;
 }
 
@@ -304,20 +214,14 @@ body {
     align-self: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 0.3em;
-    padding: 0.67em 0 0.33em;
+    padding: 0.33em 0;
 }
 
 .launch-dl a {
     width: 100%;
     text-align: center;
-    -webkit-transition: 0.1s;
-    transition: 0.1s;
     color: goldenrod;
     padding: 0.33em 0;
-}
-
-.launch-dl a:hover {
-    text-shadow: 0 0 20px wheat;
 }
 
 .launch-dl .launch::before {

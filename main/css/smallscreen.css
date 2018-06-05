@@ -1,0 +1,124 @@
+/* Background */
+#bg {
+    height: 400vh;
+}
+
+/* Main container */
+#main-container>div {
+    flex-direction: column;
+}
+
+/* Title */
+#title {
+    flex-direction: column;
+    font-size: 0.6em;
+}
+
+#title>div {
+    width: 100%;
+}
+
+/* Main container */
+#main-container {
+    width: 100%;
+}
+
+#title-jp1 {
+    height: 100vh;
+}
+
+/* Game container */
+.game-container {
+    width: 100%;
+    height: 100vh;
+}
+
+#title-jp1 .game-container {
+    height: auto;
+}
+
+.empty {
+    display: none;
+}
+
+.game {
+    width: 100%;
+    display: flex;
+    padding: 0 0.1em 0.1em;
+    align-items: flex-start;
+    position: relative;
+}
+
+#main-container>div>.game-container:nth-child(odd) .game, #title-jp1 .game {
+    flex-direction: row-reverse;
+}
+
+.game>img {
+    display: none;
+}
+
+.game>div {
+    flex-basis: 0;
+}
+
+/* Cover */
+.cover {
+    flex-grow: 4;
+    border-width: 3px !important;
+}
+
+.cover>img {
+    display: block
+}
+
+.title {
+    width: 100vw;
+    bottom: 100%;
+    left: 0;
+    padding: 0.2em 0 0.1em;
+}
+
+.game, .title {
+    background-color: rgba(0,0,0,0.6);
+}
+
+.name {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.name>div {
+    white-space: nowrap;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.name>div:last-child {
+    white-space: normal;
+}
+
+/* Details */
+.details {
+    flex-grow: 6;
+    height: 100%;
+    border-width: 0 !important;
+    padding: 0 0.2em 0 0;
+    font-size: 0.6em;
+}
+
+#main-container>div>.game-container:nth-child(odd) .details, #title-jp1 .details {
+    padding: 0 0 0 0.2em;
+}
+
+.description {
+    padding: 0.1em 0;
+}
+
+.launch-dl {
+    margin-top: 0.5em;
+}
+
+.launch-dl a {
+    padding: 0.05em 0;
+}

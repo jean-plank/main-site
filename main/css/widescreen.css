@@ -7,6 +7,61 @@ body {
     margin: auto;
 }
 
+/* Sitemap */
+#sitemap {
+    position: fixed;
+    top: 0;
+    left: 0.4vw;
+    height: 100vh;
+    width: 4vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#sitemap>div {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    margin-top: 12vh;
+}
+
+#sitemap>div>img {
+    width: 100%;
+}
+
+#sitemap>div::before {
+    height: calc(1vw + 12vh);
+    width: 60%;
+    content: '';
+    position: absolute;
+    bottom: 3.5vw;
+    left: 20%;
+    background-image: url('../img/gunpowder.png');
+    background-size: 100% 100%;
+    z-index: -1;
+}
+
+#sitemap>div:first-child {
+    margin-top: 0;
+}
+
+#sitemap>div:first-child::before {
+    content: none;
+}
+
+#sitemap>div.current::after {
+    content: '';
+    position: absolute;
+    left: 4%;
+    top: 17%;
+    background-image: url('../img/sparkle.png');
+    background-size: 100% 100%;
+    height: 66%;
+    width: 66%;
+}
+
 /* Main container */
 #main-container>div {
     min-height: 100vh;

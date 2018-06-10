@@ -8,6 +8,11 @@ body {
     height: 400vh;
 }
 
+/* Sitemap */
+#sitemap {
+    display: none;
+}
+
 /* Main container */
 #main-container>div {
     flex-direction: column;

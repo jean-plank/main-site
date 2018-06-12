@@ -1,19 +1,13 @@
-// make the barrel explode
-function explode($elt) {
-    console.log('$elt =', $elt);
-}
-
 $(() => {
     const $sitemap = $('<div>').attr('id', 'sitemap');
     const $timesections = $('#main-container>div');
     const $parallax = $('#parallax');
 
     $timesections.each((i) => {
-        let $anchor = $('<div>')
+        let $anchor = $('<div>').attr('anchorId', i)
             .append($('<img>').attr('src', 'main/img/barrel.png'))
             .click((e) => {
-                const $target = $(e.target);
-                const val = $timesections.eq($target.index()).offset().top
+                const val = $timesections.eq(i).offset().top
                     - $parallax.offset().top + $parallax.scrollTop();
                 $parallax.animate({ scrollTop: val });
             });

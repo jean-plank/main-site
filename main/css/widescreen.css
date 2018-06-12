@@ -17,10 +17,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 1000;
 }
 
 #sitemap>div {
-    display: flex;
     width: 100%;
     cursor: pointer;
     position: relative;
@@ -29,6 +29,7 @@ body {
 
 #sitemap>div>img {
     width: 100%;
+    display: block;
 }
 
 #sitemap>div::before {

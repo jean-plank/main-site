@@ -20,12 +20,10 @@
 a {
     text-decoration: none;
     color: inherit;
-    outline: none;
 }
 
 body {
     font-family: pieces_of_eight;
-    font-size: 30pt;
     line-height: 1;
     margin: 0;
     background-color: black;
@@ -117,17 +115,21 @@ body {
     flex-wrap: wrap;
 }
 
+#title>div {
+    width: 33%;
+}
+
 .yarr {
     font-family: yarr;
     font-weight: normal;
-    letter-spacing: 4px;
+    letter-spacing: 0.208vw;
     padding-left: 0.67em;
 }
 
 .big {
     font-size: 2.1em;
     font-weight: bold;
-    letter-spacing: -1px;
+    letter-spacing: -0.052vw;
     text-align: center;
 }
 
@@ -151,7 +153,7 @@ body {
 
 /* Game container */
 .game>div, .game>img {
-    border: 6px solid transparent;
+    border: 0.67vmin solid transparent;
 }
 
 /* Cover */
@@ -166,9 +168,11 @@ body {
 
 .title {
     position: absolute;
-    font-size: 0.8em;
     color: goldenrod;
     text-shadow: 0 0 3px black;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 
 .name {
@@ -179,6 +183,12 @@ body {
     text-align: center;
     padding: 0.2em;
     line-height: 0.9;
+    background: rgba(0,0,0,0.5);
+    background: linear-gradient(to right,
+        rgba(0,0,0,0.3),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0.3));
 }
 
 /* Details */

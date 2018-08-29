@@ -52,7 +52,7 @@ body {
     content: none;
 }
 
-#sitemap>div.current::after {
+#sitemap>div::after {
     content: '';
     position: absolute;
     left: 4%;
@@ -61,6 +61,13 @@ body {
     background-size: 100% 100%;
     height: 66%;
     width: 66%;
+    opacity: 0;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+#sitemap>div.current::after {
+    opacity: 1;
 }
 
 /* Main container */

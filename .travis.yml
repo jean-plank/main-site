@@ -22,10 +22,10 @@ jobs:
     - stage: 'deploy dev'
       if: branch = develop
       script:
-        - 'sshpass -e ssh $SSH_USER@$HOST -t "/srv/www/jean-plank-dev/deploy.sh"'
+        - 'sshpass -e ssh $SSH_USER@$HOST -t "/srv/www/jean-plank-dev/deploy.sh" >/dev/null 2>&1'
 
     # prod
     - stage: 'deploy prod'
       if: branch = master
       script:
-        - 'sshpass -e ssh $SSH_USER@$HOST -t "/srv/www/jean-plank/deploy.sh"'
+        - 'sshpass -e ssh $SSH_USER@$HOST -t "/srv/www/jean-plank/deploy.sh" >/dev/null 2>&1'

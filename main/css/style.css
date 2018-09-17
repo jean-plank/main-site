@@ -32,6 +32,18 @@ body {
     overflow: hidden;
 }
 
+button {
+    border: none;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    font-family: inherit;
+    cursor: pointer;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
 /* Layout */
 .column {
     display: flex;
@@ -45,6 +57,10 @@ body {
 
 .justify-center {
     justify-content: center;
+}
+
+.justify-end {
+    justify-content: flex-end;
 }
 
 .justify-space-around {
@@ -123,7 +139,26 @@ body {
     font-family: yarr;
     font-weight: normal;
     letter-spacing: 0.208vw;
+}
+
+.yarr:first-child {
     padding-left: 0.67em;
+}
+
+.yarr:last-child {
+    padding-right: 0.67em;
+}
+
+#title button {
+    padding: 0.33em 0.33em 0;
+}
+
+#title button:not(.active) {
+    color: #666666;
+}
+
+#title button:not(.active):hover {
+    color: #aaaaaa;
 }
 
 .big {
@@ -232,12 +267,4 @@ body {
     text-align: center;
     color: goldenrod;
     padding: 0.33em 0;
-}
-
-.launch-dl .launch::before {
-    content: 'Jouer sur navigateur';
-}
-
-.launch-dl .dl::before {
-    content: 'Télécharger le jeu';
 }

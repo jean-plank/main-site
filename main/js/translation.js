@@ -75,7 +75,7 @@ function init() {
     for (let i = 0; i < languages.length; i++) {
         $btns.append($("<button>")
             .attr("id", "btn-"+languages[i])
-            .text(languages[i].toUpperCase())
+            .text(languages[i])
             .click(languages[i], (e) => changeLanguage(e.data)));
     }
 

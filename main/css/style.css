@@ -15,6 +15,7 @@
 
 * {
     box-sizing: border-box;
+    outline: none;
 }
 
 a {
@@ -32,16 +33,8 @@ body {
     overflow: hidden;
 }
 
-button {
-    border: none;
-    padding: 0;
-    background: none;
-    border-radius: 0;
-    font-family: inherit;
+.button {
     cursor: pointer;
-    color: inherit;
-    font-size: inherit;
-    line-height: inherit;
 }
 
 /* Layout */
@@ -149,15 +142,15 @@ button {
     padding-right: 0.67em;
 }
 
-#title button {
+#title .button {
     padding: 0.33em 0.33em 0;
 }
 
-#title button:not(.active) {
+#title .button:not(.active) {
     color: #666666;
 }
 
-#title button:not(.active):hover {
+#title .button:not(.active):hover {
     color: #aaaaaa;
 }
 

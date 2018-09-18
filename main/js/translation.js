@@ -15,8 +15,8 @@ const translations = {
         en: "(already not recommended under 18)",
     },
     "notoutyet": {
-        fr: "Pas encore sorti",
-        en: "Not out yet",
+        fr: "pas encore sorti",
+        en: "not out yet",
     },
     "launch": {
         fr: "Jouer sur navigateur",
@@ -56,7 +56,7 @@ const translations = {
     // Jean Plank III - Valhalla Ouakbar
     "jp3b-summary": {
         fr: "<i>Suite de la deuxième fin de Jean Plank II</i>",
-        en: "<i>Sequel to the first ending of Jean Plank II</i>",
+        en: "<i>Sequel to the second ending of Jean Plank II</i>",
     },
     "jp3b-title": {
         fr: "Valhalla Ouakbar",

@@ -193,18 +193,19 @@ body {
 
 .notoutyet {
     position: absolute;
-    background-color: blue;
-    color: palevioletred;
-    width: 180%;
+    background-color: #751b21;
+    color: wheat;
+    width: 161.6%;
     text-align: center;
-    bottom: 0;
-    /* opacity: 0.8; */
-    -ms-transform: rotate(-56.25deg) translateY(50%); /* IE 9 */
-    -webkit-transform: rotate(-56.25deg) translateY(50%); /* Safari */
-    transform: rotate(-56.25deg) translateY(50%);
-    -ms-transform-origin: left bottom; /* IE 9 */
-    -webkit-transform-origin: left bottom; /* Safari 3-8 */
-    transform-origin: left bottom;
+    left: -20%;
+    bottom: 14.5%;
+    opacity: 0.9;
+    -ms-transform: translateY(-50%) rotate(-30deg); /* IE 9 */
+    -webkit-transform: translateY(-50%) rotate(-30deg); /* Safari */
+    transform: translateY(-50%) rotate(-30deg);
+    -ms-transform-origin: left center; /* IE 9 */
+    -webkit-transform-origin: left center; /* Safari 3-8 */
+    transform-origin: left center;
     padding: 0.1em 0;
 }
 

@@ -64,8 +64,6 @@ const translations = {
     },
     // Jean Plank IV - Tout le Monde doit Payer
     "jp4-summary": {
-        fr: "",
-        en: "",
     },
     "jp4-title": {
         fr: "Tout le Monde doit Payer",
@@ -96,9 +94,11 @@ const links = {
     // Jean Plank III - Le Vrai Visage de la Vengeance
     "jp3-launch": {
         fr: "fr/levraivisagedelavengeance",
+        en: "en/thetruefaceofrevenge",
     },
     "jp3-dl": {
-        fr: "https://dl.blbl.ch/jean-plank/fr/Jean Plank III - Les Flammes de la Vengeance.zip",
+        fr: "https://dl.blbl.ch/jean-plank/fr/Jean Plank III - Le Vrai Visage de la Vengeance.zip",
+        en: "https://dl.blbl.ch/jean-plank/en/Jean Plank III - The True Face of Revenge.zip",
     },
     // Jean Plank III - Valhalla Ouakbar
     "jp3b-launch": {

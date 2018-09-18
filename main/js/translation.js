@@ -13,6 +13,10 @@ const translations = {
         fr: "(déjà déconseillé aux moins de 18 ans)",
         en: "(already not recommended under 18)",
     },
+    "notoutyet": {
+        fr: "Pas encore sorti",
+        en: "Not out yet",
+    },
     "launch": {
         fr: "Jouer sur navigateur",
         en: "Play on browser",
@@ -50,8 +54,8 @@ const translations = {
     },
     // Jean Plank III - Valhalla Ouakbar
     "jp3b-summary": {
-        fr: "<i>Suite de la deuxième fin de Jean Plank II</i><br><br>Pas encore sorti.",
-        en: "<i>Sequel to the first ending of Jean Plank II</i><br><br>Not out yet.",
+        fr: "<i>Suite de la deuxième fin de Jean Plank II</i>",
+        en: "<i>Sequel to the first ending of Jean Plank II</i>",
     },
     "jp3b-title": {
         fr: "Valhalla Ouakbar",
@@ -59,8 +63,8 @@ const translations = {
     },
     // Jean Plank IV - Tout le Monde doit Payer
     "jp4-summary": {
-        fr: "Pas encore sorti.",
-        en: "Not out yet.",
+        fr: "",
+        en: "",
     },
     "jp4-title": {
         fr: "Tout le Monde doit Payer",

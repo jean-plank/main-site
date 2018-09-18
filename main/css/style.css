@@ -195,6 +195,24 @@ button {
 .cover {
     box-shadow: 0 0 10px black;
     border-color: #4d0207 !important;
+    overflow: hidden;
+}
+
+.notoutyet {
+    position: absolute;
+    background-color: blue;
+    color: palevioletred;
+    width: 180%;
+    text-align: center;
+    bottom: 0;
+    /* opacity: 0.8; */
+    -ms-transform: rotate(-56.25deg) translateY(50%); /* IE 9 */
+    -webkit-transform: rotate(-56.25deg) translateY(50%); /* Safari */
+    transform: rotate(-56.25deg) translateY(50%);
+    -ms-transform-origin: left bottom; /* IE 9 */
+    -webkit-transform-origin: left bottom; /* Safari 3-8 */
+    transform-origin: left bottom;
+    padding: 0.1em 0;
 }
 
 .cover>img {

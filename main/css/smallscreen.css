@@ -71,7 +71,7 @@ body {
     display: block
 }
 
-.title {
+.title, .notoutyet {
     font-size: 1.7em;
 }
 

@@ -5,7 +5,7 @@ $(() => {
 
     $timesections.each((i) => {
         let $anchor = $('<div>').attr('anchorId', i)
-            .append($('<img>').attr('src', 'main/img/barrel.png'))
+            .append($('<img>').attr('src', 'img/barrel.png'))
             .click((e) => {
                 const val = $timesections.eq(i).offset().top
                     - $parallax.offset().top + $parallax.scrollTop();

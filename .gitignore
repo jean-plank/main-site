@@ -1,4 +1,5 @@
 deploy.sh
+travis.log
+travis.errors.log
 en
 fr
-

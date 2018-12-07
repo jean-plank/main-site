@@ -38,7 +38,7 @@ const translations = {
     // Jean Plank II - Naissance des Flammes de la Vengeance
     "jp2-summary": {
         fr: "Les aventures de Jean Plank et de son Luchien.<br>Jean Plank retrouve de vieilles connaissances : Urgo et Saint Gède.",
-        en: "The adventures of Jean Plank and his Luchien.<br>Jean Plank meets old friends of him: Urgo and Saint Gède.",
+        en: "The adventures of Jean Plank and his Lucihound.<br>Jean Plank meets old friends of him: Urgo and Saint Gède.",
     },
     "jp2-title": {
         fr: "Naissance des Flammes de la Vengeance",

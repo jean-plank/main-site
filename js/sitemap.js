@@ -5,12 +5,15 @@ $(() => {
 
     $timesections.each((i) => {
         let $anchor = $('<div>').attr('anchorId', i)
-            .append($('<img>').attr('src', 'img/barrel.png'))
-            .click((e) => {
-                const val = $timesections.eq(i).offset().top
-                    - $parallax.offset().top + $parallax.scrollTop();
-                $parallax.animate({ scrollTop: val });
-            });
+            .append(
+                $('<div>')
+                    .addClass('barrel')
+                    .click(() => {
+                        const val = $timesections.eq(i).offset().top
+                            - $parallax.offset().top + $parallax.scrollTop();
+                        $parallax.animate({ scrollTop: val });
+                    })
+            );
         if (i === 0) $anchor.addClass('current');
         $sitemap.append($anchor);
     });
@@ -18,7 +21,7 @@ $(() => {
     $('body').append($sitemap);
     $parallax.scroll(() => {
         let lastTop = { top: 0, $elt: $timesections.first() };
-        $timesections.each((i, elt) => {
+        $timesections.each((_i, elt) => {
             const $elt = $(elt);
             const top = $elt.offset().top;
             if (top >= 0) {

@@ -97,6 +97,21 @@ body {
     height: calc(100% - 8px);
 }
 
+.stroke-v::after {
+    content: "\f107";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    color: #daa520;
+    font-weight: bold;
+    font-size: 2.67em;
+    bottom: 1%;
+    text-shadow: 0 0 8px black;
+}
+
 .stroke-v-top::before {
     border-left-width: 8px;
     height: calc(50% - 8px);

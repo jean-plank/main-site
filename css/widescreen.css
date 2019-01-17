@@ -78,7 +78,7 @@ body {
     position: relative;
 }
 
-.stroke-h::before, .stroke-v::before, .stroke-v-top::before {
+.stroke-h::before, .stroke-v::before, .stroke-v-top::before, .stroke-v-bottom::before {
     content: "";
     border-color: #daa520;
     border-style: dotted;
@@ -92,30 +92,28 @@ body {
     width: calc(50% - 20px);
 }
 
-.stroke-v::before {
+.stroke-v::before, .stroke-v-top::before, .stroke-v-bottom::before {
     border-left-width: 8px;
+}
+
+.stroke-v::before {
     height: calc(100% - 8px);
 }
 
-.stroke-v::after {
-    content: "\f107";
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    position: absolute;
-    color: #daa520;
-    font-weight: bold;
-    font-size: 2.67em;
-    bottom: 1%;
-    text-shadow: 0 0 8px black;
+.arrow-down-smallscreen, .arrow-up-smallscreen {
+    display: none;
+}
+
+.stroke-v-top::before, .stroke-v-bottom::before {
+    height: calc(50% - 8px);
 }
 
 .stroke-v-top::before {
-    border-left-width: 8px;
-    height: calc(50% - 8px);
     top: 4px;
+}
+
+.stroke-v-bottom::before {
+    bottom: 4px;
 }
 
 /* Game container */

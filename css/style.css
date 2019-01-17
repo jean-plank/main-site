@@ -185,6 +185,19 @@ body {
     border: 0.67vmin solid transparent;
 }
 
+.arrow-down, .arrow-down-smallscreen, .arrow-up-smallscreen {
+    cursor: pointer;
+    position: absolute;
+    color: #daa520;
+    font-weight: bold;
+    font-size: 2.67em;
+    text-shadow: 0 0 8px black;
+}
+
+.arrow-down, .arrow-down-smallscreen {
+    bottom: 1%;
+}
+
 /* Cover */
 .cover {
     box-shadow: 0 0 10px black;

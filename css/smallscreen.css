@@ -31,10 +31,19 @@ body {
 .game-container {
     width: 100%;
     min-height: 100vh;
+    position: relative;
 }
 
 #title-jp1 .game-container {
     min-height: auto;
+}
+
+.arrow-down {
+    display: none;
+}
+
+.arrow-up-smallscreen {
+    top: 1%;
 }
 
 .empty {

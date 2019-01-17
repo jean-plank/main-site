@@ -100,7 +100,7 @@ body {
     height: calc(100% - 8px);
 }
 
-.arrow-down-smallscreen {
+.arrow-down-smallscreen, .arrow-up-smallscreen {
     display: none;
 }
 

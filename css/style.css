@@ -83,6 +83,7 @@ body {
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden !important;
+    scroll-snap-type: y proximity;
 }
 
 .parallax-layer {
@@ -109,7 +110,7 @@ body {
     overflow: hidden;
 }
 
-#bg>img {
+#bg > img {
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -117,15 +118,15 @@ body {
 
 /* Title */
 #title {
-    width: 100%;;
-    background-color: rgba(0,0,0,0.6);
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     color: #f1e6b7;
     text-shadow: 0 0 3px black;
     padding: 0.33em 0;
     flex-wrap: wrap;
 }
 
-#title>div {
+#title > div {
     width: 33%;
 }
 
@@ -162,15 +163,15 @@ body {
     text-align: center;
 }
 
-.big>img {
+.big > img {
     height: 0.9em;
 }
 
-.big>img:first-child {
+.big > img:first-child {
     margin-right: 0.2em;
 }
 
-.big>img:last-child {
+.big > img:last-child {
     margin-left: 0.2em;
 }
 
@@ -181,11 +182,14 @@ body {
 }
 
 /* Game container */
-.game>div, .game>img {
+.game > div,
+.game > img {
     border: 0.67vmin solid transparent;
 }
 
-.arrow-down, .arrow-down-smallscreen, .arrow-up-smallscreen {
+.arrow-down,
+.arrow-down-smallscreen,
+.arrow-up-smallscreen {
     cursor: pointer;
     position: absolute;
     color: #daa520;
@@ -194,7 +198,8 @@ body {
     text-shadow: 0 0 8px black;
 }
 
-.arrow-down, .arrow-down-smallscreen {
+.arrow-down,
+.arrow-down-smallscreen {
     bottom: 1%;
 }
 
@@ -223,7 +228,7 @@ body {
     padding: 0.1em 0;
 }
 
-.cover>img {
+.cover > img {
     width: 100%;
 }
 
@@ -240,16 +245,18 @@ body {
     height: 100%;
 }
 
-.name>div {
+.name > div {
     text-align: center;
     padding: 0.2em;
     line-height: 0.9;
-    background: rgba(0,0,0,0.5);
-    background: linear-gradient(to right,
-        rgba(0,0,0,0.3),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.3));
+    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.3)
+    );
 }
 
 /* Details */
@@ -276,7 +283,7 @@ body {
 }
 
 .launch-dl::before {
-    content: "";
+    content: '';
     width: 90%;
     border-top: 1px solid goldenrod;
 }

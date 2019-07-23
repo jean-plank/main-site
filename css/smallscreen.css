@@ -2,7 +2,6 @@ body {
     font-size: 2.65vw;
 }
 
-
 /* Background */
 #bg {
     height: 400vh;
@@ -14,7 +13,7 @@ body {
 }
 
 /* Main container */
-#main-container>div {
+#main-container > div {
     flex-direction: column;
 }
 
@@ -25,12 +24,14 @@ body {
 
 #title-jp1 {
     height: 100vh;
+    scroll-snap-align: start;
 }
 
 /* Game container */
 .game-container {
     width: 100%;
     min-height: 100vh;
+    scroll-snap-align: start;
     position: relative;
 }
 
@@ -54,19 +55,20 @@ body {
     width: 100%;
     display: flex;
     align-items: stretch;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 1vw;
 }
 
-#main-container>div>.game-container:nth-child(odd) .game, #title-jp1 .game {
+#main-container > div > .game-container:nth-child(odd) .game,
+#title-jp1 .game {
     flex-direction: row-reverse;
 }
 
-.game>img {
+.game > img {
     display: none;
 }
 
-.game>div {
+.game > div {
     flex-basis: 0;
 }
 
@@ -76,15 +78,16 @@ body {
     flex-grow: 4;
 }
 
-.cover>img {
-    display: block
+.cover > img {
+    display: block;
 }
 
-.title, .notoutyet {
+.title,
+.notoutyet {
     font-size: 1.7em;
 }
 
-.name>div:last-child {
+.name > div:last-child {
     white-space: normal;
 }
 

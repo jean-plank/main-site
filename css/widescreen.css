@@ -19,17 +19,17 @@ body {
     z-index: 1000;
 }
 
-#sitemap>div {
+#sitemap > div {
     width: 4vw;
     height: 4vw;
     position: relative;
 }
 
-#sitemap>div + div {
+#sitemap > div + div {
     margin-top: 12vh;
 }
 
-#sitemap>div>div.barrel {
+#sitemap > div > div.barrel {
     cursor: pointer;
     background-image: url('../img/barrel.png');
     background-size: 100% 100%;
@@ -38,7 +38,7 @@ body {
     position: relative;
 }
 
-#sitemap>div + div::before {
+#sitemap > div + div::before {
     height: calc(1vw + 12vh);
     width: 60%;
     content: '';
@@ -50,7 +50,7 @@ body {
     z-index: -1;
 }
 
-#sitemap>div>div.barrel::after {
+#sitemap > div > div.barrel::after {
     content: '';
     position: absolute;
     left: 4%;
@@ -64,22 +64,27 @@ body {
     transition: 0.4s;
 }
 
-#sitemap>div.current>div.barrel::after {
+#sitemap > div.current > div.barrel::after {
     opacity: 1;
 }
 
 /* Main container */
-#main-container>div {
+#main-container > div {
     min-height: 100vh;
+    scroll-snap-align: start;
 }
 
 /* Stroke */
-.stroke-h, .stroke-v {
+.stroke-h,
+.stroke-v {
     position: relative;
 }
 
-.stroke-h::before, .stroke-v::before, .stroke-v-top::before, .stroke-v-bottom::before {
-    content: "";
+.stroke-h::before,
+.stroke-v::before,
+.stroke-v-top::before,
+.stroke-v-bottom::before {
+    content: '';
     border-color: #daa520;
     border-style: dotted;
     border-width: 0;
@@ -92,7 +97,9 @@ body {
     width: calc(50% - 20px);
 }
 
-.stroke-v::before, .stroke-v-top::before, .stroke-v-bottom::before {
+.stroke-v::before,
+.stroke-v-top::before,
+.stroke-v-bottom::before {
     border-left-width: 8px;
 }
 
@@ -100,11 +107,13 @@ body {
     height: calc(100% - 8px);
 }
 
-.arrow-down-smallscreen, .arrow-up-smallscreen {
+.arrow-down-smallscreen,
+.arrow-up-smallscreen {
     display: none;
 }
 
-.stroke-v-top::before, .stroke-v-bottom::before {
+.stroke-v-top::before,
+.stroke-v-bottom::before {
     height: calc(50% - 8px);
 }
 
@@ -131,7 +140,7 @@ body {
     max-width: 384px;
 }
 
-.game>div {
+.game > div {
     position: absolute;
     top: 0;
     width: 100%;
@@ -149,14 +158,14 @@ body {
     left: 50%;
 }
 
-.game>img {
+.game > img {
     display: block;
     width: 100%;
 }
 
 /* Details */
 .details {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     font-size: 0.8em;
 }
 

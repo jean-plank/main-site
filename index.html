@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 
     <meta charset="utf-8">
@@ -14,180 +15,17 @@
 
     <title>Jean Plank</title>
 
-    <script src="js/jquery.js"></script>
-
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" media="screen and (min-width: 1021px)" href="css/widescreen.css">
-    <link rel="stylesheet" media="screen and (max-width: 1020px)" href="css/smallscreen.css">
 
     <link href="img/icon.jpg" rel="shortcut icon" type="image/jpg">
 
 </head>
+
 <body>
 
-    <div id="parallax" class="parallax column">
-        <div id="bg" class="parallax-layer parallax-layer-back row justify-center align-center">
-            <img src="img/background.jpg">
-        </div>
+    <div id="root"></div>
 
-        <div id="main-container" class="parallax-layer parallax-layer-front">
-            <div id="title-jp1" class="column align-center">
-                <div id="title" class="row align-end">
-                    <div class="yarr" text="pretitle"></div>
-                    <div class="big row justify-center align-center">
-                        <img src="img/fire.gif">
-                        <div>
-                            J<span>ean</span>
-                            P<span>lank</span>
-                        </div>
-                        <img src="img/fire.gif">
-                    </div>
-                    <div id="lang-btns" class="row justify-end align-end yarr"></div>
-                </div>
-
-                <div class="game-container stroke-v-bottom grow row justify-center align-center">
-                    <div class="game">
-                        <img src="img/ratio_holder.png">
-                        <div class="details column">
-                            <div class="description grow" text="jp1-summary"></div>
-                            <div class="launch-dl column align-center">
-                                <a link="jp1-launch" target="_blank" text="launch"></a>
-                                <a link="jp1-dl" download text="dl"></a>
-                                <i text="advisory"></i>
-                            </div>
-                        </div>
-                        <div class="cover">
-                            <img src="img/jp1.jpg">
-                            <div class="title">
-                                <div class="name column justify-space-between">
-                                    <div>Jean Plank I</div>
-                                    <div text="jp1-title"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <i class="fa fa-angle-down arrow-down-smallscreen"></i>
-                </div>
-                <i class="fa fa-angle-down arrow-down"></i>
-            </div>
-
-            <div class="game-container stroke-v margin-auto row justify-center align-center">
-                <i class="fa fa-angle-up arrow-up-smallscreen"></i>
-                <div class="game">
-                    <img src="img/ratio_holder.png">
-                    <div class="details column">
-                        <div class="description grow" text="jp2-summary"></div>
-                        <div class="launch-dl column align-center">
-                            <a link="jp2-launch" target="_blank" text="launch"></a>
-                            <a link="jp2-dl" download text="dl"></a>
-                            <i text="advisory"></i>
-                        </div>
-                    </div>
-                    <div class="cover">
-                        <img src="img/jp2.jpg">
-                        <div class="title">
-                            <div class="name column justify-space-between">
-                                <div>Jean Plank II</div>
-                                <div text="jp2-title"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <i class="fa fa-angle-down arrow-down"></i>
-                <i class="fa fa-angle-down arrow-down-smallscreen"></i>
-            </div>
-
-            <div class="stroke-h row justify-center">
-                <div class="game-container stroke-v grow row justify-center align-center">
-                    <i class="fa fa-angle-up arrow-up-smallscreen"></i>
-                    <div class="game">
-                        <img src="img/ratio_holder.png">
-                        <div class="details column">
-                            <div class="description grow" text="jp3-summary"></div>
-                            <div class="launch-dl column align-center">
-                                <a link="jp3-launch" target="_blank" text="launch"></a>
-                                <a link="jp3-dl" download text="dl"></a>
-                                <i text="advisory"></i>
-                            </div>
-                        </div>
-                        <div class="cover">
-                            <img src="img/jp3.jpg">
-                            <div class="title">
-                                <div class="name column justify-space-between">
-                                    <div>Jean Plank III</div>
-                                    <div text="jp3-title"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <i class="fa fa-angle-down arrow-down"></i>
-                    <i class="fa fa-angle-down arrow-down-smallscreen"></i>
-                </div>
-
-                <div class="game-container stroke-v-top grow row justify-center align-center">
-                    <i class="fa fa-angle-up arrow-up-smallscreen"></i>
-                    <div class="game">
-                        <img src="img/ratio_holder.png">
-                        <div class="details column">
-                            <div class="description grow" text="jp3b-summary"></div>
-                            <div class="launch-dl column align-center">
-                                <a link="jp3b-launch" target="_blank" text="launch"></a>
-                                <a link="jp3b-dl" download text="dl"></a>
-                                <i text="advisory-already"></i>
-                            </div>
-                        </div>
-                        <div class="cover">
-                            <img src="img/jp3b.jpg">
-                            <div class="title">
-                                <div class="name column justify-space-between">
-                                    <div>Jean Plank III</div>
-                                    <div text="jp3b-title"></div>
-                                </div>
-                            </div>
-                            <div class="notoutyet" text="notoutyet"></div>
-                        </div>
-                    </div>
-                    <i class="fa fa-angle-down arrow-down-smallscreen"></i>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="game-container stroke-v-top grow row justify-center align-center">
-                    <i class="fa fa-angle-up arrow-up-smallscreen"></i>
-                    <div class="game">
-                        <img src="img/ratio_holder.png">
-                        <div class="details column">
-                            <div class="description grow" text="jp4-summary"></div>
-                            <div class="launch-dl column align-center">
-                                <a link="jp4-launch" target="_blank" text="launch"></a>
-                                <a link="jp4-dl" download text="dl"></a>
-                                <i text="advisory-already"></i>
-                            </div>
-                        </div>
-                        <div class="cover">
-                            <img src="img/jp4.jpg">
-                            <div class="title">
-                                <div class="name column justify-space-between">
-                                    <div>Jean Plank IV</div>
-                                    <div text="jp4-title"></div>
-                                </div>
-                            </div>
-                            <div class="notoutyet" text="notoutyet"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="game-container empty grow row justify-center align-center">
-                    <div class="game">
-                        <img src="img/ratio_holder.png">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/translation.js"></script>
-    <script src="js/sitemap.js"></script>
+    <script src="index.js"></script>
 
 </body>
+
 </html>

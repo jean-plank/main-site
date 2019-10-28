@@ -1,0 +1,20 @@
+{
+  "name": "main-site",
+  "version": "1.0.0",
+  "description": "Jean Plank - The Series main site",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jean-plank/main-site.git"
+  },
+  "author": "Gurimarukin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jean-plank/main-site/issues"
+  },
+  "homepage": "https://github.com/jean-plank/main-site#readme"
+}

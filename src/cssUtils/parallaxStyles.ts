@@ -9,7 +9,7 @@ const parallaxStyles = {
         height: '100vh',
         overflowY: 'auto',
         overflowX: 'hidden',
-        scrollSnapTypeY: 'proximity',
+        scrollSnapType: 'y proximity',
         position: 'relative',
         scrollBehavior: 'smooth'
     }),

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx, SerializedStyles } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, ReactNode, useContext } from 'react'
@@ -7,20 +7,37 @@ import { FunctionComponent, ReactNode, useContext } from 'react'
 import ratioHolder from '../../img/ratio_holder.png'
 
 import TranslationContext, { GameId } from '../contexts/TranslationContext'
-import media from '../utils/media'
-import params from '../utils/params'
+import media from '../cssUtils/media'
+import params from '../cssUtils/params'
+import { commonV } from '../cssUtils/strokeBefore'
 
 interface Props {
     gameId: GameId
     jpTitle: string
     image: string
+    strokeVTop?: boolean
+    strokeVBottom?: boolean
 }
 
-const Game: FunctionComponent<Props> = ({ gameId, jpTitle, image }) => {
+const Game: FunctionComponent<Props> = ({
+    gameId,
+    jpTitle,
+    image,
+    strokeVTop = false,
+    strokeVBottom = false
+}) => {
     const transl = useContext(TranslationContext)
     const gameTransl = transl[gameId]
+
+    const container: SerializedStyles | null = (() => {
+        if (strokeVTop && strokeVBottom) return styles.strokeV
+        if (strokeVTop) return styles.strokeVTop
+        if (strokeVBottom) return styles.strokeVBottom
+        return null
+    })()
+
     return (
-        <div css={styles.container}>
+        <div css={[styles.container, container]}>
             <div css={styles.game}>
                 <img css={styles.ratioHolder} src={ratioHolder} />
                 <div css={[styles.gameDiv, styles.details]}>
@@ -77,12 +94,40 @@ const styles = {
 
         [media.desktop]: {
             minHeight: '100vh',
-            scrollSnapAlign: 'start',
             position: 'relative',
             padding: '0 1%',
             width: '50%'
-        },
-        [media.mobile]: {}
+        }
+    }),
+
+    strokeV: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `100%`,
+                top: `calc(0.1 * ${params.stroke.width})`
+            }
+        }
+    }),
+
+    strokeVTop: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `calc(50% - ${params.stroke.width})`,
+                top: `calc(0.1 * ${params.stroke.width})`
+            }
+        }
+    }),
+
+    strokeVBottom: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `calc(50% - ${params.stroke.width})`,
+                bottom: `calc(0.1 * ${params.stroke.width})`
+            }
+        }
     }),
 
     game: css({
@@ -147,7 +192,7 @@ const styles = {
         overflow: 'hidden',
 
         '&::before': {
-            content: '',
+            content: `''`,
             width: '90%',
             borderTop: `1px solid ${params.game.launchDlColor}`
         },
@@ -162,6 +207,7 @@ const styles = {
         '& a': {
             width: '100%',
             textAlign: 'center',
+            textDecoration: 'none',
             color: params.game.launchDlColor,
             padding: '0.33em 0',
 

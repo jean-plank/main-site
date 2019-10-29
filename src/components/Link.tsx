@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Interpolation, jsx } from '@emotion/core'
+import { jsx } from '@emotion/core'
 import React, { FunctionComponent, useContext } from 'react'
 
 import HistoryContext from '../contexts/HistoryContext'
@@ -7,14 +7,19 @@ import HistoryContext from '../contexts/HistoryContext'
 interface Props {
     to: string
     target?: string
-    css?: Interpolation
+    className?: string
 }
 
-const Link: FunctionComponent<Props> = ({ to, target, css, children }) => {
+const Link: FunctionComponent<Props> = ({
+    to,
+    target,
+    className,
+    children
+}) => {
     const history = useContext(HistoryContext)
 
     return (
-        <a href={to} onClick={onClick} target={target} css={css}>
+        <a href={to} onClick={onClick} target={target} className={className}>
             {children}
         </a>
     )

@@ -1,4 +1,8 @@
 export default {
+    stroke: {
+        color: '#daa520',
+        width: '8px'
+    },
     game: {
         border: {
             width: '0.67vmin',

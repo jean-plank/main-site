@@ -6,18 +6,11 @@ import historyContext from '../contexts/historyContext'
 
 interface Props {
     to: string
-    external?: boolean
     target?: string
     css?: Interpolation
 }
 
-const Link: FunctionComponent<Props> = ({
-    to,
-    external = false,
-    target,
-    css,
-    children
-}) => {
+const Link: FunctionComponent<Props> = ({ to, target, css, children }) => {
     const history = useContext(historyContext)
 
     return (
@@ -27,10 +20,8 @@ const Link: FunctionComponent<Props> = ({
     )
 
     function onClick(e: React.MouseEvent) {
-        if (!external) {
-            e.preventDefault()
-            history.push(to)
-        }
+        e.preventDefault()
+        history.push(to)
     }
 }
 export default Link

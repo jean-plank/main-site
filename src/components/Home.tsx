@@ -4,11 +4,11 @@ import { Fragment, FunctionComponent } from 'react'
 
 import jpgs from '../../img/*.jpg'
 
-import fadeIn from '../cssUtils/fadeIn'
-import media from '../cssUtils/media'
-import parallaxStyles from '../cssUtils/parallaxStyles'
-import params from '../cssUtils/params'
-import { common } from '../cssUtils/strokeBefore'
+import fadeIn from '../utils/css/fadeIn'
+import media from '../utils/css/media'
+import parallaxStyles from '../utils/css/parallaxStyles'
+import params from '../utils/css/params'
+import { common } from '../utils/css/strokeBefore'
 import Game from './Game'
 
 const Home: FunctionComponent = () => (

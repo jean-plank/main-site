@@ -7,10 +7,10 @@ import TranslationContext, {
     defaultLanguage,
     translations
 } from '../contexts/TranslationContext'
-import fonts, { fontFamily } from '../cssUtils/fonts'
-import media from '../cssUtils/media'
-import parallaxStyles from '../cssUtils/parallaxStyles'
 import Router from '../Router'
+import fonts, { fontFamily } from '../utils/css/fonts'
+import media from '../utils/css/media'
+import parallaxStyles from '../utils/css/parallaxStyles'
 import Header from './Header'
 
 const App: FunctionComponent = () => {

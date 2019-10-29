@@ -8,7 +8,7 @@ import TranslationContext, {
     Language,
     languages
 } from '../contexts/TranslationContext'
-import { fontFamily } from '../cssUtils/fonts'
+import { fontFamily } from '../utils/css/fonts'
 import Link from './Link'
 
 interface Props {

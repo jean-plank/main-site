@@ -7,9 +7,9 @@ import { FunctionComponent, ReactNode, useContext } from 'react'
 import ratioHolder from '../../img/ratio_holder.png'
 
 import TranslationContext, { GameId } from '../contexts/TranslationContext'
-import media from '../cssUtils/media'
-import params from '../cssUtils/params'
-import { commonV } from '../cssUtils/strokeBefore'
+import media from '../utils/css/media'
+import params from '../utils/css/params'
+import { commonV } from '../utils/css/strokeBefore'
 
 interface Props {
     gameId: GameId

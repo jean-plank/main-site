@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { Fragment, FunctionComponent } from 'react'
+import { Fragment, FunctionComponent, ReactNode } from 'react'
 
 import jpgs from '../../img/*.jpg'
 
@@ -9,50 +9,63 @@ import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallaxStyles'
 import params from '../utils/css/params'
 import { common, commonV } from '../utils/css/strokeBefore'
+import { AngleDown } from '../utils/svg'
 import Game from './Game'
 
-const Home: FunctionComponent = () => (
-    <Fragment>
-        <img
-            src={jpgs.background}
-            css={[parallaxStyles.parallaxLayerBack, styles.bg]}
-        />
+const Home: FunctionComponent = () => {
+    return (
+        <Fragment>
+            <img
+                src={jpgs.background}
+                css={[parallaxStyles.parallaxLayerBack, styles.bg]}
+            />
 
-        <div css={[parallaxStyles.parallaxLayerBase, styles.main]}>
-            <div css={styles.page}>
-                <Game
-                    gameId='jp2'
-                    jpTitle='Jean Plank II'
-                    image={jpgs.jp2}
-                    css={styles.strokeVBottom}
-                />
+            <div css={[parallaxStyles.parallaxLayerBase, styles.main]}>
+                <div css={styles.page}>
+                    <Game
+                        gameId='jp2'
+                        jpTitle='Jean Plank II'
+                        image={jpgs.jp2}
+                        footer={arrowDownDesktop()}
+                        css={styles.strokeVBottom}
+                    />
+                </div>
+                <div css={[styles.page, styles.strokeH]}>
+                    <Game
+                        gameId='jp3'
+                        jpTitle='Jean Plank III'
+                        image={jpgs.jp3}
+                        footer={arrowDownDesktop()}
+                        css={styles.strokeV}
+                    />
+                    <Game
+                        gameId='jp3b'
+                        jpTitle='Jean Plank III'
+                        image={jpgs.jp3b}
+                        css={styles.strokeVTop}
+                    />
+                </div>
+                <div css={styles.page}>
+                    <Game
+                        gameId='jp4'
+                        jpTitle='Jean Plank IV'
+                        image={jpgs.jp4}
+                        css={styles.strokeVTop}
+                    />
+                    <div css={styles.empty} />
+                </div>
             </div>
-            <div css={[styles.page, styles.strokeH]}>
-                <Game
-                    gameId='jp3'
-                    jpTitle='Jean Plank III'
-                    image={jpgs.jp3}
-                    css={styles.strokeV}
-                />
-                <Game
-                    gameId='jp3b'
-                    jpTitle='Jean Plank III'
-                    image={jpgs.jp3b}
-                    css={styles.strokeVTop}
-                />
-            </div>
-            <div css={styles.page}>
-                <Game
-                    gameId='jp4'
-                    jpTitle='Jean Plank IV'
-                    image={jpgs.jp4}
-                    css={styles.strokeVTop}
-                />
-                <div css={styles.empty} />
-            </div>
-        </div>
-    </Fragment>
-)
+        </Fragment>
+    )
+
+    function arrowDownDesktop(): ReactNode {
+        return (
+            <button css={styles.arrowDown}>
+                <AngleDown />
+            </button>
+        )
+    }
+}
 export default Home
 
 const styles = {
@@ -121,6 +134,23 @@ const styles = {
                 height: `calc(50% - ${params.stroke.width})`,
                 bottom: `calc(0.1 * ${params.stroke.width})`
             }
+        }
+    }),
+
+    arrowDown: css({
+        cursor: 'pointer',
+        position: 'absolute',
+        border: 'none',
+        background: 'none',
+        padding: 0,
+        color: params.stroke.color,
+        height: '5em',
+        textShadow: '0 0 8px black',
+        bottom: '1.5%',
+
+        '& svg': {
+            height: '100%',
+            filter: 'drop-shadow(0 0 8px black)'
         }
     }),
 

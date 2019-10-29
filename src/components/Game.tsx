@@ -14,6 +14,8 @@ interface Props {
     gameId: GameId
     jpTitle: string
     image: string
+    header?: ReactNode
+    footer?: ReactNode
     className?: string
 }
 
@@ -21,6 +23,8 @@ const Game: FunctionComponent<Props> = ({
     gameId,
     jpTitle,
     image,
+    header,
+    footer,
     className
 }) => {
     const transl = useContext(TranslationContext)
@@ -28,6 +32,7 @@ const Game: FunctionComponent<Props> = ({
 
     return (
         <div css={styles.container} className={className}>
+            {header}
             <div css={styles.game}>
                 <img css={styles.ratioHolder} src={ratioHolder} />
                 <div css={[styles.gameDiv, styles.details]}>
@@ -47,6 +52,7 @@ const Game: FunctionComponent<Props> = ({
                     ) : null}
                 </div>
             </div>
+            {footer}
         </div>
     )
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx, SerializedStyles } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, ReactNode, useContext } from 'react'
@@ -9,35 +9,25 @@ import ratioHolder from '../../img/ratio_holder.png'
 import TranslationContext, { GameId } from '../contexts/TranslationContext'
 import media from '../utils/css/media'
 import params from '../utils/css/params'
-import { commonV } from '../utils/css/strokeBefore'
 
 interface Props {
     gameId: GameId
     jpTitle: string
     image: string
-    strokeVTop?: boolean
-    strokeVBottom?: boolean
+    className?: string
 }
 
 const Game: FunctionComponent<Props> = ({
     gameId,
     jpTitle,
     image,
-    strokeVTop = false,
-    strokeVBottom = false
+    className
 }) => {
     const transl = useContext(TranslationContext)
     const gameTransl = transl[gameId]
 
-    const container: SerializedStyles | null = (() => {
-        if (strokeVTop && strokeVBottom) return styles.strokeV
-        if (strokeVTop) return styles.strokeVTop
-        if (strokeVBottom) return styles.strokeVBottom
-        return null
-    })()
-
     return (
-        <div css={[styles.container, container]}>
+        <div css={styles.container} className={className}>
             <div css={styles.game}>
                 <img css={styles.ratioHolder} src={ratioHolder} />
                 <div css={[styles.gameDiv, styles.details]}>
@@ -97,36 +87,6 @@ const styles = {
             position: 'relative',
             padding: '0 1%',
             width: '50%'
-        }
-    }),
-
-    strokeV: css({
-        [media.desktop]: {
-            '&::before': {
-                ...commonV,
-                height: `100%`,
-                top: `calc(0.1 * ${params.stroke.width})`
-            }
-        }
-    }),
-
-    strokeVTop: css({
-        [media.desktop]: {
-            '&::before': {
-                ...commonV,
-                height: `calc(50% - ${params.stroke.width})`,
-                top: `calc(0.1 * ${params.stroke.width})`
-            }
-        }
-    }),
-
-    strokeVBottom: css({
-        [media.desktop]: {
-            '&::before': {
-                ...commonV,
-                height: `calc(50% - ${params.stroke.width})`,
-                bottom: `calc(0.1 * ${params.stroke.width})`
-            }
         }
     }),
 

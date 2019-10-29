@@ -27,7 +27,6 @@ const App: FunctionComponent = () => {
                 css={[fonts, parallaxStyles.parallax, styles.app]}
             >
                 <Router path={path} />
-
                 <Header currentLang={lang} setLanguage={setLang} />
             </div>
         </TranslationContext.Provider>

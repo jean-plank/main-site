@@ -8,7 +8,7 @@ import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallaxStyles'
 import params from '../utils/css/params'
-import { common } from '../utils/css/strokeBefore'
+import { common, commonV } from '../utils/css/strokeBefore'
 import Game from './Game'
 
 const Home: FunctionComponent = () => (
@@ -24,7 +24,7 @@ const Home: FunctionComponent = () => (
                     gameId='jp2'
                     jpTitle='Jean Plank II'
                     image={jpgs.jp2}
-                    strokeVBottom={true}
+                    css={styles.strokeVBottom}
                 />
             </div>
             <div css={[styles.page, styles.strokeH]}>
@@ -32,14 +32,13 @@ const Home: FunctionComponent = () => (
                     gameId='jp3'
                     jpTitle='Jean Plank III'
                     image={jpgs.jp3}
-                    strokeVTop={true}
-                    strokeVBottom={true}
+                    css={styles.strokeV}
                 />
                 <Game
                     gameId='jp3b'
                     jpTitle='Jean Plank III'
                     image={jpgs.jp3b}
-                    strokeVTop={true}
+                    css={styles.strokeVTop}
                 />
             </div>
             <div css={styles.page}>
@@ -47,7 +46,7 @@ const Home: FunctionComponent = () => (
                     gameId='jp4'
                     jpTitle='Jean Plank IV'
                     image={jpgs.jp4}
-                    strokeVTop={true}
+                    css={styles.strokeVTop}
                 />
                 <div css={styles.empty} />
             </div>
@@ -91,6 +90,36 @@ const styles = {
                 borderWidth: `${params.stroke.width} 0 0 0`,
                 top: '4px',
                 width: `calc(50% - 2 * ${params.stroke.width})`
+            }
+        }
+    }),
+
+    strokeV: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `100%`,
+                top: `calc(0.1 * ${params.stroke.width})`
+            }
+        }
+    }),
+
+    strokeVTop: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `calc(50% - ${params.stroke.width})`,
+                top: `calc(0.1 * ${params.stroke.width})`
+            }
+        }
+    }),
+
+    strokeVBottom: css({
+        [media.desktop]: {
+            '&::before': {
+                ...commonV,
+                height: `calc(50% - ${params.stroke.width})`,
+                bottom: `calc(0.1 * ${params.stroke.width})`
             }
         }
     }),

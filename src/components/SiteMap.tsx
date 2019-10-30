@@ -8,6 +8,7 @@ import { randomInt } from 'fp-ts/lib/Random'
 import {
     Dispatch,
     FunctionComponent,
+    MouseEventHandler,
     SetStateAction,
     useContext,
     useEffect,
@@ -31,12 +32,16 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     useEffect(() => {
         pipe(
             parallaxElt,
-            O.map(elt =>
+            O.map(elt => {
+                pipe(
+                    findCurrent(elt.scrollTop, sections),
+                    O.map(setCurrent)
+                )
                 elt.addEventListener(
                     'scroll',
                     onScroll(elt, sections, setCurrent)
                 )
-            )
+            })
         )
     }, [parallaxElt, sections])
 
@@ -59,7 +64,10 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
                             css={styles.wildfire}
                             className={i === current ? 'current' : undefined}
                         >
-                            <button css={styles.barrel}>
+                            <button
+                                onClick={scrollIntoView(i, sections)}
+                                css={styles.barrel}
+                            >
                                 <img src={pngs.barrel} css={rotate(deg)} />
                             </button>
                         </div>
@@ -77,22 +85,18 @@ function onScroll(
     elt: HTMLElement,
     sections: O.Option<HTMLElement>[],
     setCurrent: Dispatch<SetStateAction<number>>
-) {
-    return () => {
-        if (A.isNonEmpty(sections) && sections.every(O.isSome)) {
-            const i = pipe(
-                sections as NA.NonEmptyArray<O.Some<HTMLElement>>,
-                A.map(_ => _.value),
-                findCurrent(elt.scrollTop)
-            )
-            setCurrent(i)
-        }
-    }
+): () => void {
+    return () =>
+        pipe(
+            findCurrent(elt.scrollTop, sections),
+            O.map(setCurrent)
+        )
 }
 
 function findCurrent(
-    scrollTop: number
-): (sections: NA.NonEmptyArray<HTMLElement>) => number {
+    scrollTop: number,
+    sections: O.Option<HTMLElement>[]
+): O.Option<number> {
     const findCurrentRec = (
         sections: HTMLElement[],
         i: number,
@@ -107,7 +111,33 @@ function findCurrent(
 
         return findCurrentRec(tail, i + 1, top, i)
     }
-    return sections => findCurrentRec(sections, 0, 0, 0)
+
+    if (A.isNonEmpty(sections) && sections.every(O.isSome)) {
+        const i = pipe(
+            sections as NA.NonEmptyArray<O.Some<HTMLElement>>,
+            A.map(_ => _.value),
+            _ => findCurrentRec(_, 0, 0, 0)
+        )
+        return O.some(i)
+    }
+    return O.none
+}
+
+function scrollIntoView(
+    i: number,
+    sections: O.Option<HTMLElement>[]
+): MouseEventHandler {
+    return () => {
+        pipe(
+            A.lookup(i, sections),
+            O.map(_ =>
+                pipe(
+                    _,
+                    O.map(_ => _.scrollIntoView({ behavior: 'smooth' }))
+                )
+            )
+        )
+    }
 }
 
 function rotate(deg: number): SerializedStyles {

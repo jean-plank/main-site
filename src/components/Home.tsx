@@ -11,6 +11,7 @@ import params from '../utils/css/params'
 import { common, commonV } from '../utils/css/strokeBefore'
 import { AngleDown } from '../utils/svg'
 import Game from './Game'
+import SiteMap from './SiteMap'
 
 const Home: FunctionComponent = () => {
     return (
@@ -55,6 +56,8 @@ const Home: FunctionComponent = () => {
                     <div css={styles.empty} />
                 </div>
             </div>
+
+            <SiteMap size={3} />
         </Fragment>
     )
 

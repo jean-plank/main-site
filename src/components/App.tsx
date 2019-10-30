@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import * as O from 'fp-ts/lib/Option'
-import { FunctionComponent, useCallback, useContext, useState } from 'react'
+import { FunctionComponent, useContext, useRef, useState } from 'react'
 
 import HistoryContext from '../contexts/HistoryContext'
-import ParallaxEltContext from '../contexts/ParallaxEltContext'
+import ParallaxRefContext from '../contexts/ParallaxRefContext'
 import TranslationContext, {
     defaultLanguage,
     translations
@@ -22,14 +21,11 @@ const App: FunctionComponent = () => {
 
     const [lang, setLang] = useState(defaultLanguage)
 
-    const [parallaxElt, setParallaxElt] = useState<O.Option<HTMLElement>>(
-        O.none
-    )
-    const parallaxRef = useCallback(_ => setParallaxElt(O.fromNullable(_)), [])
+    const parallaxRef = useRef<HTMLDivElement>(null)
 
     return (
         <TranslationContext.Provider value={translations[lang]}>
-            <ParallaxEltContext.Provider value={parallaxElt}>
+            <ParallaxRefContext.Provider value={parallaxRef}>
                 <div
                     ref={parallaxRef}
                     css={[fonts, parallaxStyles.parallax, styles.app]}
@@ -37,7 +33,7 @@ const App: FunctionComponent = () => {
                     <Router path={path} />
                     <Header currentLang={lang} setLanguage={setLang} />
                 </div>
-            </ParallaxEltContext.Provider>
+            </ParallaxRefContext.Provider>
         </TranslationContext.Provider>
     )
 }

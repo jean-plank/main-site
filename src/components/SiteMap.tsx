@@ -1,15 +1,12 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/core'
 import * as A from 'fp-ts/lib/Array'
-import * as NA from 'fp-ts/lib/NonEmptyArray'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { randomInt } from 'fp-ts/lib/Random'
 import {
-    Dispatch,
     FunctionComponent,
-    MouseEventHandler,
-    SetStateAction,
+    useCallback,
     useContext,
     useEffect,
     useMemo,
@@ -19,31 +16,33 @@ import * as ReactDom from 'react-dom'
 
 import pngs from '../../img/*.png'
 
-import ParallaxEltContext from '../contexts/ParallaxEltContext'
+import ParallaxRefContext from '../contexts/ParallaxRefContext'
 
 interface Props {
-    sections: O.Option<HTMLElement>[]
+    sections: HTMLElement[]
 }
 
 const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     const [current, setCurrent] = useState(-1)
 
-    const parallaxElt = useContext(ParallaxEltContext)
+    const onScroll = useCallback(
+        (elt: HTMLElement, pages: HTMLElement[]) => () =>
+            setCurrent(findCurrent(elt.scrollTop, pages)),
+        [setCurrent]
+    )
+
+    const parallaxRef = useContext(ParallaxRefContext)
+
     useEffect(() => {
-        pipe(
-            parallaxElt,
-            O.map(elt => {
-                pipe(
-                    findCurrent(elt.scrollTop, sections),
-                    O.map(setCurrent)
-                )
-                elt.addEventListener(
-                    'scroll',
-                    onScroll(elt, sections, setCurrent)
-                )
-            })
-        )
-    }, [parallaxElt, sections])
+        if (parallaxRef.current !== null) {
+            const elt = parallaxRef.current
+            setCurrent(findCurrent(elt.scrollTop, sections))
+            elt.addEventListener('scroll', onScroll(elt, sections))
+            return () =>
+                elt.removeEventListener('scroll', onScroll(elt, sections))
+        }
+        return () => {}
+    }, [onScroll, current, parallaxRef.current, sections])
 
     const rotations = useMemo(
         () =>
@@ -65,7 +64,7 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
                             className={i === current ? 'current' : undefined}
                         >
                             <button
-                                onClick={scrollIntoView(i, sections)}
+                                // onClick={scrollIntoView(i)}
                                 css={styles.barrel}
                             >
                                 <img src={pngs.barrel} css={rotate(deg)} />
@@ -81,22 +80,7 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
 }
 export default SiteMap
 
-function onScroll(
-    elt: HTMLElement,
-    sections: O.Option<HTMLElement>[],
-    setCurrent: Dispatch<SetStateAction<number>>
-): () => void {
-    return () =>
-        pipe(
-            findCurrent(elt.scrollTop, sections),
-            O.map(setCurrent)
-        )
-}
-
-function findCurrent(
-    scrollTop: number,
-    sections: O.Option<HTMLElement>[]
-): O.Option<number> {
+function findCurrent(scrollTop: number, sections: HTMLElement[]): number {
     const findCurrentRec = (
         sections: HTMLElement[],
         i: number,
@@ -111,33 +95,8 @@ function findCurrent(
 
         return findCurrentRec(tail, i + 1, top, i)
     }
-
-    if (A.isNonEmpty(sections) && sections.every(O.isSome)) {
-        const i = pipe(
-            sections as NA.NonEmptyArray<O.Some<HTMLElement>>,
-            A.map(_ => _.value),
-            _ => findCurrentRec(_, 0, 0, 0)
-        )
-        return O.some(i)
-    }
-    return O.none
-}
-
-function scrollIntoView(
-    i: number,
-    sections: O.Option<HTMLElement>[]
-): MouseEventHandler {
-    return () => {
-        pipe(
-            A.lookup(i, sections),
-            O.map(_ =>
-                pipe(
-                    _,
-                    O.map(_ => _.scrollIntoView({ behavior: 'smooth' }))
-                )
-            )
-        )
-    }
+    if (A.isEmpty(sections)) return -1
+    return findCurrentRec(sections, 0, 0, 0)
 }
 
 function rotate(deg: number): SerializedStyles {

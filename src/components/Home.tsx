@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
-import { Fragment, FunctionComponent, ReactNode, useRef } from 'react'
+import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
 
 import jpgs from '../../img/*.jpg'
 
+import { pipe } from 'fp-ts/lib/pipeable'
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallaxStyles'
@@ -15,9 +16,16 @@ import Game from './Game'
 import SiteMap from './SiteMap'
 
 const Home: FunctionComponent = () => {
-    const page1 = useRef<HTMLDivElement>(null)
-    const page2 = useRef<HTMLDivElement>(null)
-    const page3 = useRef<HTMLDivElement>(null)
+    const [pages, setPages] = useState<O.Option<HTMLElement[]>>(O.none)
+
+    const onMount = (elt: HTMLElement | null) => {
+        if (elt !== null && O.isNone(pages)) {
+            const res = Array.from(elt.children).filter(
+                _ => _ instanceof HTMLElement
+            ) as HTMLElement[]
+            setPages(O.some(res))
+        }
+    }
 
     return (
         <Fragment>
@@ -26,8 +34,11 @@ const Home: FunctionComponent = () => {
                 css={[parallaxStyles.parallaxLayerBack, styles.bg]}
             />
 
-            <div css={[parallaxStyles.parallaxLayerBase, styles.main]}>
-                <div ref={page1} css={styles.page}>
+            <div
+                ref={onMount}
+                css={[parallaxStyles.parallaxLayerBase, styles.main]}
+            >
+                <div css={styles.page}>
                     <Game
                         gameId='jp2'
                         jpTitle='Jean Plank II'
@@ -36,7 +47,7 @@ const Home: FunctionComponent = () => {
                         css={styles.strokeVBottom}
                     />
                 </div>
-                <div ref={page2} css={[styles.page, styles.strokeH]}>
+                <div css={[styles.page, styles.strokeH]}>
                     <Game
                         gameId='jp3'
                         jpTitle='Jean Plank III'
@@ -51,7 +62,7 @@ const Home: FunctionComponent = () => {
                         css={styles.strokeVTop}
                     />
                 </div>
-                <div ref={page3} css={styles.page}>
+                <div css={styles.page}>
                     <Game
                         gameId='jp4'
                         jpTitle='Jean Plank IV'
@@ -62,11 +73,12 @@ const Home: FunctionComponent = () => {
                 </div>
             </div>
 
-            <SiteMap
-                sections={[page1, page2, page3].map(_ =>
-                    O.fromNullable(_.current)
-                )}
-            />
+            {pipe(
+                pages,
+                // tslint:disable-next-line: jsx-key
+                O.map(_ => <SiteMap sections={_} />),
+                O.toNullable
+            )}
         </Fragment>
     )
 

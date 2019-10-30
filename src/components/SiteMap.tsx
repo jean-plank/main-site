@@ -1,39 +1,114 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/core'
+import * as A from 'fp-ts/lib/Array'
+import * as NA from 'fp-ts/lib/NonEmptyArray'
+import * as O from 'fp-ts/lib/Option'
+import { pipe } from 'fp-ts/lib/pipeable'
 import { randomInt } from 'fp-ts/lib/Random'
-import { FunctionComponent, useMemo } from 'react'
+import {
+    Dispatch,
+    FunctionComponent,
+    SetStateAction,
+    useContext,
+    useEffect,
+    useMemo,
+    useState
+} from 'react'
 import * as ReactDom from 'react-dom'
 
 import pngs from '../../img/*.png'
 
+import ParallaxEltContext from '../contexts/ParallaxEltContext'
+
 interface Props {
-    size: number
+    sections: O.Option<HTMLElement>[]
 }
 
-const SiteMap: FunctionComponent<Props> = ({ size }) => {
-    const range = useMemo(
-        () => Array.from({ length: size }).map(_ => randomInt(0, 359)()),
-        [size]
+const SiteMap: FunctionComponent<Props> = ({ sections }) => {
+    const [current, setCurrent] = useState(-1)
+
+    const parallaxElt = useContext(ParallaxEltContext)
+    useEffect(() => {
+        pipe(
+            parallaxElt,
+            O.map(elt =>
+                elt.addEventListener(
+                    'scroll',
+                    onScroll(elt, sections, setCurrent)
+                )
+            )
+        )
+    }, [parallaxElt, sections])
+
+    const rotations = useMemo(
+        () =>
+            Array.from({ length: sections.length }).map(_ =>
+                randomInt(0, 359)()
+            ),
+        [sections.length]
     )
-    const domElt = document.getElementById('sitemap')
-    if (domElt === null) {
-        console.error('missing mount point for sitemap')
-        return null
-    }
-    return ReactDom.createPortal(
-        <div css={styles.sitemap}>
-            {range.map((deg, i) => (
-                <div key={i} css={styles.wildfire}>
-                    <button css={styles.barrel}>
-                        <img src={pngs.barrel} css={rotate(deg)} />
-                    </button>
-                </div>
-            ))}
-        </div>,
-        domElt
+
+    return pipe(
+        O.fromNullable(document.getElementById('sitemap')),
+        O.map(elt =>
+            ReactDom.createPortal(
+                <div css={styles.sitemap}>
+                    {rotations.map((deg, i) => (
+                        <div
+                            key={i}
+                            css={styles.wildfire}
+                            className={i === current ? 'current' : undefined}
+                        >
+                            <button css={styles.barrel}>
+                                <img src={pngs.barrel} css={rotate(deg)} />
+                            </button>
+                        </div>
+                    ))}
+                </div>,
+                elt
+            )
+        ),
+        O.toNullable
     )
 }
 export default SiteMap
+
+function onScroll(
+    elt: HTMLElement,
+    sections: O.Option<HTMLElement>[],
+    setCurrent: Dispatch<SetStateAction<number>>
+) {
+    return () => {
+        if (A.isNonEmpty(sections) && sections.every(O.isSome)) {
+            const i = pipe(
+                sections as NA.NonEmptyArray<O.Some<HTMLElement>>,
+                A.map(_ => _.value),
+                findCurrent(elt.scrollTop)
+            )
+            setCurrent(i)
+        }
+    }
+}
+
+function findCurrent(
+    scrollTop: number
+): (sections: NA.NonEmptyArray<HTMLElement>) => number {
+    const findCurrentRec = (
+        sections: HTMLElement[],
+        i: number,
+        previousTop: number,
+        acc: number
+    ): number => {
+        if (sections === []) return acc
+
+        const [elt, ...tail] = sections
+        const top = elt.offsetTop - scrollTop
+        if (top >= 0) return top < -previousTop ? i : acc
+
+        return findCurrentRec(tail, i + 1, top, i)
+    }
+    return sections => findCurrentRec(sections, 0, 0, 0)
+}
 
 function rotate(deg: number): SerializedStyles {
     return css({ transform: `rotate(${deg}deg)` })

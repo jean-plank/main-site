@@ -37,7 +37,7 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
                         key={lang}
                         onClick={changeLanguage(lang)}
                         css={styles.langBtn}
-                        className={lang === currentLang ? 'current' : ''}
+                        className={lang === currentLang ? 'current' : undefined}
                     >
                         {lang}
                     </button>

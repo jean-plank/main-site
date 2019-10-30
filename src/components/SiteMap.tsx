@@ -44,12 +44,10 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
         return () => {}
     }, [onScroll, current, parallaxRef.current, sections])
 
-    const rotations = useMemo(
+    const sestionsWithRotation = useMemo(
         () =>
-            Array.from({ length: sections.length }).map(_ =>
-                randomInt(0, 359)()
-            ),
-        [sections.length]
+            sections.map<[HTMLElement, number]>(_ => [_, randomInt(0, 359)()]),
+        [sections]
     )
 
     return pipe(
@@ -57,18 +55,15 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
         O.map(elt =>
             ReactDom.createPortal(
                 <div css={styles.sitemap}>
-                    {rotations.map((deg, i) => (
+                    {sestionsWithRotation.map(([elt, deg], i) => (
                         <div
                             key={i}
                             css={styles.wildfire}
                             className={i === current ? 'current' : undefined}
                         >
-                            <button
-                                // onClick={scrollIntoView(i)}
-                                css={styles.barrel}
-                            >
+                            <a href={`#${elt.id}`} css={styles.barrel}>
                                 <img src={pngs.barrel} css={rotate(deg)} />
-                            </button>
+                            </a>
                         </div>
                     ))}
                 </div>,
@@ -135,6 +130,7 @@ const styles = {
         }
     }),
     barrel: css({
+        display: 'block',
         border: 'none',
         padding: 0,
         background: 'none',

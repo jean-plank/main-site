@@ -38,7 +38,7 @@ const Home: FunctionComponent = () => {
                 ref={onMount}
                 css={[parallaxStyles.parallaxLayerBase, styles.main]}
             >
-                <div css={styles.page}>
+                <div id='jp2' css={styles.page}>
                     <Game
                         gameId='jp2'
                         jpTitle='Jean Plank II'
@@ -47,7 +47,7 @@ const Home: FunctionComponent = () => {
                         css={styles.strokeVBottom}
                     />
                 </div>
-                <div css={[styles.page, styles.strokeH]}>
+                <div id='jp3' css={[styles.page, styles.strokeH]}>
                     <Game
                         gameId='jp3'
                         jpTitle='Jean Plank III'
@@ -62,7 +62,7 @@ const Home: FunctionComponent = () => {
                         css={styles.strokeVTop}
                     />
                 </div>
-                <div css={styles.page}>
+                <div id='jp4' css={styles.page}>
                     <Game
                         gameId='jp4'
                         jpTitle='Jean Plank IV'

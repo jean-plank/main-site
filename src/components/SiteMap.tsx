@@ -17,7 +17,6 @@ import * as ReactDom from 'react-dom'
 import pngs from '../../img/*.png'
 
 import ParallaxRefContext from '../contexts/ParallaxRefContext'
-
 interface Props {
     sections: HTMLElement[]
 }
@@ -131,9 +130,6 @@ const styles = {
     }),
     barrel: css({
         display: 'block',
-        border: 'none',
-        padding: 0,
-        background: 'none',
         height: '100%',
         width: '100%',
         cursor: 'pointer',

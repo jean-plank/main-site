@@ -43,7 +43,7 @@ const Home: FunctionComponent = () => {
                         gameId='jp2'
                         jpTitle='Jean Plank II'
                         image={jpgs.jp2}
-                        footer={arrowDownDesktop()}
+                        footer={arrowDownDesktop('#jp3')}
                         css={styles.strokeVBottom}
                     />
                 </div>
@@ -52,7 +52,7 @@ const Home: FunctionComponent = () => {
                         gameId='jp3'
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3}
-                        footer={arrowDownDesktop()}
+                        footer={arrowDownDesktop('#jp4')}
                         css={styles.strokeV}
                     />
                     <Game
@@ -82,11 +82,11 @@ const Home: FunctionComponent = () => {
         </Fragment>
     )
 
-    function arrowDownDesktop(): ReactNode {
+    function arrowDownDesktop(to: string): ReactNode {
         return (
-            <button css={styles.arrowDown}>
+            <a href={to} css={styles.arrowDown}>
                 <AngleDown />
-            </button>
+            </a>
         )
     }
 }
@@ -164,13 +164,16 @@ const styles = {
     arrowDown: css({
         cursor: 'pointer',
         position: 'absolute',
-        border: 'none',
-        background: 'none',
-        padding: 0,
         color: params.stroke.color,
-        height: '5em',
+        display: 'block',
+        height: '2em',
         textShadow: '0 0 8px black',
         bottom: '1.5%',
+        transition: 'transform 0.2s',
+
+        '&:hover': {
+            transform: 'scale(1.1)'
+        },
 
         '& svg': {
             height: '100%',

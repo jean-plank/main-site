@@ -135,8 +135,7 @@ const styles = {
         [media.desktop]: {
             '&::before': {
                 ...commonV,
-                height: `100%`,
-                top: `calc(0.1 * ${params.stroke.width})`
+                height: `calc(100% + 0.25 * ${params.stroke.width})`
             }
         }
     }),
@@ -145,8 +144,7 @@ const styles = {
         [media.desktop]: {
             '&::before': {
                 ...commonV,
-                height: `calc(50% - ${params.stroke.width})`,
-                top: `calc(0.1 * ${params.stroke.width})`
+                height: `calc(50% + 0.25 * ${params.stroke.width})`
             }
         }
     }),
@@ -156,7 +154,7 @@ const styles = {
             '&::before': {
                 ...commonV,
                 height: `calc(50% - ${params.stroke.width})`,
-                bottom: `calc(0.1 * ${params.stroke.width})`
+                top: `calc(50% + 0.9 * ${params.stroke.width})`
             }
         }
     }),

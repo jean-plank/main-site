@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext } from 'react'
 
 import jpgs from '../../img/*.jpg'
-import pngs from '../../img/*.png'
+// import pngs from '../../img/*.png'
 
 import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
@@ -12,8 +12,8 @@ const NotFound: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
     return (
         <div css={styles.container}>
-            <img css={styles.imgBg} src={jpgs.bg_not_found} />
-            <img css={styles.imgJp} src={pngs.jp_perdu} />
+            <img css={styles.imgBg} src={jpgs.plage3} />
+            {/* <img css={styles.imgJp} src={pngs.jp_perdu} /> */}
             <div css={styles.messageContainer}>
                 <div css={styles.message}>{transl.notFound.message}</div>
             </div>
@@ -31,7 +31,8 @@ const styles = {
     imgBg: css({
         position: 'absolute',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        objectFit: 'cover'
     }),
 
     imgJp: css({
@@ -55,6 +56,7 @@ const styles = {
     }),
 
     message: css({
-        padding: '0.33em 0.67em'
+        padding: '0.33em 0.67em',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)'
     })
 }

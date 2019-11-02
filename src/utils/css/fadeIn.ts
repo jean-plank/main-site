@@ -9,4 +9,5 @@ const animation = keyframes({
     }
 })
 
-export default (duration: string): string => `${animation} ${duration} forwards`
+export default (duration: string, delay: string = '0s'): string =>
+    `${animation} ${duration} ${delay} forwards`

@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext } from 'react'
 
+import jpgs from '../../img/*.jpg'
 import pngs from '../../img/*.png'
 
 import AppContext from '../contexts/AppContext'
@@ -11,11 +12,9 @@ const NotFound: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
     return (
         <div css={styles.container}>
-            <img css={styles.imgBg} src={pngs.image_indisponible} />
-            {/* <img css={styles.imgJp} src={pngs.jp_perdu} /> */}
-            <div css={styles.messageContainer}>
-                <div css={styles.message}>{transl.notFound.message}</div>
-            </div>
+            <img css={styles.imgBg} src={jpgs.plage3} />
+            <img css={styles.imgJp} src={pngs.jp_perdu} />
+            <div css={styles.message}>{transl.notFound.message}</div>
         </div>
     )
 }
@@ -31,31 +30,30 @@ const styles = {
         position: 'absolute',
         width: '100%',
         height: '100%',
-        objectFit: 'contain'
+        objectFit: 'cover'
     }),
 
     imgJp: css({
         position: 'absolute',
         height: '80%',
-        right: '5%',
+        left: '2%',
         bottom: 0,
         animation: fadeIn('1.5s')
     }),
 
-    messageContainer: css({
+    message: css({
         position: 'absolute',
+        bottom: 0,
         width: '100%',
-        height: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'white',
+        color: '#f1e6b7',
         textShadow: '0 0 3px black',
-        fontSize: '2.5rem'
-    }),
-
-    message: css({
+        fontSize: '2.5rem',
         padding: '0.33em 0.67em',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)'
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        opacity: 0,
+        animation: fadeIn('1.5s', '1.5s')
     })
 }

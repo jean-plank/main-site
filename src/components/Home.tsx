@@ -43,10 +43,12 @@ const Home: FunctionComponent = () => {
                         gameId='jp2'
                         jpTitle='Jean Plank II'
                         image={jpgs.jp2}
-                        footer={fragment(
-                            arrow('desktop', 'down')('#jp3'),
-                            arrow('mobile', 'down')('#jp3a')
-                        )}
+                        footer={
+                            <Fragment>
+                                {arrow('desktop', 'down')('#jp3')}
+                                {arrow('mobile', 'down')('#jp3a')}
+                            </Fragment>
+                        }
                         style={{
                             container: styles.strokeVBottom,
                             game: styles.reverse
@@ -60,10 +62,12 @@ const Home: FunctionComponent = () => {
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3}
                         header={arrow('mobile', 'up')('#jp2')}
-                        footer={fragment(
-                            arrow('desktop', 'down')('#jp4'),
-                            arrow('mobile', 'down')('#jp3b')
-                        )}
+                        footer={
+                            <Fragment>
+                                {arrow('desktop', 'down')('#jp4')}
+                                {arrow('mobile', 'down')('#jp3b')}
+                            </Fragment>
+                        }
                         style={{ container: styles.strokeV }}
                     />
                     <Game
@@ -115,10 +119,6 @@ const arrow = (media: Media, direction: Direction) => (
         </a>
     )
 }
-
-const fragment = (...nodes: ReactNode[]): ReactNode => (
-    <Fragment>{...nodes}</Fragment>
-)
 
 const styles = {
     bg: css({

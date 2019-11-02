@@ -1,3 +1,0 @@
-# TODO
-
-- zoom/dézoom improvement

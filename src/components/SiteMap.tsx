@@ -16,8 +16,9 @@ import * as ReactDom from 'react-dom'
 
 import pngs from '../../img/*.png'
 
-import ParallaxRefContext from '../contexts/ParallaxRefContext'
+import AppContext from '../contexts/AppContext'
 import media from '../utils/css/media'
+
 interface Props {
     sections: HTMLElement[]
 }
@@ -31,7 +32,7 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
         [setCurrent]
     )
 
-    const parallaxRef = useContext(ParallaxRefContext)
+    const parallaxRef = useContext(AppContext).parallaxRef
 
     useEffect(() => {
         if (parallaxRef.current !== null) {

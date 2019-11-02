@@ -9,7 +9,10 @@ const isLanguage = (lang: string): lang is Language =>
     A.elem(eqString)(lang, languages)
 
 export type Translation = {
-    notFound: string
+    notFound: {
+        title: string
+        message: string
+    }
     preTitle: string
     advisory: string
     advisoryAlready: string
@@ -31,7 +34,10 @@ interface GameTranslation {
 
 export const translations: Record<Language, Translation> = {
     fr: {
-        notFound: 'Page non trouvée',
+        notFound: {
+            title: 'Page non trouvée',
+            message: `Gibier de potence, cette page n'existe pas...`
+        },
         preTitle: 'La véritable histoire de',
         advisory: '(déconseillé aux moins de 18 ans)',
         advisoryAlready: '(déjà déconseillé aux moins de 18 ans)',
@@ -96,7 +102,10 @@ export const translations: Record<Language, Translation> = {
         }
     },
     en: {
-        notFound: 'Page not found',
+        notFound: {
+            title: 'Page not found',
+            message: `Scum, this page doesn't exist...`
+        },
         preTitle: 'The true story of',
         advisory: '(not recommended under 18)',
         advisoryAlready: '(already not recommended under 18)',
@@ -162,5 +171,3 @@ export const translations: Record<Language, Translation> = {
 
 const lang = navigator.language.split('-')[0]
 export const defaultLanguage: Language = isLanguage(lang) ? lang : 'en'
-
-export default React.createContext<Translation>(translations[defaultLanguage])

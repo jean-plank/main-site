@@ -4,10 +4,8 @@ import { FunctionComponent, useContext } from 'react'
 
 import fireGif from '../../img/fire.gif'
 
-import TranslationContext, {
-    Language,
-    languages
-} from '../contexts/TranslationContext'
+import AppContext from '../contexts/AppContext'
+import { Language, languages } from '../contexts/translation'
 import { fontFamily } from '../utils/css/fonts'
 import Link from './Link'
 
@@ -17,7 +15,7 @@ interface Props {
 }
 
 const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
-    const transl = useContext(TranslationContext)
+    const transl = useContext(AppContext).translation
 
     const changeLanguage = (lang: Language) => () => setLanguage(lang)
 

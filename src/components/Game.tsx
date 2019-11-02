@@ -6,7 +6,8 @@ import { FunctionComponent, ReactNode, useContext } from 'react'
 
 import ratioHolder from '../../img/ratio_holder.png'
 
-import TranslationContext, { GameId } from '../contexts/TranslationContext'
+import AppContext from '../contexts/AppContext'
+import { GameId } from '../contexts/translation'
 import media from '../utils/css/media'
 import params from '../utils/css/params'
 
@@ -32,7 +33,7 @@ const Game: FunctionComponent<Props> = ({
     footer,
     style
 }) => {
-    const transl = useContext(TranslationContext)
+    const transl = useContext(AppContext).translation
     const gameTransl = transl[gameId]
 
     const container = style === undefined ? null : style.container

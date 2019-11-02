@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { FunctionComponent, useContext, useMemo, useRef, useState } from 'react'
+import { FunctionComponent, useContext, useRef, useState } from 'react'
 
-import appContextL from '../contexts/appContextL'
+import AppContext from '../contexts/AppContext'
 import HistoryContext from '../contexts/HistoryContext'
-import { defaultLanguage, translations } from '../contexts/TranslationContext'
+import { defaultLanguage, translations } from '../contexts/translation'
 import Router from '../Router'
 import fonts, { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
@@ -18,7 +18,6 @@ const App: FunctionComponent = () => {
 
     const [lang, setLang] = useState(defaultLanguage)
     const parallaxRef = useRef<HTMLDivElement>(null)
-    const AppContext = useMemo(appContextL, [])
 
     return (
         <AppContext.Provider

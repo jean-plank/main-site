@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx, ObjectInterpolation, SerializedStyles } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
+import { pipe } from 'fp-ts/lib/pipeable'
 import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
 
 import jpgs from '../../img/*.jpg'
 
-import { pipe } from 'fp-ts/lib/pipeable'
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallax'
 import params from '../utils/css/params'
 import { common, commonV } from '../utils/css/strokeBefore'
-import { AngleDown } from '../utils/svg'
+import { AngleDown, AngleUp } from '../utils/svg'
 import Game from './Game'
 import SiteMap from './SiteMap'
 
@@ -43,7 +43,10 @@ const Home: FunctionComponent = () => {
                         gameId='jp2'
                         jpTitle='Jean Plank II'
                         image={jpgs.jp2}
-                        footer={arrowDownDesktop('#jp3')}
+                        footer={fragment(
+                            arrow('desktop', 'down')('#jp3'),
+                            arrow('mobile', 'down')('#jp3a')
+                        )}
                         style={{
                             container: styles.strokeVBottom,
                             game: styles.reverse
@@ -52,16 +55,24 @@ const Home: FunctionComponent = () => {
                 </div>
                 <div id='jp3' css={[styles.page, styles.strokeH]}>
                     <Game
+                        id='jp3a'
                         gameId='jp3'
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3}
-                        footer={arrowDownDesktop('#jp4')}
+                        header={arrow('mobile', 'up')('#jp2')}
+                        footer={fragment(
+                            arrow('desktop', 'down')('#jp4'),
+                            arrow('mobile', 'down')('#jp3b')
+                        )}
                         style={{ container: styles.strokeV }}
                     />
                     <Game
+                        id='jp3b'
                         gameId='jp3b'
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3b}
+                        header={arrow('mobile', 'up')('#jp3a')}
+                        footer={arrow('mobile', 'down')('#jp4')}
                         style={{
                             container: styles.strokeVTop,
                             game: styles.reverse
@@ -73,6 +84,7 @@ const Home: FunctionComponent = () => {
                         gameId='jp4'
                         jpTitle='Jean Plank IV'
                         image={jpgs.jp4}
+                        header={arrow('mobile', 'up')('#jp3b')}
                         style={{ container: styles.strokeVTop }}
                     />
                     <div css={styles.empty} />
@@ -87,16 +99,26 @@ const Home: FunctionComponent = () => {
             )}
         </Fragment>
     )
-
-    function arrowDownDesktop(to: string): ReactNode {
-        return (
-            <a href={to} css={styles.arrowDown}>
-                <AngleDown />
-            </a>
-        )
-    }
 }
 export default Home
+
+type Media = 'desktop' | 'mobile'
+type Direction = 'up' | 'down'
+
+const arrow = (media: Media, direction: Direction) => (
+    to: string
+): ReactNode => {
+    const Arrow = direction === 'up' ? AngleUp : AngleDown
+    return (
+        <a href={to} css={arrowsStyles[media][direction]}>
+            <Arrow />
+        </a>
+    )
+}
+
+const fragment = (...nodes: ReactNode[]): ReactNode => (
+    <Fragment>{...nodes}</Fragment>
+)
 
 const styles = {
     bg: css({
@@ -180,19 +202,65 @@ const styles = {
         }
     }),
 
-    arrowDown: css({
+    empty: css({
+        width: '50%',
+
+        [media.mobile]: {
+            display: 'none'
+        }
+    })
+}
+
+const arrowsStyles: Record<Media, Record<Direction, SerializedStyles>> = {
+    desktop: {
+        up: css({
+            ...arrowDesktopCommon(),
+            top: '1.5%'
+        }),
+        down: css({
+            ...arrowDesktopCommon(),
+            bottom: '1.5%'
+        })
+    },
+    mobile: {
+        up: css({
+            ...arrowMobileCommon(),
+            top: '1%'
+        }),
+        down: css({
+            ...arrowMobileCommon(),
+            bottom: '1%'
+        })
+    }
+}
+
+function arrowDesktopCommon(): ObjectInterpolation<undefined> {
+    return {
+        ...arrowCommon(),
+        [media.mobile]: {
+            display: 'none'
+        }
+    }
+}
+
+function arrowMobileCommon(): ObjectInterpolation<undefined> {
+    return {
+        ...arrowCommon(),
+        [media.desktop]: {
+            display: 'none'
+        }
+    }
+}
+
+function arrowCommon(): ObjectInterpolation<undefined> {
+    return {
         cursor: 'pointer',
         position: 'absolute',
         color: params.stroke.color,
         display: 'block',
         height: '2em',
         textShadow: '0 0 8px black',
-        bottom: '1.5%',
         transition: 'transform 0.2s',
-
-        [media.mobile]: {
-            display: 'none'
-        },
 
         '&:hover': {
             transform: 'scale(1.1)'
@@ -202,13 +270,5 @@ const styles = {
             height: '100%',
             filter: 'drop-shadow(0 0 8px black)'
         }
-    }),
-
-    empty: css({
-        width: '50%',
-
-        [media.mobile]: {
-            display: 'none'
-        }
-    })
+    }
 }

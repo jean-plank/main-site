@@ -11,6 +11,7 @@ import media from '../utils/css/media'
 import params from '../utils/css/params'
 
 interface Props {
+    id?: string
     gameId: GameId
     jpTitle: string
     image: string
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const Game: FunctionComponent<Props> = ({
+    id,
     gameId,
     jpTitle,
     image,
@@ -37,7 +39,7 @@ const Game: FunctionComponent<Props> = ({
     const game = style === undefined ? null : style.game
 
     return (
-        <div css={[styles.container, container]}>
+        <div id={id} css={[styles.container, container]}>
             {header}
             <div css={[styles.game, game]}>
                 <img css={styles.ratioHolder} src={ratioHolder} />

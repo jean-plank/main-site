@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext, useMemo, useRef, useState } from 'react'
 
-import appContextL from 'src/contexts/appContextL'
+import appContextL from '../contexts/appContextL'
 import HistoryContext from '../contexts/HistoryContext'
 import { defaultLanguage, translations } from '../contexts/TranslationContext'
 import Router from '../Router'

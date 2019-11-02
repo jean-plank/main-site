@@ -9,7 +9,6 @@ const isLanguage = (lang: string): lang is Language =>
     A.elem(eqString)(lang, languages)
 
 export type Translation = {
-    mainStory: string
     notFound: string
     preTitle: string
     advisory: string
@@ -32,7 +31,6 @@ interface GameTranslation {
 
 export const translations: Record<Language, Translation> = {
     fr: {
-        mainStory: 'Histoire principale',
         notFound: 'Page non trouvée',
         preTitle: 'La véritable histoire de',
         advisory: '(déconseillé aux moins de 18 ans)',
@@ -98,7 +96,6 @@ export const translations: Record<Language, Translation> = {
         }
     },
     en: {
-        mainStory: 'Main story',
         notFound: 'Page not found',
         preTitle: 'The true story of',
         advisory: '(not recommended under 18)',

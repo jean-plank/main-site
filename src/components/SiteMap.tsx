@@ -112,6 +112,7 @@ const styles = {
             display: 'none'
         }
     }),
+
     wildfire: css({
         width: '4vw',
         height: '4vw',

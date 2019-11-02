@@ -43,9 +43,11 @@ const styles = {
     app: css({
         fontFamily: fontFamily.piecesOfEight,
         backgroundColor: 'black',
+
         [media.desktop]: {
             fontSize: '2vw'
         },
+
         [media.mobile]: {
             fontSize: '2.65vw'
         }

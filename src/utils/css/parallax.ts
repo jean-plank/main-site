@@ -16,7 +16,7 @@ const parallaxStyles = {
     parallaxGroup: css({
         position: 'relative',
         height: '100vh',
-        width: 0,
+        width: '100%',
         transformStyle: 'preserve-3d',
         scrollSnapAlign: 'start'
     }),
@@ -33,7 +33,7 @@ function parallaxLayer(translateZ: number): SerializedStyles {
         top: 0,
         left: 0,
         height: '100vh',
-        width: 0,
+        width: '100%',
         transformOrigin: '50vw 50vh',
         transform: `translateZ(${translateZ}px) scale(${scale})`
     })

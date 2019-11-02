@@ -8,7 +8,7 @@ import jpgs from '../../img/*.jpg'
 import { pipe } from 'fp-ts/lib/pipeable'
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
-import parallaxStyles from '../utils/css/parallaxStyles'
+import parallaxStyles from '../utils/css/parallax'
 import params from '../utils/css/params'
 import { common, commonV } from '../utils/css/strokeBefore'
 import { AngleDown } from '../utils/svg'
@@ -44,7 +44,10 @@ const Home: FunctionComponent = () => {
                         jpTitle='Jean Plank II'
                         image={jpgs.jp2}
                         footer={arrowDownDesktop('#jp3')}
-                        css={styles.strokeVBottom}
+                        style={{
+                            container: styles.strokeVBottom,
+                            game: styles.reverse
+                        }}
                     />
                 </div>
                 <div id='jp3' css={[styles.page, styles.strokeH]}>
@@ -53,13 +56,16 @@ const Home: FunctionComponent = () => {
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3}
                         footer={arrowDownDesktop('#jp4')}
-                        css={styles.strokeV}
+                        style={{ container: styles.strokeV }}
                     />
                     <Game
                         gameId='jp3b'
                         jpTitle='Jean Plank III'
                         image={jpgs.jp3b}
-                        css={styles.strokeVTop}
+                        style={{
+                            container: styles.strokeVTop,
+                            game: styles.reverse
+                        }}
                     />
                 </div>
                 <div id='jp4' css={styles.page}>
@@ -67,7 +73,7 @@ const Home: FunctionComponent = () => {
                         gameId='jp4'
                         jpTitle='Jean Plank IV'
                         image={jpgs.jp4}
-                        css={styles.strokeVTop}
+                        style={{ container: styles.strokeVTop }}
                     />
                     <div css={styles.empty} />
                 </div>
@@ -98,10 +104,14 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         height: '200vh',
-        width: '100vw',
+        width: '100%',
         overflow: 'hidden',
         objectFit: 'cover',
-        animation: fadeIn('1.5s')
+        animation: fadeIn('1.5s'),
+
+        [media.mobile]: {
+            height: '300vh'
+        }
     }),
 
     main: css({
@@ -109,12 +119,16 @@ const styles = {
     }),
 
     page: css({
-        width: '100vw',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
 
         [media.desktop]: {
             scrollSnapAlign: 'start'
+        },
+
+        [media.mobile]: {
+            flexDirection: 'column'
         }
     }),
 
@@ -144,7 +158,8 @@ const styles = {
         [media.desktop]: {
             '&::before': {
                 ...commonV,
-                height: `calc(50% + 0.25 * ${params.stroke.width})`
+                height: `calc(50% + 0.25 * ${params.stroke.width})`,
+                top: 0
             }
         }
     }),
@@ -159,6 +174,12 @@ const styles = {
         }
     }),
 
+    reverse: css({
+        [media.mobile]: {
+            flexDirection: 'row-reverse'
+        }
+    }),
+
     arrowDown: css({
         cursor: 'pointer',
         position: 'absolute',
@@ -168,6 +189,10 @@ const styles = {
         textShadow: '0 0 8px black',
         bottom: '1.5%',
         transition: 'transform 0.2s',
+
+        [media.mobile]: {
+            display: 'none'
+        },
 
         '&:hover': {
             transform: 'scale(1.1)'
@@ -180,6 +205,10 @@ const styles = {
     }),
 
     empty: css({
-        width: '50%'
+        width: '50%',
+
+        [media.mobile]: {
+            display: 'none'
+        }
     })
 }

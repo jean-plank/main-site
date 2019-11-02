@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx, SerializedStyles } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, ReactNode, useContext } from 'react'
@@ -16,7 +16,10 @@ interface Props {
     image: string
     header?: ReactNode
     footer?: ReactNode
-    className?: string
+    style?: {
+        container?: SerializedStyles
+        game?: SerializedStyles
+    }
 }
 
 const Game: FunctionComponent<Props> = ({
@@ -25,15 +28,18 @@ const Game: FunctionComponent<Props> = ({
     image,
     header,
     footer,
-    className
+    style
 }) => {
     const transl = useContext(TranslationContext)
     const gameTransl = transl[gameId]
 
+    const container = style === undefined ? null : style.container
+    const game = style === undefined ? null : style.game
+
     return (
-        <div css={styles.container} className={className}>
+        <div css={[styles.container, container]}>
             {header}
-            <div css={styles.game}>
+            <div css={[styles.game, game]}>
                 <img css={styles.ratioHolder} src={ratioHolder} />
                 <div css={[styles.gameDiv, styles.details]}>
                     <div css={styles.description}>{gameTransl.summary}</div>
@@ -86,13 +92,20 @@ const styles = {
         margin: 'auto',
         display: 'flex',
         justifyContent: 'center',
-        aligntItems: 'center',
+        alignItems: 'center',
 
         [media.desktop]: {
             minHeight: '100vh',
             position: 'relative',
             padding: '0 1%',
             width: '50%'
+        },
+
+        [media.mobile]: {
+            width: '100%',
+            minHeight: '100vh',
+            scrollSnapAlign: 'start',
+            position: 'relative'
         }
     }),
 
@@ -103,13 +116,25 @@ const styles = {
             margin: 'auto 5%',
             width: '50%',
             maxWidth: '384px'
+        },
+
+        [media.mobile]: {
+            width: '100%',
+            display: 'flex',
+            alignItems: 'stretch',
+            background: 'rgba(0, 0, 0, 0.6)',
+            padding: '1vw'
         }
     }),
 
     ratioHolder: css({
         border: `${params.game.border.width} solid transparent`,
         display: 'block',
-        width: '100%'
+        width: '100%',
+
+        [media.mobile]: {
+            display: 'none'
+        }
     }),
 
     gameDiv: css({
@@ -122,6 +147,10 @@ const styles = {
             height: '100%',
             left: 0,
             transition: 'left 0.4s'
+        },
+
+        [media.mobile]: {
+            flexBasis: 0
         }
     }),
 
@@ -137,6 +166,12 @@ const styles = {
             '*:hover > &': {
                 left: '50%'
             }
+        },
+
+        [media.mobile]: {
+            flexGrow: 6,
+            borderWidth: 0,
+            fontSize: '1.2em'
         }
     }),
 
@@ -176,13 +211,10 @@ const styles = {
             textDecoration: 'none',
             color: params.game.launchDlColor,
             padding: '0.33em 0',
+            transition: 'text-shadow 0.1s',
 
-            [media.desktop]: {
-                transition: 'text-shadow 0.1s',
-
-                '&:hover': {
-                    textShadow: '0 0 20px wheat'
-                }
+            '&:hover': {
+                textShadow: '0 0 20px wheat'
             }
         }
     }),
@@ -196,11 +228,22 @@ const styles = {
             '*:hover > &': {
                 left: '-50%'
             }
+        },
+
+        [media.mobile]: {
+            position: 'relative',
+            flexGrow: 4,
+            alignSelf: 'center',
+            height: 'auto'
         }
     }),
 
     coverImg: css({
-        width: '100%'
+        width: '100%',
+
+        [media.mobile]: {
+            display: 'block'
+        }
     }),
 
     title: css({
@@ -209,7 +252,11 @@ const styles = {
         textShadow: '0 0 3px black',
         width: '100%',
         height: '100%',
-        top: 0
+        top: 0,
+
+        [media.mobile]: {
+            fontSize: '1.7em'
+        }
     }),
 
     titleBis: css({
@@ -237,6 +284,10 @@ const styles = {
         opacity: 0.9,
         transform: 'translateY(-50%) rotate(-30deg)',
         transformOrigin: 'left center',
-        padding: '0.1em 0'
+        padding: '0.1em 0',
+
+        [media.mobile]: {
+            fontSize: '1.7em'
+        }
     })
 }

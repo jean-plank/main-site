@@ -11,7 +11,7 @@ import TranslationContext, {
 import Router from '../Router'
 import fonts, { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
-import parallaxStyles from '../utils/css/parallaxStyles'
+import parallaxStyles from '../utils/css/parallax'
 import Header from './Header'
 
 const App: FunctionComponent = () => {

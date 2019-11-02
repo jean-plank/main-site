@@ -17,6 +17,7 @@ import * as ReactDom from 'react-dom'
 import pngs from '../../img/*.png'
 
 import ParallaxRefContext from '../contexts/ParallaxRefContext'
+import media from '../utils/css/media'
 interface Props {
     sections: HTMLElement[]
 }
@@ -105,7 +106,11 @@ const styles = {
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+        [media.mobile]: {
+            display: 'none'
+        }
     }),
     wildfire: css({
         width: '4vw',

@@ -9,6 +9,7 @@ import Router from '../Router'
 import fonts, { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallax'
+import params from '../utils/css/params'
 import Header from './Header'
 
 const App: FunctionComponent = () => {
@@ -44,11 +45,11 @@ const styles = {
         backgroundColor: 'black',
 
         [media.desktop]: {
-            fontSize: '2vw'
+            fontSize: params.fontSize.desktop
         },
 
         [media.mobile]: {
-            fontSize: '2.65vw'
+            fontSize: params.fontSize.mobile
         }
     })
 }

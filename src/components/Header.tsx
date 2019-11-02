@@ -7,6 +7,7 @@ import fireGif from '../../img/fire.gif'
 import AppContext from '../contexts/AppContext'
 import { Language, languages } from '../contexts/translation'
 import { fontFamily } from '../utils/css/fonts'
+import params from '../utils/css/params'
 import Link from './Link'
 
 interface Props {
@@ -53,8 +54,8 @@ const styles = {
         width: '100%',
         display: 'flex',
         alignItems: 'flex-end',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        color: '#f1e6b7',
+        background: params.title.bg,
+        color: params.title.color,
         textShadow: '0 0 3px black',
         padding: '0.33em 0.67em',
         flexWrap: 'wrap'
@@ -106,10 +107,10 @@ const styles = {
         cursor: 'pointer',
 
         '&:not(.current)': {
-            color: '#666666',
+            color: params.title.notCurrentLang.color,
 
             '&:hover': {
-                color: '#aaaaaa'
+                color: params.title.notCurrentLang.hoverColor
             }
         }
     })

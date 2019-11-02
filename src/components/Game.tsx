@@ -125,7 +125,7 @@ const styles = {
             width: '100%',
             display: 'flex',
             alignItems: 'stretch',
-            background: 'rgba(0, 0, 0, 0.6)',
+            background: params.game.bg,
             padding: '1vw'
         }
     }),
@@ -163,7 +163,7 @@ const styles = {
         color: params.game.details.color,
 
         [media.desktop]: {
-            background: params.game.details.bg,
+            background: params.game.bg,
             fontSize: '0.8em',
 
             '*:hover > &': {
@@ -198,7 +198,7 @@ const styles = {
         '&::before': {
             content: `''`,
             width: '90%',
-            borderTop: `1px solid ${params.game.launchDlColor}`
+            borderTop: `1px solid ${params.game.launchDl.color}`
         },
 
         '& i': {
@@ -212,12 +212,12 @@ const styles = {
             width: '100%',
             textAlign: 'center',
             textDecoration: 'none',
-            color: params.game.launchDlColor,
+            color: params.game.launchDl.color,
             padding: '0.33em 0',
             transition: 'text-shadow 0.1s',
 
             '&:hover': {
-                textShadow: '0 0 20px wheat'
+                textShadow: `0 0 20px ${params.game.launchDl.hoverShadowColor}`
             }
         }
     }),

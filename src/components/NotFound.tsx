@@ -7,6 +7,7 @@ import pngs from '../../img/*.png'
 
 import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
+import params from '../utils/css/params'
 
 const NotFound: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
@@ -48,11 +49,11 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#f1e6b7',
+        color: params.title.color,
         textShadow: '0 0 3px black',
         fontSize: '2.5rem',
         padding: '0.33em 0.67em',
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        backgroundColor: params.title.bg,
         opacity: 0,
         animation: fadeIn('1.5s', '1.5s')
     })

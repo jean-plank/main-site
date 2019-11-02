@@ -1,10 +1,10 @@
 import css from '@emotion/css'
 
-import bucaneraEOT from '../../../css/fonts/bucanera.eot'
-import bucaneraSVG from '../../../css/fonts/bucanera.svg'
-import bucaneraWOFF from '../../../css/fonts/bucanera.woff'
-import bucaneraWOFF2 from '../../../css/fonts/bucanera.woff2'
-import piecesOfEight from '../../../css/fonts/pieces-of-eight.ttf'
+import bucaneraEOT from '../../../fonts/bucanera.eot'
+import bucaneraSVG from '../../../fonts/bucanera.svg'
+import bucaneraWOFF from '../../../fonts/bucanera.woff'
+import bucaneraWOFF2 from '../../../fonts/bucanera.woff2'
+import piecesOfEight from '../../../fonts/pieces-of-eight.ttf'
 
 export const fontFamily = {
     yarr: 'yarr',

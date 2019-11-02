@@ -8,7 +8,7 @@ export const languages: Language[] = ['fr', 'en']
 const isLanguage = (lang: string): lang is Language =>
     A.elem(eqString)(lang, languages)
 
-type Translation = {
+export type Translation = {
     preTitle: string
     advisory: string
     advisoryAlready: string

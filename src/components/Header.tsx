@@ -21,9 +21,9 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
     const changeLanguage = (lang: Language) => () => setLanguage(lang)
 
     return (
-        <div id='title' css={styles.title}>
-            <div css={styles.yarr}>{transl.preTitle}</div>
-            <div css={styles.big}>
+        <div css={styles.container}>
+            <div css={[styles.yarr, styles.preTitle]}>{transl.preTitle}</div>
+            <div css={styles.title}>
                 <img css={styles.fireFirst} src={fireGif} />
                 <Link to='/' css={styles.home}>
                     J<span>ean</span> P<span>lank</span>
@@ -48,16 +48,17 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
 export default Header
 
 const styles = {
-    title: css({
+    container: css({
         position: 'absolute',
         top: 0,
         width: '100%',
         display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'flex-end',
         background: params.title.bg,
         color: params.title.color,
         textShadow: '0 0 3px black',
-        padding: '0.33em 0.67em',
+        padding: '0.2em 0.33em',
         flexWrap: 'wrap'
     }),
 
@@ -66,12 +67,17 @@ const styles = {
         flexBasis: 0,
         fontFamily: fontFamily.yarr,
         fontWeight: 'normal',
-        letterSpacing: '0.208vw'
+        letterSpacing: '0.03em'
     }),
 
-    big: css({
+    preTitle: css({
+        marginRight: '0.33em',
+        fontSize: '0.9em'
+    }),
+
+    title: css({
         display: 'flex',
-        fontSize: '2.1em',
+        fontSize: '1.6em',
         fontWeight: 'bold',
         letterSpacing: '-0.052vw'
     }),
@@ -97,7 +103,7 @@ const styles = {
     }),
 
     langBtn: css({
-        padding: '0.33em 0.33em 0',
+        padding: '0 0.33em 0',
         fontFamily: 'inherit',
         fontSize: 'inherit',
         lineHeight: 'inherit',

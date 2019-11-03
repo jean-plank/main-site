@@ -145,10 +145,6 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
 
-        [media.desktop]: {
-            scrollSnapAlign: 'start'
-        },
-
         [media.mobile]: {
             flexDirection: 'column'
         }

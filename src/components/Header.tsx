@@ -74,7 +74,8 @@ const styles = {
     }),
 
     trueStory: css({
-        fontSize: '0.5em'
+        fontSize: '0.5em',
+        marginTop: '0.2em'
     }),
 
     fireJpFire: css({

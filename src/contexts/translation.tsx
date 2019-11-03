@@ -21,7 +21,7 @@ export type Translation = {
     dl: string
 } & Record<GameId, GameTranslation>
 
-export type GameId = 'jp1' | 'jp2' | 'jp3' | 'jp3b' | 'jp4'
+export type GameId = 'jpTheStory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
 
 interface GameTranslation {
     title: string
@@ -44,7 +44,7 @@ export const translations: Record<Language, Translation> = {
         notOutYet: 'pas encore sorti',
         launch: 'Jouer sur navigateur',
         dl: 'Télécharger le jeu',
-        jp1: {
+        jpTheStory: {
             title: 'The Story',
             summary: 'Jean Plank fait une escale pour se ravitailler.',
             links: O.some({
@@ -53,7 +53,7 @@ export const translations: Record<Language, Translation> = {
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - The Story.zip'
             })
         },
-        jp2: {
+        jp1: {
             title: 'Naissance des Flammes de la Vengeance',
             summary: (
                 <>
@@ -69,11 +69,11 @@ export const translations: Record<Language, Translation> = {
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Naissance des Flammes de la Vengeance.zip'
             })
         },
-        jp3: {
+        jp2: {
             title: 'Le Vrai Visage de la Vengeance',
             summary: (
                 <>
-                    <i>Suite de la première fin de Jean Plank II</i>
+                    <i>Suite de la première fin de Jean Plank I</i>
                     <br />
                     <br />
                     Jean Plank, déformé par Saint Gède, part en quête de son
@@ -86,16 +86,16 @@ export const translations: Record<Language, Translation> = {
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank III - Le Vrai Visage de la Vengeance.zip'
             })
         },
-        jp3b: {
+        jp2b: {
             title: 'Valhalla Ouakbar',
             summary: (
                 <>
-                    <i>Suite de la deuxième fin de Jean Plank II</i>
+                    <i>Suite de la deuxième fin de Jean Plank I</i>
                 </>
             ),
             links: O.none
         },
-        jp4: {
+        jp3: {
             title: 'Tout le Monde doit Payer',
             summary: '',
             links: O.none
@@ -112,7 +112,7 @@ export const translations: Record<Language, Translation> = {
         notOutYet: 'not out yet',
         launch: 'Play in your browser',
         dl: 'Download the game',
-        jp1: {
+        jpTheStory: {
             title: 'The Story',
             summary: 'Jean Plank makes a stop to refuel.',
             links: O.some({
@@ -121,7 +121,7 @@ export const translations: Record<Language, Translation> = {
                     'https://dl.blbl.ch/jean-plank/en/Jean Plank I - The Story.zip'
             })
         },
-        jp2: {
+        jp1: {
             title: 'Birth of the Flames of Revenge',
             summary: (
                 <>
@@ -133,14 +133,14 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'en/birthoftheflamesofrevenge',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/en/Jean Plank II - Birth of the Flames of Revenge.zip'
+                    'https://dl.blbl.ch/jean-plank/en/Jean Plank I - Birth of the Flames of Revenge.zip'
             })
         },
-        jp3: {
+        jp2: {
             title: 'The True Face of Revenge',
             summary: (
                 <>
-                    <i>Sequel to the first ending of Jean Plank II</i>
+                    <i>Sequel to the first ending of Jean Plank I</i>
                     <br />
                     <br />
                     Jean Plank, deformed by Saint Gède, seeks his lost face.
@@ -152,16 +152,16 @@ export const translations: Record<Language, Translation> = {
                     'https://dl.blbl.ch/jean-plank/en/Jean Plank III - The True Face of Revenge.zip'
             })
         },
-        jp3b: {
+        jp2b: {
             title: 'Valhalla Ouakbar',
             summary: (
                 <>
-                    <i>Sequel to the second ending of Jean Plank II</i>
+                    <i>Sequel to the second ending of Jean Plank I</i>
                 </>
             ),
             links: O.none
         },
-        jp4: {
+        jp3: {
             title: 'Everyone Pays',
             summary: '',
             links: O.none

@@ -38,15 +38,15 @@ const Home: FunctionComponent = () => {
                 ref={onMount}
                 css={[parallaxStyles.parallaxLayerBase, styles.main]}
             >
-                <div id='jp2' css={styles.page}>
+                <div id='jp1' css={styles.page}>
                     <Game
-                        gameId='jp2'
-                        jpTitle='Jean Plank II'
+                        gameId='jp1'
+                        jpTitle='Jean Plank I'
                         image={jpgs.jp2}
                         footer={
                             <Fragment>
-                                {arrow('desktop', 'down')('#jp3')}
-                                {arrow('mobile', 'down')('#jp3a')}
+                                {arrow('desktop', 'down')('#jp2')}
+                                {arrow('mobile', 'down')('#jp2a')}
                             </Fragment>
                         }
                         style={{
@@ -55,40 +55,40 @@ const Home: FunctionComponent = () => {
                         }}
                     />
                 </div>
-                <div id='jp3' css={[styles.page, styles.strokeH]}>
+                <div id='jp2' css={[styles.page, styles.strokeH]}>
                     <Game
-                        id='jp3a'
-                        gameId='jp3'
-                        jpTitle='Jean Plank III'
+                        id='jp2a'
+                        gameId='jp2'
+                        jpTitle='Jean Plank II'
                         image={jpgs.jp3}
-                        header={arrow('mobile', 'up')('#jp2')}
+                        header={arrow('mobile', 'up')('#jp1')}
                         footer={
                             <Fragment>
-                                {arrow('desktop', 'down')('#jp4')}
-                                {arrow('mobile', 'down')('#jp3b')}
+                                {arrow('desktop', 'down')('#jp3')}
+                                {arrow('mobile', 'down')('#jp2b')}
                             </Fragment>
                         }
                         style={{ container: styles.strokeV }}
                     />
                     <Game
-                        id='jp3b'
-                        gameId='jp3b'
-                        jpTitle='Jean Plank III'
+                        id='jp2b'
+                        gameId='jp2b'
+                        jpTitle='Jean Plank II'
                         image={jpgs.jp3b}
-                        header={arrow('mobile', 'up')('#jp3a')}
-                        footer={arrow('mobile', 'down')('#jp4')}
+                        header={arrow('mobile', 'up')('#jp2a')}
+                        footer={arrow('mobile', 'down')('#jp3')}
                         style={{
                             container: styles.strokeVTop,
                             game: styles.reverse
                         }}
                     />
                 </div>
-                <div id='jp4' css={styles.page}>
+                <div id='jp3' css={styles.page}>
                     <Game
-                        gameId='jp4'
-                        jpTitle='Jean Plank IV'
+                        gameId='jp3'
+                        jpTitle='Jean Plank III'
                         image={jpgs.jp4}
-                        header={arrow('mobile', 'up')('#jp3b')}
+                        header={arrow('mobile', 'up')('#jp2b')}
                         style={{ container: styles.strokeVTop }}
                     />
                     <div css={styles.empty} />

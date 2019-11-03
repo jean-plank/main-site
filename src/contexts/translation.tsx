@@ -50,7 +50,7 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'fr/thestory',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - The Story.zip'
+                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip'
             })
         },
         jp1: {
@@ -66,7 +66,7 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'fr/naissancedesflammesdelavengeance',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Naissance des Flammes de la Vengeance.zip'
+                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip'
             })
         },
         jp2: {
@@ -83,7 +83,7 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'fr/levraivisagedelavengeance',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank III - Le Vrai Visage de la Vengeance.zip'
+                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Le Vrai Visage de la Vengeance.zip'
             })
         },
         jp2b: {
@@ -118,7 +118,7 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'en/thestory',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/en/Jean Plank I - The Story.zip'
+                    'https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip'
             })
         },
         jp1: {
@@ -149,7 +149,7 @@ export const translations: Record<Language, Translation> = {
             links: O.some({
                 launch: 'en/thetruefaceofrevenge',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/en/Jean Plank III - The True Face of Revenge.zip'
+                    'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The True Face of Revenge.zip'
             })
         },
         jp2b: {

@@ -75,7 +75,7 @@ const styles = {
         position: 'relative',
         alignSelf: 'stretch',
         display: 'flex',
-        alignItems: 'flex-end'
+        alignItems: 'center'
     }),
 
     dropDown: css({

@@ -21,14 +21,18 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
 
     return (
         <div css={styles.container}>
-            <div css={[styles.yarr, styles.preTitle]}>{transl.preTitle}</div>
-            <div css={styles.title}>
-                <img css={styles.fireFirst} src={fireGif} />
-                <Link to='/' css={styles.home}>
-                    J<span>ean</span> P<span>lank</span>
-                </Link>
-                <img css={styles.fireSecond} src={fireGif} />
-            </div>
+            <Link to='/' css={styles.title}>
+                <div css={[styles.yarr, styles.trueStory]}>
+                    {transl.preTitle}
+                </div>
+                <div css={styles.fireJpFire}>
+                    <img css={styles.fireFirst} src={fireGif} />
+                    <span css={styles.jp}>
+                        J<span>ean</span> P<span>lank</span>
+                    </span>
+                    <img css={styles.fireSecond} src={fireGif} />
+                </div>
+            </Link>
             <LangsMenu
                 currentLang={currentLang}
                 setLanguage={setLanguage}
@@ -46,7 +50,7 @@ const styles = {
         width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'flex-end',
+        alignItems: 'center',
         background: params.title.bg,
         color: params.title.color,
         textShadow: '0 0 3px black',
@@ -54,39 +58,41 @@ const styles = {
         flexWrap: 'wrap'
     }),
 
+    title: css({
+        display: 'flex',
+        flexDirection: 'column',
+        fontWeight: 'bold',
+        letterSpacing: '-0.052vw',
+        color: 'inherit',
+        textDecoration: 'none'
+    }),
+
     yarr: css({
-        flexGrow: 1,
-        flexBasis: 0,
         fontFamily: fontFamily.yarr,
         fontWeight: 'normal',
         letterSpacing: '0.03em'
     }),
 
-    preTitle: css({
-        marginRight: '0.33em',
-        fontSize: '0.9em'
+    trueStory: css({
+        fontSize: '0.5em'
     }),
 
-    title: css({
-        display: 'flex',
-        fontSize: '1.6em',
-        fontWeight: 'bold',
-        letterSpacing: '-0.052vw'
+    fireJpFire: css({
+        marginLeft: '1em'
     }),
 
-    home: css({
-        color: 'inherit',
-        textDecoration: 'none'
+    jp: css({
+        fontSize: '1.4em'
     }),
 
     fireFirst: css({
-        height: '0.9em',
-        marginRight: '0.2em'
+        height: '1em',
+        marginRight: '0.1em'
     }),
 
     fireSecond: css({
-        height: '0.9em',
-        marginLeft: '0.2em'
+        height: '1em',
+        marginLeft: '0.3em'
     }),
 
     langBtns: css({

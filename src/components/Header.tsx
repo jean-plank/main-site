@@ -5,9 +5,10 @@ import { FunctionComponent, useContext } from 'react'
 import fireGif from '../../img/fire.gif'
 
 import AppContext from '../contexts/AppContext'
-import { Language, languages } from '../contexts/translation'
+import { Language } from '../contexts/translation'
 import { fontFamily } from '../utils/css/fonts'
 import params from '../utils/css/params'
+import LangsMenu from './LangsMenu'
 import Link from './Link'
 
 interface Props {
@@ -17,8 +18,6 @@ interface Props {
 
 const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
     const transl = useContext(AppContext).translation
-
-    const changeLanguage = (lang: Language) => () => setLanguage(lang)
 
     return (
         <div css={styles.container}>
@@ -30,18 +29,11 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
                 </Link>
                 <img css={styles.fireSecond} src={fireGif} />
             </div>
-            <div css={[styles.yarr, styles.langBtns]}>
-                {languages.map(lang => (
-                    <button
-                        key={lang}
-                        onClick={changeLanguage(lang)}
-                        css={styles.langBtn}
-                        className={lang === currentLang ? 'current' : undefined}
-                    >
-                        {lang}
-                    </button>
-                ))}
-            </div>
+            <LangsMenu
+                currentLang={currentLang}
+                setLanguage={setLanguage}
+                styles={css(styles.yarr, styles.langBtns)}
+            />
         </div>
     )
 }
@@ -58,7 +50,7 @@ const styles = {
         background: params.title.bg,
         color: params.title.color,
         textShadow: '0 0 3px black',
-        padding: '0.2em 0.33em',
+        padding: '0.2em 0 0.2em 0.33em',
         flexWrap: 'wrap'
     }),
 
@@ -100,24 +92,5 @@ const styles = {
     langBtns: css({
         display: 'flex',
         justifyContent: 'flex-end'
-    }),
-
-    langBtn: css({
-        padding: '0 0.33em 0',
-        fontFamily: 'inherit',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        color: 'inherit',
-        background: 'none',
-        border: 'none',
-        cursor: 'pointer',
-
-        '&:not(.current)': {
-            color: params.title.notCurrentLang.color,
-
-            '&:hover': {
-                color: params.title.notCurrentLang.hoverColor
-            }
-        }
     })
 }

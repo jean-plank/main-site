@@ -33,11 +33,13 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
                     <img css={styles.fireSecond} src={fireGif} />
                 </div>
             </Link>
-            <LangsMenu
-                currentLang={currentLang}
-                setLanguage={setLanguage}
-                styles={css(styles.yarr, styles.langBtns)}
-            />
+            <div css={styles.nav}>
+                <LangsMenu
+                    currentLang={currentLang}
+                    setLanguage={setLanguage}
+                    styles={css(styles.yarr, styles.langsMenu)}
+                />
+            </div>
         </div>
     )
 }
@@ -54,7 +56,7 @@ const styles = {
         background: params.title.bg,
         color: params.title.color,
         textShadow: '0 0 3px black',
-        padding: '0.2em 0 0.2em 0.33em',
+        padding: '0.2em 0.33em 0.2em 0.33em',
         flexWrap: 'wrap'
     }),
 
@@ -96,7 +98,16 @@ const styles = {
         marginLeft: '0.3em'
     }),
 
-    langBtns: css({
+    nav: css({
+        display: 'flex',
+        alignSelf: 'stretch'
+    }),
+
+    links: css({
+        borderRight: `2px solid ${params.title.color}`
+    }),
+
+    langsMenu: css({
         display: 'flex',
         justifyContent: 'flex-end'
     })

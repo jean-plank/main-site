@@ -70,6 +70,10 @@ const LangsMenu: FunctionComponent<Props> = ({
 }
 export default LangsMenu
 
+const dropDownBorderWidth = '1px'
+const arrowBorderWidth = '6px'
+const dropDownBorderColor = 'goldenrod'
+
 const styles = {
     container: css({
         position: 'relative',
@@ -80,15 +84,27 @@ const styles = {
 
     dropDown: css({
         position: 'absolute',
-        top: 'calc(100% + 0.2em)',
+        top: 'calc(100% + 0.2em + 6px)',
         right: 0,
         display: 'flex',
         flexDirection: 'column',
-        background: params.title.bg
+        alignItems: 'center',
+        background: params.title.bg,
+        border: `${dropDownBorderWidth} solid ${dropDownBorderColor}`,
+
+        '&::before': {
+            content: `''`,
+            width: `calc(2 * ${arrowBorderWidth})`,
+            borderWidth: `0 ${arrowBorderWidth} ${arrowBorderWidth} ${arrowBorderWidth}`,
+            borderStyle: 'solid',
+            borderColor: `transparent transparent ${dropDownBorderColor} transparent`,
+            position: 'absolute',
+            top: `calc(-1 * ${dropDownBorderWidth} - ${arrowBorderWidth})`
+        }
     }),
 
     langBtn: css({
-        padding: '0.33em 0.33em 0 0.33em',
+        padding: '0.5em 0.5em 0.2em 0.5em',
         fontFamily: 'inherit',
         fontSize: 'inherit',
         lineHeight: 'inherit',
@@ -103,7 +119,8 @@ const styles = {
             color: params.title.notCurrentLang.color,
 
             '&:hover': {
-                color: params.title.notCurrentLang.hoverColor
+                color: params.title.notCurrentLang.hoverColor,
+                textDecoration: 'underline'
             }
         }
     })

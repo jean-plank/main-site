@@ -8,7 +8,7 @@ import AppContext from '../contexts/AppContext'
 import { Language } from '../contexts/translation'
 import { fontFamily } from '../utils/css/fonts'
 import params from '../utils/css/params'
-import LangsMenu from './LangsMenu'
+import LangPicker from './LangPicker'
 import Link from './Link'
 
 interface Props {
@@ -34,7 +34,7 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
                 </div>
             </Link>
             <div css={styles.nav}>
-                <LangsMenu
+                <LangPicker
                     currentLang={currentLang}
                     setLanguage={setLanguage}
                     styles={css(styles.yarr, styles.langsMenu)}

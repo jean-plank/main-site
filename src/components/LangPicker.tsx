@@ -11,7 +11,7 @@ interface Props {
     styles?: SerializedStyles
 }
 
-const LangsMenu: FunctionComponent<Props> = ({
+const LangPicker: FunctionComponent<Props> = ({
     currentLang,
     setLanguage,
     styles: overroadStyles
@@ -68,7 +68,7 @@ const LangsMenu: FunctionComponent<Props> = ({
         </div>
     )
 }
-export default LangsMenu
+export default LangPicker
 
 const dropDownBorderWidth = '1px'
 const arrowBorderWidth = '6px'

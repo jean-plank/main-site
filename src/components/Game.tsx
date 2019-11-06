@@ -36,13 +36,11 @@ const Game: FunctionComponent<Props> = ({
     const transl = useContext(AppContext).translation
     const gameTransl = transl[gameId]
 
-    const container = style === undefined ? null : style.container
-    const game = style === undefined ? null : style.game
 
     return (
-        <div id={id} css={[styles.container, container]}>
+        <div id={id} css={[styles.container, style?.container]}>
             {header}
-            <div css={[styles.game, game]}>
+            <div css={[styles.game, style?.game]}>
                 <img css={styles.ratioHolder} src={ratioHolder} />
                 <div css={[styles.gameDiv, styles.details]}>
                     <div css={styles.description}>{gameTransl.summary}</div>

@@ -19,6 +19,7 @@ import pngs from '../../img/*.png'
 import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
+import params from '../utils/css/params'
 
 interface Props {
     sections: HTMLElement[]

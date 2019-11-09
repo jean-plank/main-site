@@ -39,6 +39,7 @@ const styles = {
     jp1Container: css({
         height: '100%',
         width: '100%',
+        paddingTop: '2.1em',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

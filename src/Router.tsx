@@ -32,11 +32,17 @@ const Router: FunctionComponent<Props> = ({ path }) => {
 }
 export default Router
 
+/* tslint:disable: jsx-key */
 const route = (transl: Translation) => (
     path: string
 ): [O.Option<string>, ReactElement] => {
-    /* tslint:disable: jsx-key */
-    if (path === '/') return [O.none, <Home />]
+    if (path === routes.home) return [O.none, <Home />]
     return [O.some(transl.notFound.title), <NotFound />]
-    /* tslint:enable: jsx-key */
+}
+/* tslint:enable: jsx-key */
+
+export const routes = {
+    home: '/',
+    bonus: '/bonus',
+    contact: '/contact'
 }

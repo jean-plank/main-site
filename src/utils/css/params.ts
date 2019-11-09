@@ -6,6 +6,7 @@ export default {
     title: {
         bg: 'rgba(0, 0, 0, 0.75)',
         color: '#f1e6b7',
+        linkSepColor: '#ae9940',
         notCurrentLang: {
             color: '#666666',
             hoverColor: '#aaaaaa'

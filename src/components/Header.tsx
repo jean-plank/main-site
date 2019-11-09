@@ -5,7 +5,9 @@ import { FunctionComponent, useContext } from 'react'
 import fireGif from '../../img/fire.gif'
 
 import AppContext from '../contexts/AppContext'
+import HistoryContext from '../contexts/HistoryContext'
 import { Language } from '../contexts/translation'
+import { routes } from '../Router'
 import { fontFamily } from '../utils/css/fonts'
 import params from '../utils/css/params'
 import LangPicker from './LangPicker'
@@ -18,32 +20,58 @@ interface Props {
 
 const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
     const transl = useContext(AppContext).translation
+    const path = useContext(HistoryContext).location.pathname
 
     return (
         <div css={styles.container}>
-            <Link to='/' css={styles.title}>
-                <div css={[styles.yarr, styles.trueStory]}>
-                    {transl.preTitle}
-                </div>
-                <div css={styles.fireJpFire}>
-                    <img css={styles.fireFirst} src={fireGif} />
-                    <span css={styles.jp}>
-                        J<span>ean</span> P<span>lank</span>
-                    </span>
-                    <img css={styles.fireSecond} src={fireGif} />
-                </div>
-            </Link>
             <div css={styles.nav}>
-                <LangPicker
-                    currentLang={currentLang}
-                    setLanguage={setLanguage}
-                    styles={css(styles.yarr, styles.langsMenu)}
-                />
+                <Link to={routes.home} css={styles.title}>
+                    <div css={[styles.yarr, styles.trueStory]}>
+                        {transl.preTitle}
+                    </div>
+                    <div
+                        css={styles.link}
+                        className={routes.home === path ? 'current' : undefined}
+                    >
+                        J<span>ean</span> P<span>lank</span>
+                    </div>
+                </Link>
+                <HeaderLink path={path} to={routes.bonus}>
+                    {transl.bonus}
+                </HeaderLink>
+                <HeaderLink path={path} to={routes.contact}>
+                    {transl.contact}
+                </HeaderLink>
             </div>
+            <LangPicker
+                currentLang={currentLang}
+                setLanguage={setLanguage}
+                styles={css(styles.yarr, styles.langsMenu)}
+            />
         </div>
     )
 }
 export default Header
+
+const HeaderLink: FunctionComponent<{ path: string; to: string }> = ({
+    path,
+    to,
+    children
+}) => (
+    <Link
+        to={to}
+        css={styles.link}
+        className={to === path ? 'current' : undefined}
+    >
+        {children}
+    </Link>
+)
+
+const sizes = {
+    fireHeight: 1, // em
+    fireTop: -0.1, // em
+    firePadding: 0.33 // em
+}
 
 const styles = {
     container: css({
@@ -58,6 +86,12 @@ const styles = {
         textShadow: '0 0 3px black',
         padding: '0.2em 0.33em 0.2em 0.33em',
         flexWrap: 'wrap'
+    }),
+
+    nav: css({
+        display: 'flex',
+        alignSelf: 'stretch',
+        alignItems: 'flex-end'
     }),
 
     title: css({
@@ -80,31 +114,45 @@ const styles = {
         marginTop: '0.2em'
     }),
 
-    fireJpFire: css({
-        marginLeft: '1em'
-    }),
-
-    jp: css({
-        fontSize: '1.4em'
-    }),
-
-    fireFirst: css({
-        height: '1em',
-        marginRight: '0.1em'
-    }),
-
-    fireSecond: css({
-        height: '1em',
-        marginLeft: '0.3em'
-    }),
-
-    nav: css({
+    link: css({
+        color: 'inherit',
+        textDecoration: 'none',
+        // paddingBottom: '0.1em',
+        fontSize: '1.1em',
+        paddingRight: `${2 * sizes.firePadding + 0.539 * sizes.fireHeight}em`,
+        position: 'relative',
         display: 'flex',
-        alignSelf: 'stretch'
-    }),
 
-    links: css({
-        borderRight: `2px solid ${params.title.color}`
+        'a&': {
+            paddingLeft: `${sizes.firePadding}em`,
+            borderLeft: `3px solid ${params.title.linkSepColor}`
+        },
+
+        '&::before': {
+            content: `''`,
+            background: `url('${fireGif}')`,
+            backgroundSize: '100% 100%',
+            display: 'block',
+            position: 'relative',
+            top: `${sizes.fireTop}em`,
+            height: `${sizes.fireHeight}em`,
+            width: `${0.539 * sizes.fireHeight}em`,
+            marginRight: `${sizes.firePadding}em`,
+            transition: 'opacity 0.5s',
+            opacity: 0
+        },
+
+        '&.current::before': {
+            opacity: 1
+            // content: `''`,
+            // width: 'calc(100% - 2em)',
+            // position: 'absolute',
+            // left: '1.33em',
+            // bottom: '-0.05em',
+            // borderBottom: `3px solid ${params.title.linkSepColor}`
+            // // backgroundSize: '1px 1em',
+            // // boxShadow: `inset 0 -0.175em ${params.title.linkSepColor}, inset 0 -0.2em black`
+        }
     }),
 
     langsMenu: css({

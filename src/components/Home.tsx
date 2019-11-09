@@ -10,7 +10,7 @@ import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
 import parallaxStyles from '../utils/css/parallax'
 import params from '../utils/css/params'
-import { common, commonV } from '../utils/css/strokeBefore'
+import * as strokeBefore from '../utils/css/strokeBefore'
 import { AngleDown, AngleUp } from '../utils/svg'
 import Game from './Game'
 import SiteMap from './SiteMap'
@@ -155,7 +155,7 @@ const styles = {
             position: 'relative',
 
             '&::before': {
-                ...common,
+                ...strokeBefore.common,
                 borderWidth: `${params.stroke.width} 0 0 0`,
                 top: '4px',
                 width: `calc(50% - 2 * ${params.stroke.width})`
@@ -166,7 +166,7 @@ const styles = {
     strokeV: css({
         [media.desktop]: {
             '&::before': {
-                ...commonV,
+                ...strokeBefore.commonV,
                 height: `calc(100% + 0.25 * ${params.stroke.width})`
             }
         }
@@ -175,7 +175,7 @@ const styles = {
     strokeVTop: css({
         [media.desktop]: {
             '&::before': {
-                ...commonV,
+                ...strokeBefore.commonV,
                 height: `calc(50% + 0.25 * ${params.stroke.width})`,
                 top: 0
             }
@@ -185,7 +185,7 @@ const styles = {
     strokeVBottom: css({
         [media.desktop]: {
             '&::before': {
-                ...commonV,
+                ...strokeBefore.commonV,
                 height: `calc(50% - ${params.stroke.width})`,
                 top: `calc(50% + 0.9 * ${params.stroke.width})`
             }
@@ -264,7 +264,7 @@ function arrowCommon(): ObjectInterpolation<undefined> {
 
         '& svg': {
             height: '100%',
-            filter: 'drop-shadow(0 0 8px black)'
+            filter: 'drop-shadow(3px 0px 0 black)'
         }
     }
 }

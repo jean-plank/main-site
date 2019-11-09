@@ -40,7 +40,7 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
                     {transl.bonus}
                 </HeaderLink>
                 <HeaderLink path={path} to={routes.contact}>
-                    {transl.contact}
+                    {transl.contact.label}
                 </HeaderLink>
             </div>
             <LangPicker

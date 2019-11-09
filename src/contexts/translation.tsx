@@ -17,7 +17,10 @@ export type Translation = {
     }
     preTitle: string
     bonus: string
-    contact: ReactNode
+    contact: {
+        title: string
+        label: ReactNode
+    }
     advisory: string
     advisoryAlready: string
     notOutYet: string
@@ -45,11 +48,14 @@ export const translations: Record<Language, Translation> = {
         },
         preTitle: 'La véritable histoire de',
         bonus: 'Bonus',
-        contact: (
-            <>
-                <s>Faire un procès</s>&nbsp;Contact
-            </>
-        ),
+        contact: {
+            title: 'Procès',
+            label: (
+                <>
+                    <s>Faire un procès</s>&nbsp;Contact
+                </>
+            )
+        },
         advisory: '(déconseillé aux moins de 18 ans)',
         advisoryAlready: '(déjà déconseillé aux moins de 18 ans)',
         notOutYet: 'pas encore sorti',
@@ -132,11 +138,14 @@ export const translations: Record<Language, Translation> = {
         },
         preTitle: 'The true story of',
         bonus: 'Bonus',
-        contact: (
-            <>
-                <s>Sue the devs</s>&nbsp;Contact
-            </>
-        ),
+        contact: {
+            title: 'Trial',
+            label: (
+                <>
+                    <s>Sue the devs</s>&nbsp;Contact
+                </>
+            )
+        },
         advisory: '(not recommended under 18)',
         advisoryAlready: '(already not recommended under 18)',
         notOutYet: 'not out yet',

@@ -42,21 +42,21 @@ const styles = {
         paddingTop: '2.1em',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
         animation: fadeIn('1.5s'),
         position: 'relative'
     }),
 
     game: css({
-        minHeight: 'auto'
+        minHeight: 'auto',
+        margin: 0
     }),
 
     label: css({
         background: `url('${jpgs.label}')`,
         backgroundSize: 'cover',
         padding: '0.5em 1em 0.3em',
-        marginBottom: '0.33em',
         border: '5px solid #8e6400',
         boxShadow: '0 0 10px black',
         fontSize: '0.9em',

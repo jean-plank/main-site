@@ -127,7 +127,7 @@ export const translations: Record<Language, Translation> = {
         thestoryLabel: (
             <>
                 <h4>Le saviez-vous ?</h4>
-                Jean Plank - The Story ? C'est de la merde.
+                Jean Plank The Story, c'est de la merde.
             </>
         )
     },
@@ -215,7 +215,7 @@ export const translations: Record<Language, Translation> = {
         thestoryLabel: (
             <>
                 <h4>Did you know it?</h4>
-                Jean Plank - The Story? It's crap.
+                Jean Plank The Story, it's crap.
             </>
         )
     }

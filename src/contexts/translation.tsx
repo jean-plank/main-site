@@ -25,7 +25,7 @@ export type Translation = {
     dl: string
 } & Record<GameId, GameTranslation>
 
-export type GameId = 'jpTheStory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
+export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
 
 interface GameTranslation {
     title: string
@@ -54,7 +54,7 @@ export const translations: Record<Language, Translation> = {
         notOutYet: 'pas encore sorti',
         launch: 'Jouer sur navigateur',
         dl: 'Télécharger le jeu',
-        jpTheStory: {
+        thestory: {
             title: 'The Story',
             summary: 'Jean Plank fait une escale pour se ravitailler.',
             links: O.some({
@@ -128,7 +128,7 @@ export const translations: Record<Language, Translation> = {
         notOutYet: 'not out yet',
         launch: 'Play in your browser',
         dl: 'Download the game',
-        jpTheStory: {
+        thestory: {
             title: 'The Story',
             summary: 'Jean Plank makes a stop to refuel.',
             links: O.some({

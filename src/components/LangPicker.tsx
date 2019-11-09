@@ -117,10 +117,27 @@ const styles = {
     langBtnMenu: css({
         '&:not(.current)': {
             color: params.title.notCurrentLang.color,
+            transition: 'color 0.3s',
+            position: 'relative',
 
             '&:hover': {
-                color: params.title.notCurrentLang.hoverColor,
-                textDecoration: 'underline'
+                color: params.title.notCurrentLang.hoverColor
+            },
+
+            '&::after': {
+                content: `''`,
+                position: 'absolute',
+                width: 'calc(100% - 1em)',
+                left: '0.5em',
+                bottom: '0.2em',
+                borderBottom: `2px solid ${params.title.notCurrentLang.hoverColor}`,
+                borderRadius: '50%',
+                transition: 'opacity 0.3s',
+                opacity: 0
+            },
+
+            '&:hover::after': {
+                opacity: 1
             }
         }
     })

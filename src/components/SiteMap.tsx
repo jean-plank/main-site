@@ -17,6 +17,7 @@ import * as ReactDom from 'react-dom'
 import pngs from '../../img/*.png'
 
 import AppContext from '../contexts/AppContext'
+import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
 
 interface Props {
@@ -109,6 +110,8 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        opacity: 0,
+        animation: fadeIn('1.5s', '0.75s'),
 
         [media.mobile]: {
             display: 'none'

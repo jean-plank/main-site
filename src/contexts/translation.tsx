@@ -118,7 +118,7 @@ export const translations: Record<Language, Translation> = {
         bonus: 'Bonus',
         contact: (
             <>
-                <s>Sue the devs</s> Contact
+                <s>Sue the devs</s>&nbsp;Contact
             </>
         ),
         advisory: '(not recommended under 18)',

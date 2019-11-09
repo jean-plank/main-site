@@ -129,7 +129,7 @@ const styles = {
         width: '100%',
         overflow: 'hidden',
         objectFit: 'cover',
-        animation: fadeIn('1.5s'),
+        animation: fadeIn('0.75s'),
 
         [media.mobile]: {
             height: '300vh'
@@ -137,7 +137,9 @@ const styles = {
     }),
 
     main: css({
-        top: 0
+        top: 0,
+        opacity: 0,
+        animation: fadeIn('1.5s')
     }),
 
     page: css({

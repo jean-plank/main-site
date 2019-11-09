@@ -15,7 +15,9 @@ const NotFound: FunctionComponent = () => {
         <div css={styles.container}>
             <img css={styles.imgBg} src={jpgs.plage3} />
             <img css={styles.imgJp} src={pngs.jp_perdu} />
-            <div css={styles.message}>{transl.notFound.message}</div>
+            <div css={styles.messageContainer}>
+                <div css={styles.message}>{transl.notFound.message}</div>
+            </div>
         </div>
     )
 }
@@ -42,19 +44,21 @@ const styles = {
         animation: fadeIn('1.5s')
     }),
 
-    message: css({
+    messageContainer: css({
         position: 'absolute',
-        bottom: 0,
+        height: '100%',
         width: '100%',
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center'
+    }),
+
+    message: css({
         color: params.title.color,
-        textShadow: '0 0 3px black',
-        fontSize: '2.5rem',
+        fontSize: '2rem',
         padding: '0.33em 0.67em',
         backgroundColor: params.title.bg,
         opacity: 0,
-        animation: fadeIn('1.5s', '1.5s')
+        animation: fadeIn('1.5s', '0.75s')
     })
 }

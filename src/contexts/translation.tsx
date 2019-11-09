@@ -80,7 +80,7 @@ export const translations: Record<Language, Translation> = {
             })
         },
         jp2: {
-            title: 'Le Vrai Visage de la Vengeance',
+            title: 'Les Flammes de la Vengeance',
             summary: (
                 <>
                     <i>Suite de la première fin de Jean Plank I</i>
@@ -91,9 +91,9 @@ export const translations: Record<Language, Translation> = {
                 </>
             ),
             links: O.some({
-                launch: 'fr/levraivisagedelavengeance',
+                launch: 'fr/lesflammesdelavengeance',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Le Vrai Visage de la Vengeance.zip'
+                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Les Flammes de la Vengeance.zip'
             })
         },
         jp2b: {
@@ -106,7 +106,7 @@ export const translations: Record<Language, Translation> = {
             links: O.none
         },
         jp3: {
-            title: 'Tout le Monde doit Payer',
+            title: 'La Vengeance',
             summary: '',
             links: O.none
         }
@@ -153,7 +153,7 @@ export const translations: Record<Language, Translation> = {
             })
         },
         jp2: {
-            title: 'The True Face of Revenge',
+            title: 'The Flames of Revenge',
             summary: (
                 <>
                     <i>Sequel to the first ending of Jean Plank I</i>
@@ -163,9 +163,9 @@ export const translations: Record<Language, Translation> = {
                 </>
             ),
             links: O.some({
-                launch: 'en/thetruefaceofrevenge',
+                launch: 'en/theflamesofrevenge',
                 dl:
-                    'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The True Face of Revenge.zip'
+                    'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip'
             })
         },
         jp2b: {
@@ -178,7 +178,7 @@ export const translations: Record<Language, Translation> = {
             links: O.none
         },
         jp3: {
-            title: 'Everyone Pays',
+            title: 'The Revenge',
             summary: '',
             links: O.none
         }

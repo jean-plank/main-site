@@ -101,6 +101,13 @@ export const translations: Record<Language, Translation> = {
             summary: (
                 <>
                     <i>Suite de la deuxième fin de Jean Plank I</i>
+                    <br />
+                    <br />
+                    Jean Plank, trahi par son mentor et désormais décédé,
+                    cherche la vengeance du haut du Valhalla.
+                    {/* <br />
+                    Mais comment retourner dans le Royaume des Mortels lorsqu'on
+                    est mort ? */}
                 </>
             ),
             links: O.none
@@ -173,6 +180,13 @@ export const translations: Record<Language, Translation> = {
             summary: (
                 <>
                     <i>Sequel to the second ending of Jean Plank I</i>
+                    <br />
+                    <br />
+                    Jean Plank, betrayed by his mentor and now deceased, is
+                    seeking revenge from the top of the Valhalla.
+                    {/* <br />
+                    But how do you return to the Kingdom of Mortals when you're
+                    dead? */}
                 </>
             ),
             links: O.none

@@ -70,7 +70,26 @@ const HeaderLink: FunctionComponent<{ path: string; to: string }> = ({
 const sizes = {
     fireHeight: 1, // em
     fireTop: -0.1, // em
-    firePadding: 0.33 // em
+    firePadding: 0.33, // em
+    underlinePadding: 0.5, // em
+
+    get fireWidth(): number {
+        return 0.539 * this.fireHeight
+    },
+    get linkPaddingRight(): number {
+        return 2 * this.firePadding + this.fireWidth
+    },
+    get linkTextWidth(): number {
+        return (
+            this.firePadding +
+            this.fireWidth +
+            this.linkPaddingRight +
+            2 * sizes.underlinePadding
+        )
+    },
+    get linkTextWidthA(): number {
+        return this.linkTextWidth + this.firePadding
+    }
 }
 
 const styles = {
@@ -117,9 +136,8 @@ const styles = {
     link: css({
         color: 'inherit',
         textDecoration: 'none',
-        // paddingBottom: '0.1em',
         fontSize: '1.1em',
-        paddingRight: `${2 * sizes.firePadding + 0.539 * sizes.fireHeight}em`,
+        paddingRight: `${sizes.linkPaddingRight}em`,
         position: 'relative',
         display: 'flex',
 
@@ -136,7 +154,7 @@ const styles = {
             position: 'relative',
             top: `${sizes.fireTop}em`,
             height: `${sizes.fireHeight}em`,
-            width: `${0.539 * sizes.fireHeight}em`,
+            width: `${sizes.fireWidth}em`,
             marginRight: `${sizes.firePadding}em`,
             transition: 'opacity 0.5s',
             opacity: 0
@@ -144,14 +162,26 @@ const styles = {
 
         '&.current::before': {
             opacity: 1
-            // content: `''`,
-            // width: 'calc(100% - 2em)',
-            // position: 'absolute',
-            // left: '1.33em',
-            // bottom: '-0.05em',
-            // borderBottom: `3px solid ${params.title.linkSepColor}`
-            // // backgroundSize: '1px 1em',
-            // // boxShadow: `inset 0 -0.175em ${params.title.linkSepColor}, inset 0 -0.2em black`
+        },
+
+        '&::after': {
+            content: `''`,
+            position: 'absolute',
+            width: `calc(100% - ${sizes.linkTextWidth}em)`,
+            right: `${sizes.linkPaddingRight + sizes.underlinePadding}em`,
+            bottom: '-0.05em',
+            borderBottom: `2px solid ${params.title.linkSepColor}`,
+            borderRadius: '50%',
+            transition: 'opacity 0.3s',
+            opacity: 0
+        },
+
+        '&:hover::after': {
+            opacity: 1
+        },
+
+        'a&::after': {
+            width: `calc(100% - ${sizes.linkTextWidthA}em)`
         }
     }),
 

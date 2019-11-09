@@ -44,7 +44,7 @@ export const translations: Record<Language, Translation> = {
         bonus: 'Bonus',
         contact: (
             <>
-                <s>Faire un procès</s> Contact
+                <s>Faire un procès</s>&nbsp;Contact
             </>
         ),
         advisory: '(déconseillé aux moins de 18 ans)',

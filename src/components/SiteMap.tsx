@@ -99,7 +99,7 @@ function rotate(deg: number): SerializedStyles {
     return css({ transform: `rotate(${deg}deg)` })
 }
 
-const headerHeight = '5.5em'
+const headerHeight = '4.9em'
 const styles = {
     sitemap: css({
         position: 'fixed',

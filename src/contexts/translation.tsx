@@ -3,6 +3,8 @@ import { eqString } from 'fp-ts/lib/Eq'
 import * as O from 'fp-ts/lib/Option'
 import React, { ReactNode } from 'react'
 
+export const LANG_KEY = 'lang'
+
 export type Language = 'fr' | 'en'
 export const languages: Language[] = ['fr', 'en']
 const isLanguage = (lang: string): lang is Language =>
@@ -183,5 +185,6 @@ export const translations: Record<Language, Translation> = {
     }
 }
 
-const lang = navigator.language.split('-')[0]
+const pref = localStorage.getItem(LANG_KEY)
+const lang = pref === null ? navigator.language.split('-')[0] : pref
 export const defaultLanguage: Language = isLanguage(lang) ? lang : 'en'

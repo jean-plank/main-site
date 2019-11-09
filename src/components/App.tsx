@@ -4,7 +4,12 @@ import { FunctionComponent, useContext, useRef, useState } from 'react'
 
 import AppContext from '../contexts/AppContext'
 import HistoryContext from '../contexts/HistoryContext'
-import { defaultLanguage, translations } from '../contexts/translation'
+import {
+    defaultLanguage,
+    LANG_KEY,
+    Language,
+    translations
+} from '../contexts/translation'
 import Router from '../Router'
 import fonts, { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
@@ -32,10 +37,15 @@ const App: FunctionComponent = () => {
                 css={[fonts, parallaxStyles.parallax, styles.app]}
             >
                 <Router path={path} />
-                <Header currentLang={lang} setLanguage={setLang} />
+                <Header currentLang={lang} setLanguage={setLanguage} />
             </div>
         </AppContext.Provider>
     )
+
+    function setLanguage(lang: Language) {
+        localStorage.setItem(LANG_KEY, lang)
+        setLang(lang)
+    }
 }
 export default App
 

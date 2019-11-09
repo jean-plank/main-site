@@ -94,9 +94,9 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        minHeight: '100vh',
 
         [media.desktop]: {
-            minHeight: '100vh',
             position: 'relative',
             padding: '0 1%',
             width: '50%'
@@ -104,7 +104,6 @@ const styles = {
 
         [media.mobile]: {
             width: '100%',
-            minHeight: '100vh',
             scrollSnapAlign: 'start',
             position: 'relative'
         }

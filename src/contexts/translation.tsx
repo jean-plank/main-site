@@ -23,6 +23,7 @@ export type Translation = {
     notOutYet: string
     launch: string
     dl: string
+    thestoryLabel: ReactNode
 } & Record<GameId, GameTranslation>
 
 export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
@@ -116,7 +117,13 @@ export const translations: Record<Language, Translation> = {
             title: 'La Vengeance',
             summary: '',
             links: O.none
-        }
+        },
+        thestoryLabel: (
+            <>
+                <h4>Le saviez-vous ?</h4>
+                Jean Plank - The Story ? C'est de la merde.
+            </>
+        )
     },
     en: {
         notFound: {
@@ -195,7 +202,13 @@ export const translations: Record<Language, Translation> = {
             title: 'The Revenge',
             summary: '',
             links: O.none
-        }
+        },
+        thestoryLabel: (
+            <>
+                <h4>Did you know it?</h4>
+                Jean Plank - The Story? It's crap.
+            </>
+        )
     }
 }
 

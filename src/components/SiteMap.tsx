@@ -99,12 +99,13 @@ function rotate(deg: number): SerializedStyles {
     return css({ transform: `rotate(${deg}deg)` })
 }
 
+const headerHeight = '5.5em'
 const styles = {
     sitemap: css({
         position: 'fixed',
-        top: 0,
+        top: headerHeight,
         left: '0.4vw',
-        height: '100vh',
+        height: `calc(100vh - 2 * ${headerHeight})`,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

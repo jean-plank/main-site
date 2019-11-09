@@ -77,7 +77,7 @@ const sizes = {
         return 0.539 * this.fireHeight
     },
     get linkPaddingRight(): number {
-        return 2 * this.firePadding + this.fireWidth
+        return 2 * this.firePadding
     },
     get linkTextWidth(): number {
         return (

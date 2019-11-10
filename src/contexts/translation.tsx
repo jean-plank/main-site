@@ -3,6 +3,8 @@ import { eqString } from 'fp-ts/lib/Eq'
 import * as O from 'fp-ts/lib/Option'
 import React, { ReactNode } from 'react'
 
+import jpgs from '../../img/*.jpg'
+
 export const LANG_KEY = 'lang'
 
 export type Language = 'fr' | 'en'
@@ -27,6 +29,7 @@ export type Translation = {
     launch: string
     dl: string
     thestoryLabel: ReactNode
+    tutorialImg: string
 } & Record<GameId, GameTranslation>
 
 export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
@@ -129,7 +132,8 @@ export const translations: Record<Language, Translation> = {
                 <h4>Le saviez-vous ?</h4>
                 Jean Plank The Story, c'est de la merde.
             </>
-        )
+        ),
+        tutorialImg: jpgs.tutorial_fr
     },
     en: {
         notFound: {
@@ -217,7 +221,8 @@ export const translations: Record<Language, Translation> = {
                 <h4>Did you know it?</h4>
                 Jean Plank The Story, it's crap.
             </>
-        )
+        ),
+        tutorialImg: jpgs.tutorial_en
     }
 }
 

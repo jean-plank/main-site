@@ -2,31 +2,31 @@ import css, { SerializedStyles } from '@emotion/css'
 
 const perspective = 300
 
-const parallaxStyles = {
-    parallax: css({
-        perspective: `${perspective}px`,
-        transformStyle: 'preserve-3d',
-        height: '100vh',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        scrollSnapType: 'y proximity',
-        position: 'relative',
-        scrollBehavior: 'smooth'
-    }),
-    parallaxGroup: css({
-        position: 'relative',
-        height: '100vh',
-        width: '100%',
-        transformStyle: 'preserve-3d',
-        scrollSnapAlign: 'start'
-    }),
-    parallaxLayerFore: parallaxLayer(150),
-    parallaxLayerBase: parallaxLayer(0),
-    parallaxLayerBack: parallaxLayer(-300),
-    parallaxLayerDeep: parallaxLayer(-600)
-}
+export const container = css({
+    perspective: `${perspective}px`,
+    transformStyle: 'preserve-3d',
+    height: '100vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    scrollSnapType: 'y proximity',
+    position: 'relative',
+    scrollBehavior: 'smooth'
+})
 
-function parallaxLayer(translateZ: number): SerializedStyles {
+export const group = css({
+    position: 'relative',
+    height: '100vh',
+    width: 0,
+    transformStyle: 'preserve-3d',
+    scrollSnapAlign: 'start'
+})
+
+export const layerFore = layer(150)
+export const layerBase = layer(0)
+export const layerBack = layer(-300)
+export const layerDeep = layer(-600)
+
+function layer(translateZ: number): SerializedStyles {
     const scale = 1 - translateZ / perspective
     return css({
         position: 'absolute',
@@ -38,5 +38,3 @@ function parallaxLayer(translateZ: number): SerializedStyles {
         transform: `translateZ(${translateZ}px) scale(${scale})`
     })
 }
-
-export default parallaxStyles

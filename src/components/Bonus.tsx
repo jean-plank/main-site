@@ -1,44 +1,51 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { FunctionComponent, useContext } from 'react'
+import { Fragment, FunctionComponent, useContext } from 'react'
 
 import jpgs from '../../img/*.jpg'
 
 import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
 import { fontFamily } from '../utils/css/fonts'
+import * as parallax from '../utils/css/parallax'
+import params from '../utils/css/params'
+import BonusBg from './BonusBg'
 import Game from './Game'
 
 const Bonus: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
     return (
-        <div css={styles.container}>
-            <div css={styles.jp1Container}>
-                <Game
-                    gameId={'thestory'}
-                    jpTitle={'Jean Plank'}
-                    image={jpgs.jp1}
-                    style={{ container: styles.game }}
-                />
-                <div css={styles.label}>{transl.thestoryLabel}</div>
+        <Fragment>
+            <BonusBg />
+
+            <div css={[parallax.group, styles.group]}>
+                <div css={[parallax.layerBack, styles.thestoryContainer]}>
+                    <Game
+                        gameId={'thestory'}
+                        jpTitle={'Jean Plank'}
+                        image={jpgs.jp1}
+                        style={{ container: styles.thestory }}
+                    />
+                    <div css={styles.label}>{transl.thestoryLabel}</div>
+                </div>
+
+                <div css={[parallax.layerBase, styles.tutorialContainer]}>
+                    <img src={transl.tutorialImg} css={styles.tutorial} />
+                </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 export default Bonus
 
 const styles = {
-    container: css({
-        height: '100%',
-        width: '100%',
-        background: `url('${jpgs.old_background}')`,
-        backgroundSize: 'cover',
-        animation: fadeIn('0.75s')
+    group: css({
+        height: '200vh'
     }),
 
-    jp1Container: css({
-        height: '100%',
-        width: '100%',
+    thestoryContainer: css({
+        height: '100vh',
+        width: '100vw',
         paddingTop: '2.1em',
         display: 'flex',
         flexDirection: 'column',
@@ -48,7 +55,7 @@ const styles = {
         position: 'relative'
     }),
 
-    game: css({
+    thestory: css({
         minHeight: 'auto',
         margin: 0
     }),
@@ -66,5 +73,22 @@ const styles = {
             fontSize: '1.1em',
             marginBottom: '0.33em'
         }
+    }),
+
+    tutorialContainer: css({
+        top: '100vh',
+        width: '100vw',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: `url('${jpgs.bg_not_found}')`,
+        backgroundSize: 'cover',
+        boxShadow: '0 0 10px black'
+    }),
+
+    tutorial: css({
+        maxWidth: '1920px',
+        maxHeight: '90%',
+        border: `5px solid ${params.game.border.color}`
     })
 }

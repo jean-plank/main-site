@@ -19,7 +19,6 @@ import pngs from '../../img/*.png'
 import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
-import params from '../utils/css/params'
 
 interface Props {
     sections: HTMLElement[]
@@ -54,7 +53,7 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     )
 
     return pipe(
-        O.fromNullable(document.getElementById('sitemap')),
+        O.fromNullable(document.getElementById('overlay')),
         O.map(elt =>
             ReactDom.createPortal(
                 <div css={styles.sitemap}>

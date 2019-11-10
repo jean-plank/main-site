@@ -8,7 +8,7 @@ import jpgs from '../../img/*.jpg'
 
 import fadeIn from '../utils/css/fadeIn'
 import media from '../utils/css/media'
-import parallaxStyles from '../utils/css/parallax'
+import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import * as strokeBefore from '../utils/css/strokeBefore'
 import { AngleDown, AngleUp } from '../utils/svg'
@@ -29,15 +29,9 @@ const Home: FunctionComponent = () => {
 
     return (
         <Fragment>
-            <img
-                src={jpgs.background}
-                css={[parallaxStyles.parallaxLayerBack, styles.bg]}
-            />
+            <img src={jpgs.background} css={[parallax.layerBack, styles.bg]} />
 
-            <div
-                ref={onMount}
-                css={[parallaxStyles.parallaxLayerBase, styles.main]}
-            >
+            <div ref={onMount} css={[parallax.layerBase, styles.main]}>
                 <div id='jp1' css={styles.page}>
                     <Game
                         gameId='jp1'

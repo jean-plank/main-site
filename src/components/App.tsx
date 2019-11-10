@@ -13,7 +13,7 @@ import {
 import Router from '../Router'
 import fonts, { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
-import parallaxStyles from '../utils/css/parallax'
+import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import Header from './Header'
 
@@ -34,7 +34,7 @@ const App: FunctionComponent = () => {
         >
             <div
                 ref={parallaxRef}
-                css={[fonts, parallaxStyles.parallax, styles.app]}
+                css={[fonts, parallax.container, styles.app]}
             >
                 <Router path={path} />
                 <Header currentLang={lang} setLanguage={setLanguage} />
@@ -52,7 +52,6 @@ export default App
 const styles = {
     app: css({
         fontFamily: fontFamily.piecesOfEight,
-        backgroundColor: 'black',
 
         [media.desktop]: {
             fontSize: params.fontSize.desktop

@@ -112,7 +112,6 @@ const styles = {
     game: css({
         [media.desktop]: {
             position: 'relative',
-            cursor: 'pointer',
             margin: 'auto 5%',
             width: '50%',
             maxWidth: '384px'

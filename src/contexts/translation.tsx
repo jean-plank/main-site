@@ -130,7 +130,11 @@ export const translations: Record<Language, Translation> = {
         thestoryLabel: (
             <>
                 <h4>Le saviez-vous ?</h4>
-                Jean Plank The Story, c'est de la merde.
+                Jean Plank The Story a été conçu en un seul après-midi dans la
+                salle de pause du Castorama, merci de ne pas le dénigrer car il
+                est différent des autres petits garçons.
+                <br />
+                Mais bon, c'est quand même de la merde hein, faut pas se mentir.
             </>
         ),
         tutorialImg: jpgs.tutorial_fr
@@ -219,7 +223,11 @@ export const translations: Record<Language, Translation> = {
         thestoryLabel: (
             <>
                 <h4>Did you know it?</h4>
-                Jean Plank The Story, it's crap.
+                Jean Plank The Story was conceived in one afternoon in the
+                HomeBase's break room. Thank you for not denigrating him because
+                he is different from the other little boys.
+                <br />
+                But hey, it's still crap, right. Don't lie to yourself.
             </>
         ),
         tutorialImg: jpgs.tutorial_en

@@ -61,6 +61,8 @@ const styles = {
     }),
 
     label: css({
+        maxWidth: '1100px',
+        margin: '0 1.67em',
         background: `url('${jpgs.label}')`,
         backgroundSize: 'cover',
         padding: '0.5em 1em 0.3em',
@@ -71,7 +73,7 @@ const styles = {
         '& h4': {
             fontFamily: fontFamily.yarr,
             fontSize: '1.1em',
-            marginBottom: '0.33em'
+            letterSpacing: '0.03em'
         }
     }),
 

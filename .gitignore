@@ -1,3 +1,5 @@
-deploy.sh
-en
-fr
+/node_modules
+/.cache
+/dist
+/en
+/fr

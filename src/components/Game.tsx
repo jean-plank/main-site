@@ -36,7 +36,6 @@ const Game: FunctionComponent<Props> = ({
     const transl = useContext(AppContext).translation
     const gameTransl = transl[gameId]
 
-
     return (
         <div id={id} css={[styles.container, style?.container]}>
             {header}
@@ -54,7 +53,7 @@ const Game: FunctionComponent<Props> = ({
                             <div>{gameTransl.title}</div>
                         </div>
                     </div>
-                    {O.isNone(gameTransl.links) ? (
+                    {noLinks() ? (
                         <div css={styles.notOutYet}>{transl.notOutYet}</div>
                     ) : null}
                 </div>
@@ -63,26 +62,45 @@ const Game: FunctionComponent<Props> = ({
         </div>
     )
 
+    function noLinks(): boolean {
+        return (
+            O.isNone(gameTransl.links.launch) && O.isNone(gameTransl.links.dl)
+        )
+    }
+
     function launchDl(): ReactNode {
-        return pipe(
-            gameTransl.links,
-            O.map(links => (
-                // tslint:disable-next-line: jsx-key
-                <div css={styles.launchDl}>
-                    <a href={links.launch} target='_blank'>
-                        {transl.launch}
-                    </a>
-                    <a href={links.dl} download={true}>
-                        {transl.dl}
-                    </a>
-                    <i>{transl.advisory}</i>
-                </div>
-            )),
-            O.getOrElse(() => (
+        const links = gameTransl.links
+        if (noLinks()) {
+            return (
                 <div css={styles.launchDl}>
                     <i>{transl.advisoryAlready}</i>
                 </div>
-            ))
+            )
+        }
+        return (
+            <div css={styles.launchDl}>
+                {pipe(
+                    links.launch,
+                    O.map(launch => (
+                        // tslint:disable-next-line: jsx-key
+                        <a href={launch} target='_blank'>
+                            {transl.launch}
+                        </a>
+                    )),
+                    O.toNullable
+                )}
+                {pipe(
+                    links.dl,
+                    O.map(dl => (
+                        // tslint:disable-next-line: jsx-key
+                        <a href={dl} download={true}>
+                            {transl.dl}
+                        </a>
+                    )),
+                    O.toNullable
+                )}
+                <i>{transl.advisory}</i>
+            </div>
         )
     }
 }

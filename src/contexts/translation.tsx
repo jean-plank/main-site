@@ -37,10 +37,10 @@ export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
 interface GameTranslation {
     title: string
     summary: ReactNode
-    links: O.Option<{
-        launch: string
-        dl: string
-    }>
+    links: {
+        launch: O.Option<string>
+        dl: O.Option<string>
+    }
 }
 
 export const translations: Record<Language, Translation> = {
@@ -67,11 +67,12 @@ export const translations: Record<Language, Translation> = {
         thestory: {
             title: 'The Story',
             summary: 'Jean Plank fait une escale pour se ravitailler.',
-            links: O.some({
-                launch: 'fr/thestory',
-                dl:
+            links: {
+                launch: O.some('fr/thestory'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip'
-            })
+                )
+            }
         },
         jp1: {
             title: 'Naissance des Flammes de la Vengeance',
@@ -83,11 +84,12 @@ export const translations: Record<Language, Translation> = {
                     Saint Gède.
                 </>
             ),
-            links: O.some({
-                launch: 'fr/naissancedesflammesdelavengeance',
-                dl:
+            links: {
+                launch: O.some('fr/naissancedesflammesdelavengeance'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip'
-            })
+                )
+            }
         },
         jp2: {
             title: 'Les Flammes de la Vengeance',
@@ -100,14 +102,15 @@ export const translations: Record<Language, Translation> = {
                     visage.
                 </>
             ),
-            links: O.some({
-                launch: 'fr/lesflammesdelavengeance',
-                dl:
+            links: {
+                launch: O.some('fr/lesflammesdelavengeance'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Les Flammes de la Vengeance.zip'
-            })
+                )
+            }
         },
         jp2b: {
-            title: 'Valhalla Ouakbar',
+            title: 'Valhalla U Akbar',
             summary: (
                 <>
                     <i>Suite de la deuxième fin de Jean Plank I</i>
@@ -120,12 +123,20 @@ export const translations: Record<Language, Translation> = {
                     est mort ? */}
                 </>
             ),
-            links: O.none
+            links: {
+                launch: O.none,
+                dl: O.some(
+                    'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip'
+                )
+            }
         },
         jp3: {
             title: 'La Vengeance',
             summary: '',
-            links: O.none
+            links: {
+                launch: O.none,
+                dl: O.none
+            }
         },
         thestoryLabel: (
             <>
@@ -162,11 +173,12 @@ export const translations: Record<Language, Translation> = {
         thestory: {
             title: 'The Story',
             summary: 'Jean Plank makes a stop to refuel.',
-            links: O.some({
-                launch: 'en/thestory',
-                dl:
+            links: {
+                launch: O.some('en/thestory'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip'
-            })
+                )
+            }
         },
         jp1: {
             title: 'Birth of the Flames of Revenge',
@@ -177,11 +189,12 @@ export const translations: Record<Language, Translation> = {
                     Jean Plank meets old friends of him: Urgo and Saint Gède.
                 </>
             ),
-            links: O.some({
-                launch: 'en/birthoftheflamesofrevenge',
-                dl:
+            links: {
+                launch: O.some('en/birthoftheflamesofrevenge'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/en/Jean Plank I - Birth of the Flames of Revenge.zip'
-            })
+                )
+            }
         },
         jp2: {
             title: 'The Flames of Revenge',
@@ -193,11 +206,12 @@ export const translations: Record<Language, Translation> = {
                     Jean Plank, deformed by Saint Gède, seeks his lost face.
                 </>
             ),
-            links: O.some({
-                launch: 'en/theflamesofrevenge',
-                dl:
+            links: {
+                launch: O.some('en/theflamesofrevenge'),
+                dl: O.some(
                     'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip'
-            })
+                )
+            }
         },
         jp2b: {
             title: 'Valhalla Ouakbar',
@@ -213,12 +227,18 @@ export const translations: Record<Language, Translation> = {
                     dead? */}
                 </>
             ),
-            links: O.none
+            links: {
+                launch: O.none,
+                dl: O.none
+            }
         },
         jp3: {
             title: 'The Revenge',
             summary: '',
-            links: O.none
+            links: {
+                launch: O.none,
+                dl: O.none
+            }
         },
         thestoryLabel: (
             <>

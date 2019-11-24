@@ -124,7 +124,7 @@ export const translations: Record<Language, Translation> = {
                 </>
             ),
             links: {
-                launch: O.none,
+                launch: O.some('fr/valhallauakbar'),
                 dl: O.some(
                     'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip'
                 )

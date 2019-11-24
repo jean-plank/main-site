@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --no-autoinstall",
-    "build": "parcel build index.html --no-autoinstall"
+    "build": "parcel build index.html --no-source-maps --no-autoinstall"
   },
   "repository": {
     "type": "git",

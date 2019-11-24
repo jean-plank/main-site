@@ -6,7 +6,6 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import { randomInt } from 'fp-ts/lib/Random'
 import {
     FunctionComponent,
-    useCallback,
     useContext,
     useEffect,
     useMemo,
@@ -27,24 +26,35 @@ interface Props {
 const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     const [current, setCurrent] = useState(-1)
 
-    const onScroll = useCallback(
-        (elt: HTMLElement, pages: HTMLElement[]) => () =>
-            setCurrent(findCurrent(elt.scrollTop, pages)),
-        [setCurrent]
-    )
-
     const parallaxRef = useContext(AppContext).parallaxRef
 
-    useEffect(() => {
-        if (parallaxRef.current !== null) {
-            const elt = parallaxRef.current
-            setCurrent(findCurrent(elt.scrollTop, sections))
-            elt.addEventListener('scroll', onScroll(elt, sections))
-            return () =>
-                elt.removeEventListener('scroll', onScroll(elt, sections))
-        }
-        return () => {}
-    }, [onScroll, current, parallaxRef.current, sections])
+    const eltAndOnScroll = useMemo<O.Option<[HTMLElement, () => void]>>(
+        () =>
+            pipe(
+                O.fromNullable(parallaxRef.current),
+                O.map(elt => [
+                    elt,
+                    () => setCurrent(findCurrent(elt.scrollTop, sections))
+                ])
+            ),
+        [parallaxRef.current, setCurrent, sections]
+    )
+
+    useEffect(
+        () =>
+            pipe(
+                eltAndOnScroll,
+                O.fold(
+                    () => () => {},
+                    ([elt, onScroll]) => {
+                        onScroll()
+                        elt.addEventListener('scroll', onScroll)
+                        return () => elt.removeEventListener('scroll', onScroll)
+                    }
+                )
+            ),
+        [eltAndOnScroll]
+    )
 
     const sestionsWithRotation = useMemo(
         () =>

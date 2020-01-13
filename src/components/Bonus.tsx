@@ -10,8 +10,8 @@ import { fontFamily } from '../utils/css/fonts'
 import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import BonusBg from './BonusBg'
-import Game from './Game'
 import Book from './Book'
+import Game from './Game'
 
 const Bonus: FunctionComponent = () => {
     const transl = useContext(AppContext).translation

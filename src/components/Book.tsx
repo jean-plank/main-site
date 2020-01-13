@@ -1,14 +1,9 @@
 /** @jsx jsx */
-import {
-    css,
-    InterpolationWithTheme,
-    jsx,
-    ObjectInterpolation
-} from '@emotion/core'
+import { css, jsx, ObjectInterpolation } from '@emotion/core'
 import * as A from 'fp-ts/lib/Array'
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/lib/pipeable'
-import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 
 import pngs from '../../img/*.png'
 
@@ -46,7 +41,20 @@ const sheets: Sheet[] = [
 const Book: FunctionComponent = () => {
     const [turned, setTurned] = useState(0)
     const canDecr = turned > 0
-    const canIncr = turned < sheets.length - 1
+    const canIncr = turned < videos.length - 2
+
+    const starta = 30 // deg
+    const a = starta / (videos.length - 1) // deg
+
+    function transform(i: number) {
+        const diff = i - turned
+        return css({
+            transform:
+                i <= turned
+                    ? `rotateY(${-180 + starta + diff * a}deg)`
+                    : `rotateY(${diff * a - starta}deg)`
+        })
+    }
 
     return (
         <div css={styles.container}>
@@ -54,7 +62,10 @@ const Book: FunctionComponent = () => {
                 -
             </button>
             <div css={styles.book}>
-                {pipe(
+                {videos.map((_vid, i) => (
+                    <div key={i} css={[styles.page, transform(i)]} />
+                ))}
+                {/* {pipe(
                     sheets,
                     A.mapWithIndex((i, sheet) => (
                         <div
@@ -73,7 +84,7 @@ const Book: FunctionComponent = () => {
                             )}
                         </div>
                     ))
-                )}
+                )} */}
             </div>
             <button onClick={incr} disabled={!canIncr}>
                 +
@@ -91,35 +102,40 @@ const Book: FunctionComponent = () => {
 }
 export default Book
 
-function getPage(
-    style: InterpolationWithTheme<any>
-): (videos: Video[]) => ReactNode {
-    return _ => (
-        <div css={style}>
-            {_.reduce<ReactNode>((acc, [id, title]) => {
-                // const embed = `https://www.youtube.com/embed/${id}`
-                const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-                return (
-                    <Fragment>
-                        {acc}
-                        <a
-                            href={`https://www.youtube.com/watch?v=${id}`}
-                            target='_blank'
-                            css={styles.video}
-                        >
-                            <span css={styles.thumbnail}>
-                                <img src={img} />
-                            </span>
-                            <div css={styles.title}>{title}</div>
-                        </a>
-                    </Fragment>
-                )
-            }, null)}
-        </div>
-    )
-}
+// function getPage(
+//     style: InterpolationWithTheme<any>
+// ): (videos: Video[]) => ReactNode {
+//     return _ => (
+//         <div css={style}>
+//             {_.reduce<ReactNode>((acc, [id, title]) => {
+//                 // const embed = `https://www.youtube.com/embed/${id}`
+//                 const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+//                 return (
+//                     <Fragment>
+//                         {acc}
+//                         <a
+//                             href={`https://youtu.be/${id}`}
+//                             target='_blank'
+//                             css={styles.video}
+//                         >
+//                             <span css={styles.thumbnail}>
+//                                 <img src={img} />
+//                             </span>
+//                             <div css={styles.title}>{title}</div>
+//                         </a>
+//                     </Fragment>
+//                 )
+//             }, null)}
+//         </div>
+//     )
+// }
 
 function getStyles() {
+    const len = videos.length
+    const n = len - 1
+    const w = 10 // em
+    const h = 1.5 * w // em
+
     const padOut = '1.67em'
     const padIn = '1.67em'
     const padTop = '0.67em'
@@ -140,12 +156,48 @@ function getStyles() {
             maxWidth: `${1140 * 0.8}px`,
             height: '44.9vw',
             maxHeight: `${853 * 0.8}px`,
-            display: 'flex',
+            // display: 'flex',
             backgroundSize: '100% 100%',
             backgroundImage: `url('${pngs.book}')`,
-            position: 'relative'
+            // position: 'relative',
+
+            zIndex: -1,
+            // top: '50%',
+            // left: '50%',
+            perspective: '40em',
+            // pointerEvents: 'none',
+
+            '&, & *, & ::before, & ::after': {
+                // boxSizing: "border-box",
+                position: 'absolute',
+                transformStyle: 'preserve-3d'
+            }
             // perspective: '2000px',
             // perspectiveOrigin: 'bottom center'
+        }),
+
+        page: css({
+            top: '50%',
+            left: '50%',
+            margin: `${-h / 2}em 0`,
+            width: `${w}em`,
+            height: `${h}em`,
+            transformOrigin: '0 50%',
+            transition: '.5s',
+            '&::before, &::after': {
+                width: 'inherit',
+                height: 'inherit',
+                // borderRadius: '0 .5em .5em 0',
+                backfaceVisibility: 'hidden',
+                backgroundSize: '100% 100%',
+                content: `''`
+            },
+            '&::after': {
+                borderRadius: '.5em 0 0 .5em',
+                transform: 'rotateY(180deg)',
+                backgroundPosition: '0 0'
+            },
+            ...getPage(len)
         }),
 
         sheet: css({
@@ -217,6 +269,26 @@ function getStyles() {
             flexBasis: 0
         })
     }
+}
+
+function getPage(len: number) {
+    return Array.from({ length: len })
+        .map((_, i) => ({
+            [`&:nth-child(${i + 1})`]: {
+                zIndex: -i,
+                '&::before': {
+                    // boxShadow: `inset -.125em 0 .5em hsl(${(i * 360) /
+                    //     n}, 100%, 70%)`,
+                    backgroundImage: `url(${pngs.page_right})`
+                },
+                '&::after': {
+                    // boxShadow: `inset .125em 0 .5em hsl(${((i + 1) * 360) /
+                    //     n}, 100%, 70%)`,
+                    backgroundImage: `url(${pngs.page_left})`
+                }
+            }
+        }))
+        .reduce((acc, e) => ({ ...acc, ...e }), {})
 }
 
 function page(): ObjectInterpolation<undefined> {

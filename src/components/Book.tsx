@@ -63,7 +63,10 @@ const Book: FunctionComponent = () => {
             </button>
             <div css={styles.book}>
                 {videos.map((_vid, i) => (
-                    <div key={i} css={[styles.page, transform(i)]} />
+                    <div key={i} css={[styles.doublePage, transform(i)]}>
+                        <div css={styles.leftPage} />
+                        <div css={styles.rightPage} />
+                    </div>
                 ))}
                 {/* {pipe(
                     sheets,
@@ -131,8 +134,6 @@ export default Book
 // }
 
 function getStyles() {
-    const len = videos.length
-    const n = len - 1
     const w = 10 // em
     const h = 1.5 * w // em
 
@@ -156,84 +157,39 @@ function getStyles() {
             maxWidth: `${1140 * 0.8}px`,
             height: '44.9vw',
             maxHeight: `${853 * 0.8}px`,
-            // display: 'flex',
             backgroundSize: '100% 100%',
             backgroundImage: `url('${pngs.book}')`,
-            // position: 'relative',
-
             zIndex: -1,
-            // top: '50%',
-            // left: '50%',
             perspective: '40em',
-            // pointerEvents: 'none',
+            position: 'absolute',
 
             '&, & *, & ::before, & ::after': {
-                // boxSizing: "border-box",
-                position: 'absolute',
                 transformStyle: 'preserve-3d'
             }
-            // perspective: '2000px',
-            // perspectiveOrigin: 'bottom center'
         }),
 
-        page: css({
+        doublePage: css({
+            position: 'absolute',
             top: '50%',
             left: '50%',
             margin: `${-h / 2}em 0`,
             width: `${w}em`,
             height: `${h}em`,
             transformOrigin: '0 50%',
-            transition: '.5s',
-            '&::before, &::after': {
-                width: 'inherit',
-                height: 'inherit',
-                // borderRadius: '0 .5em .5em 0',
-                backfaceVisibility: 'hidden',
-                backgroundSize: '100% 100%',
-                content: `''`
-            },
-            '&::after': {
-                borderRadius: '.5em 0 0 .5em',
-                transform: 'rotateY(180deg)',
-                backgroundPosition: '0 0'
-            },
-            ...getPage(len)
-        }),
-
-        sheet: css({
-            position: 'absolute',
-            right: 0,
-            width: '50%',
-            height: '100%',
-            transformStyle: 'preserve-3d',
-            transformOrigin: 'left',
-            opacity: 0,
-            transition: 'opacity 0.3s, transform 0.3s',
-
-            '&.turned': {
-                opacity: 1,
-                // zIndex: 5,
-                transform: 'rotateY(-180deg)'
-            },
-
-            '&.turned + &': {
-                opacity: 1
-                // zIndex: 5
-            }
+            transition: '.5s'
         }),
 
         leftPage: css({
             ...page(),
-            transform: 'rotateY(180deg)',
-            zIndex: 10,
             padding: `${padTop} ${padIn} ${padBot} ${padOut}`,
-            backgroundImage: `url('${pngs.page_left}')`
+            backgroundImage: `url('${pngs.page_right}')`
         }),
 
         rightPage: css({
             ...page(),
+            transform: 'rotateY(180deg)',
             padding: `${padTop} ${padOut} ${padBot} ${padIn}`,
-            backgroundImage: `url('${pngs.page_right}')`
+            backgroundImage: `url('${pngs.page_left}')`
         }),
 
         video: css({
@@ -271,31 +227,12 @@ function getStyles() {
     }
 }
 
-function getPage(len: number) {
-    return Array.from({ length: len })
-        .map((_, i) => ({
-            [`&:nth-child(${i + 1})`]: {
-                zIndex: -i,
-                '&::before': {
-                    // boxShadow: `inset -.125em 0 .5em hsl(${(i * 360) /
-                    //     n}, 100%, 70%)`,
-                    backgroundImage: `url(${pngs.page_right})`
-                },
-                '&::after': {
-                    // boxShadow: `inset .125em 0 .5em hsl(${((i + 1) * 360) /
-                    //     n}, 100%, 70%)`,
-                    backgroundImage: `url(${pngs.page_left})`
-                }
-            }
-        }))
-        .reduce((acc, e) => ({ ...acc, ...e }), {})
-}
-
 function page(): ObjectInterpolation<undefined> {
     return {
         position: 'absolute',
-        width: '100%',
-        height: '100%',
+        top: 0,
+        width: 'inherit',
+        height: 'inherit',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

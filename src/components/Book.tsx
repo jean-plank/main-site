@@ -41,10 +41,10 @@ const sheets: Sheet[] = [
 const Book: FunctionComponent = () => {
     const [turned, setTurned] = useState(0)
     const canDecr = turned > 0
-    const canIncr = turned < videos.length - 2
+    const canIncr = turned < videos.length - 1
 
-    const starta = 25 // deg
-    const a = starta / (videos.length - 1) // deg
+    const starta = 28 // deg
+    const a = starta / (videos.length + 1) // deg
 
     function transform(i: number) {
         const diff = i - turned
@@ -62,12 +62,18 @@ const Book: FunctionComponent = () => {
                 -
             </button>
             <div css={styles.book}>
+                <div css={[styles.doublePage, transform(0)]}>
+                    <div css={styles.rightBook} />
+                </div>
                 {videos.map((_vid, i) => (
-                    <div key={i} css={[styles.doublePage, transform(i)]}>
+                    <div key={i} css={[styles.doublePage, transform(i + 1)]}>
                         <div css={styles.leftPage} />
                         <div css={styles.rightPage} />
                     </div>
                 ))}
+                <div css={[styles.doublePage, transform(videos.length)]}>
+                    <div css={styles.leftBook} />
+                </div>
                 {/* {pipe(
                     sheets,
                     A.mapWithIndex((i, sheet) => (
@@ -134,8 +140,6 @@ export default Book
 // }
 
 function getStyles() {
-    const w = 10 // em
-
     const padOut = '1.67em'
     const padIn = '1.67em'
     const padTop = '0.67em'
@@ -156,8 +160,6 @@ function getStyles() {
             maxWidth: `${1140 * 0.8}px`,
             height: '44.9vw',
             maxHeight: `${853 * 0.8}px`,
-            backgroundSize: '100% 100%',
-            backgroundImage: `url(${pngs.book})`,
             zIndex: -1,
             perspective: '40em',
             position: 'absolute',
@@ -176,17 +178,28 @@ function getStyles() {
             transition: '.5s'
         }),
 
+        leftBook: css({
+            ...page(),
+            backgroundImage: `url(${pngs.book_right})`
+        }),
+
+        rightBook: css({
+            ...page(),
+            transform: 'rotateY(180deg)',
+            backgroundImage: `url(${pngs.book_left})`
+        }),
+
         leftPage: css({
             ...page(),
             padding: `${padTop} ${padIn} ${padBot} ${padOut}`,
-            backgroundImage: `url('${pngs.page_right}')`
+            backgroundImage: `url(${pngs.page_right})`
         }),
 
         rightPage: css({
             ...page(),
             transform: 'rotateY(180deg)',
             padding: `${padTop} ${padOut} ${padBot} ${padIn}`,
-            backgroundImage: `url('${pngs.page_left}')`
+            backgroundImage: `url(${pngs.page_left})`
         }),
 
         video: css({

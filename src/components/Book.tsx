@@ -1,19 +1,14 @@
 /** @jsx jsx */
-import { css, jsx, ObjectInterpolation } from '@emotion/core'
-import * as A from 'fp-ts/lib/Array'
-import * as E from 'fp-ts/lib/Either'
+import { css, jsx, ObjectInterpolation, SerializedStyles } from '@emotion/core'
+import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
-import { FunctionComponent, useState } from 'react'
+import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
 
 import pngs from '../../img/*.png'
-
-const PER_PAGE = 1
 
 type Id = string
 type Title = string
 type Video = [Id, Title]
-type Page = Video[]
-type Sheet = E.Either<Page, Page>[]
 
 const videos: Video[] = [
     ['aeWfN6CinGY', `When i'm TWI !`],
@@ -25,26 +20,35 @@ const videos: Video[] = [
 
 const styles = getStyles()
 
-const [head, tail] = A.splitAt(PER_PAGE)(videos)
-const sheets: Sheet[] = [
-    [E.left(head)],
-    ...pipe(
-        tail,
-        A.chunksOf(2 * PER_PAGE),
-        A.map(_ => {
-            const [left, right] = A.splitAt(PER_PAGE)(_)
-            return [E.left(left), E.right(right)]
-        })
-    )
-]
+const [firstVid, sheet, lastVid] = getSheet(videos)
+
+function getSheet(
+    videos: Video[]
+): [O.Option<Video>, [Video, Video][], O.Option<Video>] {
+    const [head, ...tail] = videos
+    const [sheet, lastVid] = getSheetRec(tail)
+    return [O.fromNullable(head), sheet, lastVid]
+}
+
+function getSheetRec(
+    videos: Video[],
+    acc: [Video, Video][] = []
+): [[Video, Video][], O.Option<Video>] {
+    const [v1, v2, ...tail] = videos
+    /* tslint:disable:strict-type-predicates */
+    if (v1 === undefined) return [acc, O.none]
+    if (v2 === undefined) return [acc, O.some(v1)]
+    /* tslint:enable:strict-type-predicates */
+    return getSheetRec(tail, [...acc, [v1, v2]])
+}
 
 const Book: FunctionComponent = () => {
     const [turned, setTurned] = useState(0)
     const canDecr = turned > 0
-    const canIncr = turned < videos.length - 1
+    const canIncr = turned < sheet.length
 
     const starta = 28 // deg
-    const a = starta / (videos.length + 1) // deg
+    const a = starta / (sheet.length + 1) // deg
 
     function transform(i: number) {
         const diff = i - turned
@@ -63,37 +67,21 @@ const Book: FunctionComponent = () => {
             </button>
             <div css={styles.book}>
                 <div css={[styles.doublePage, transform(0)]}>
-                    <div css={styles.rightBook} />
+                    <div css={styles.rightBook}>
+                        {pipe(firstVid, O.map(video), O.toNullable)}
+                    </div>
                 </div>
-                {videos.map((_vid, i) => (
+                {sheet.map(([v1, v2], i) => (
                     <div key={i} css={[styles.doublePage, transform(i + 1)]}>
-                        <div css={styles.leftPage} />
-                        <div css={styles.rightPage} />
+                        <div css={styles.leftPage}>{video(v1)}</div>
+                        <div css={styles.rightPage}>{video(v2)}</div>
                     </div>
                 ))}
-                <div css={[styles.doublePage, transform(videos.length)]}>
-                    <div css={styles.leftBook} />
+                <div css={[styles.doublePage, transform(sheet.length + 1)]}>
+                    <div css={styles.leftBook}>
+                        {pipe(lastVid, O.map(video), O.toNullable)}
+                    </div>
                 </div>
-                {/* {pipe(
-                    sheets,
-                    A.mapWithIndex((i, sheet) => (
-                        <div
-                            key={i}
-                            css={styles.sheet}
-                            className={i <= turned ? 'turned' : undefined}
-                        >
-                            {sheet.map(_ =>
-                                pipe(
-                                    _,
-                                    E.fold(
-                                        getPage(styles.leftPage),
-                                        getPage(styles.rightPage)
-                                    )
-                                )
-                            )}
-                        </div>
-                    ))
-                )} */}
             </div>
             <button onClick={incr} disabled={!canIncr}>
                 +
@@ -111,39 +99,31 @@ const Book: FunctionComponent = () => {
 }
 export default Book
 
-// function getPage(
-//     style: InterpolationWithTheme<any>
-// ): (videos: Video[]) => ReactNode {
-//     return _ => (
-//         <div css={style}>
-//             {_.reduce<ReactNode>((acc, [id, title]) => {
-//                 // const embed = `https://www.youtube.com/embed/${id}`
-//                 const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-//                 return (
-//                     <Fragment>
-//                         {acc}
-//                         <a
-//                             href={`https://youtu.be/${id}`}
-//                             target='_blank'
-//                             css={styles.video}
-//                         >
-//                             <span css={styles.thumbnail}>
-//                                 <img src={img} />
-//                             </span>
-//                             <div css={styles.title}>{title}</div>
-//                         </a>
-//                     </Fragment>
-//                 )
-//             }, null)}
-//         </div>
-//     )
-// }
+function video([id, title]: Video): ReactNode {
+    // const embed = `https://www.youtube.com/embed/${id}`
+    // const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+    const img = `https://i.ytimg.com/vi/${id}/hq720.jpg`
+    return (
+        <Fragment>
+            <a
+                href={`https://youtu.be/${id}`}
+                target='_blank'
+                css={styles.video}
+            >
+                <span css={styles.thumbnail}>
+                    <img src={img} />
+                </span>
+                <div css={styles.title}>{title}</div>
+            </a>
+        </Fragment>
+    )
+}
 
 function getStyles() {
     const padOut = '1.67em'
     const padIn = '1.67em'
     const padTop = '0.67em'
-    const padBot = '1em'
+    const padBot = '3.5em'
 
     return {
         container: css({
@@ -165,7 +145,8 @@ function getStyles() {
             position: 'absolute',
 
             '&, & *, & ::before, & ::after': {
-                transformStyle: 'preserve-3d'
+                transformStyle: 'preserve-3d',
+                backfaceVisibility: 'hidden'
             }
         }),
 
@@ -178,29 +159,10 @@ function getStyles() {
             transition: '.5s'
         }),
 
-        leftBook: css({
-            ...page(),
-            backgroundImage: `url(${pngs.book_right})`
-        }),
-
-        rightBook: css({
-            ...page(),
-            transform: 'rotateY(180deg)',
-            backgroundImage: `url(${pngs.book_left})`
-        }),
-
-        leftPage: css({
-            ...page(),
-            padding: `${padTop} ${padIn} ${padBot} ${padOut}`,
-            backgroundImage: `url(${pngs.page_right})`
-        }),
-
-        rightPage: css({
-            ...page(),
-            transform: 'rotateY(180deg)',
-            padding: `${padTop} ${padOut} ${padBot} ${padIn}`,
-            backgroundImage: `url(${pngs.page_left})`
-        }),
+        leftBook: left(pngs.book_right),
+        rightBook: right(pngs.book_left),
+        leftPage: left(pngs.page_right),
+        rightPage: right(pngs.page_left),
 
         video: css({
             width: '100%',
@@ -210,7 +172,7 @@ function getStyles() {
             textDecoration: 'none',
             flexDirection: 'column',
             textAlign: 'center',
-            fontSize: '0.8em',
+            fontSize: '0.7em',
             filter: 'sepia(50%)',
 
             '&:hover': {
@@ -225,7 +187,8 @@ function getStyles() {
             alignItems: 'flex-end',
 
             '& img': {
-                width: '100%'
+                width: '100%',
+                border: '1px solid black'
             }
         }),
 
@@ -235,9 +198,24 @@ function getStyles() {
             flexBasis: 0
         })
     }
+
+    function left(bg: any): SerializedStyles {
+        return css({
+            ...page(bg),
+            padding: `${padTop} ${padIn} ${padBot} ${padOut}`
+        })
+    }
+
+    function right(bg: any): SerializedStyles {
+        return css({
+            ...page(bg),
+            transform: 'rotateY(180deg)',
+            padding: `${padTop} ${padOut} ${padBot} ${padIn}`
+        })
+    }
 }
 
-function page(): ObjectInterpolation<undefined> {
+function page(bg: any): ObjectInterpolation<undefined> {
     return {
         position: 'absolute',
         top: 0,
@@ -248,6 +226,6 @@ function page(): ObjectInterpolation<undefined> {
         alignItems: 'center',
         justifyContent: 'space-around',
         backgroundSize: '100% 100%',
-        backfaceVisibility: 'hidden'
+        backgroundImage: `url(${bg})`
     }
 }

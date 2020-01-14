@@ -43,7 +43,7 @@ const Book: FunctionComponent = () => {
     const canDecr = turned > 0
     const canIncr = turned < videos.length - 2
 
-    const starta = 30 // deg
+    const starta = 25 // deg
     const a = starta / (videos.length - 1) // deg
 
     function transform(i: number) {
@@ -135,7 +135,6 @@ export default Book
 
 function getStyles() {
     const w = 10 // em
-    const h = 1.5 * w // em
 
     const padOut = '1.67em'
     const padIn = '1.67em'
@@ -158,7 +157,7 @@ function getStyles() {
             height: '44.9vw',
             maxHeight: `${853 * 0.8}px`,
             backgroundSize: '100% 100%',
-            backgroundImage: `url('${pngs.book}')`,
+            backgroundImage: `url(${pngs.book})`,
             zIndex: -1,
             perspective: '40em',
             position: 'absolute',
@@ -170,11 +169,9 @@ function getStyles() {
 
         doublePage: css({
             position: 'absolute',
-            top: '50%',
             left: '50%',
-            margin: `${-h / 2}em 0`,
-            width: `${w}em`,
-            height: `${h}em`,
+            width: '70.6%',
+            height: '100%',
             transformOrigin: '0 50%',
             transition: '.5s'
         }),

@@ -2,9 +2,16 @@
 import { css, jsx, ObjectInterpolation, SerializedStyles } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
-import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
+import {
+    ChangeEvent,
+    Fragment,
+    FunctionComponent,
+    ReactNode,
+    useState
+} from 'react'
 
 import pngs from '../../img/*.png'
+import { AngleLeft, AngleRight } from '../utils/svg'
 
 type Id = string
 type Title = string
@@ -62,9 +69,6 @@ const Book: FunctionComponent = () => {
 
     return (
         <div css={styles.container}>
-            <button onClick={decr} disabled={!canDecr}>
-                -
-            </button>
             <div css={styles.book}>
                 <div css={[styles.doublePage, transform(0)]}>
                     <div css={styles.rightBook}>
@@ -82,12 +86,37 @@ const Book: FunctionComponent = () => {
                         {pipe(lastVid, O.map(video), O.toNullable)}
                     </div>
                 </div>
+                <nav css={styles.pageNumber}>
+                    <button
+                        onClick={decr}
+                        disabled={!canDecr}
+                        css={styles.button}
+                    >
+                        <AngleLeft />
+                    </button>
+                    <input
+                        type='range'
+                        min={0}
+                        max={sheet.length}
+                        value={turned}
+                        onChange={onPageChange}
+                    />
+                    <button
+                        onClick={incr}
+                        disabled={!canIncr}
+                        css={styles.button}
+                    >
+                        <AngleRight />
+                    </button>
+                </nav>
             </div>
-            <button onClick={incr} disabled={!canIncr}>
-                +
-            </button>
         </div>
     )
+
+    function onPageChange(e: ChangeEvent<HTMLInputElement>) {
+        const n = Number(e.target.value)
+        if (!isNaN(n)) setTurned(n)
+    }
 
     function decr() {
         if (canDecr) setTurned(turned - 1)
@@ -140,7 +169,6 @@ function getStyles() {
             maxWidth: `${1140 * 0.8}px`,
             height: '44.9vw',
             maxHeight: `${853 * 0.8}px`,
-            zIndex: -1,
             perspective: '40em',
             position: 'absolute',
 
@@ -196,6 +224,39 @@ function getStyles() {
             paddingTop: '0.67em',
             flexGrow: 1,
             flexBasis: 0
+        }),
+
+        pageNumber: css({
+            position: 'absolute',
+            top: '105%',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-around'
+        }),
+
+        button: css({
+            background: 'none',
+            border: 'none',
+            height: '5em',
+            color: '#c60707',
+            display: 'flex',
+            transition: 'transform 0.2s',
+            padding: 0,
+
+            '&:disabled': {
+                opacity: 0.7
+            },
+
+            '&:hover:not(:disabled)': {
+                cursor: 'pointer',
+                transform: 'scale(1.1)'
+            },
+
+            '& svg': {
+                height: '100%',
+                filter: 'drop-shadow(3px 0px 0 #f7e3a2)',
+                transformStyle: 'unset'
+            }
         })
     }
 

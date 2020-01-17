@@ -100,6 +100,7 @@ const Book: FunctionComponent = () => {
                         max={sheet.length}
                         value={turned}
                         onChange={onPageChange}
+                        css={styles.slider}
                     />
                     <button
                         onClick={incr}
@@ -227,11 +228,13 @@ function getStyles() {
         }),
 
         pageNumber: css({
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
             position: 'absolute',
             top: '105%',
             width: '100%',
             display: 'flex',
-            justifyContent: 'space-around'
+            justifyContent: 'space-around',
+            alignItems: 'center'
         }),
 
         button: css({
@@ -240,11 +243,11 @@ function getStyles() {
             height: '5em',
             color: '#c60707',
             display: 'flex',
-            transition: 'transform 0.2s',
+            transition: 'transform 0.2s, opacity 0.2s',
             padding: 0,
 
             '&:disabled': {
-                opacity: 0.7
+                opacity: 0
             },
 
             '&:hover:not(:disabled)': {
@@ -257,7 +260,25 @@ function getStyles() {
                 filter: 'drop-shadow(3px 0px 0 #f7e3a2)',
                 transformStyle: 'unset'
             }
-        })
+        }),
+
+        slider: {
+            appearance: 'none',
+            width: '50%',
+            height: '1em',
+            background: '#f7e3a2',
+            transition: 'opacity .2s',
+
+            '&::-webkit-slider-thumb, &::-moz-range-thumb': {
+                appearance: 'none',
+                width: '1em',
+                height: '1em',
+                borderRadius: 0,
+                border: 'none',
+                background: '#c60707',
+                cursor: 'pointer'
+            }
+        }
     }
 
     function left(bg: any): SerializedStyles {

@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext } from 'react'
 
 import AppContext from '../contexts/AppContext'
+import { fontFamily } from '../utils/css/fonts'
 import params from '../utils/css/params'
 
 type Id = string
@@ -94,24 +95,28 @@ function getStyles() {
             boxShadow: '0 0 10px black',
 
             '&:hover': {
-                transform: 'scale(1.05)'
+                transform: 'scale(1.04)'
             }
         }),
 
         thumbnail: css({
             '& img': {
+                border: '1px solid black',
                 width: '300px'
             }
         }),
 
         videoTitle: css({
-            width: '450px',
+            width: '350px',
             paddingTop: '0.67em',
+            fontSize: '0.8em',
             flexGrow: 1,
             flexBasis: 0,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            fontFamily: fontFamily.normal,
+            letterSpacing: '-1px'
         })
     }
 }

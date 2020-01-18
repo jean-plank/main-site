@@ -11,6 +11,7 @@ import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import BonusBg from './BonusBg'
 import Game from './Game'
+import Videos, { videos } from './Videos'
 
 const Bonus: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
@@ -31,6 +32,10 @@ const Bonus: FunctionComponent = () => {
 
                 <div css={[parallax.layerBase, styles.tutorialContainer]}>
                     <img src={transl.tutorialImg} css={styles.tutorial} />
+                </div>
+
+                <div css={[parallax.layerBack, styles.videosContainer]}>
+                    <Videos videos={videos} />
                 </div>
             </div>
         </Fragment>
@@ -92,5 +97,10 @@ const styles = {
         maxWidth: '1920px',
         maxHeight: '90%',
         border: `5px solid ${params.game.border.color}`
+    }),
+
+    videosContainer: css({
+        top: '200vh',
+        width: '100vw'
     })
 }

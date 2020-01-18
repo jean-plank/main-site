@@ -30,6 +30,7 @@ export type Translation = {
     dl: string
     thestoryLabel: ReactNode
     tutorialImg: string
+    videos: string
 } & Record<GameId, GameTranslation>
 
 export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
@@ -148,7 +149,8 @@ export const translations: Record<Language, Translation> = {
                 Mais bon, c'est quand même de la merde hein, faut pas se mentir.
             </>
         ),
-        tutorialImg: jpgs.tutorial_fr
+        tutorialImg: jpgs.tutorial_fr,
+        videos: "Vidéos aléatoires de l'équipe de dev"
     },
     en: {
         notFound: {
@@ -250,7 +252,8 @@ export const translations: Record<Language, Translation> = {
                 But hey, it's still crap, right. Don't lie to yourself.
             </>
         ),
-        tutorialImg: jpgs.tutorial_en
+        tutorialImg: jpgs.tutorial_en,
+        videos: 'Random videos from the devs'
     }
 }
 

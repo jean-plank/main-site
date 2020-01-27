@@ -8,7 +8,8 @@ import piecesOfEight from '../../../fonts/pieces-of-eight.ttf'
 
 export const fontFamily = {
     yarr: 'yarr',
-    piecesOfEight: 'piecesOfEight'
+    piecesOfEight: 'piecesOfEight',
+    normal: 'Verdana, Geneva, Tahoma, sans-serif'
 }
 
 const fonts = css(

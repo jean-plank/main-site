@@ -8,8 +8,10 @@ import ratioHolder from '../../img/ratio_holder.png'
 
 import AppContext from '../contexts/AppContext'
 import { GameId } from '../contexts/translation'
+import { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
 import params from '../utils/css/params'
+import { Ban } from '../utils/svg'
 
 interface Props {
     id?: string
@@ -73,7 +75,7 @@ const Game: FunctionComponent<Props> = ({
         if (noLinks()) {
             return (
                 <div css={styles.launchDl}>
-                    <i>{transl.advisoryAlready}</i>
+                    {under18(transl.advisoryAlready)}
                 </div>
             )
         }
@@ -83,7 +85,7 @@ const Game: FunctionComponent<Props> = ({
                     links.launch,
                     O.map(launch => (
                         // tslint:disable-next-line: jsx-key
-                        <a href={launch} target='_blank'>
+                        <a href={launch} target="_blank">
                             {transl.launch}
                         </a>
                     )),
@@ -99,7 +101,19 @@ const Game: FunctionComponent<Props> = ({
                     )),
                     O.toNullable
                 )}
-                <i>{transl.advisory}</i>
+                {under18(transl.advisory)}
+            </div>
+        )
+    }
+
+    function under18(message: string): ReactNode {
+        return (
+            <div css={styles18.container}>
+                <span css={styles18.sign}>
+                    <span css={styles18.eighteen}>-18</span>
+                    <Ban css={styles18.ban} />
+                </span>
+                <span css={styles18.message}>{message}</span>
             </div>
         )
     }
@@ -215,13 +229,6 @@ const styles = {
             borderTop: `1px solid ${params.game.launchDl.color}`
         },
 
-        '& i': {
-            alignSelf: 'center',
-            fontFamily: 'Verdana, Geneva, Tahoma, sans-serif',
-            fontSize: '0.3em',
-            padding: '0.33em 0'
-        },
-
         '& a': {
             width: '100%',
             textAlign: 'center',
@@ -306,5 +313,36 @@ const styles = {
         [media.mobile]: {
             fontSize: '1.7em'
         }
+    })
+}
+
+const styles18 = {
+    container: css({
+        fontFamily: fontFamily.normal,
+        height: '1.7em',
+        display: 'flex',
+        alignItems: 'center'
+    }),
+    sign: css({
+        position: 'relative',
+        marginRight: '0.33em'
+    }),
+    eighteen: css({
+        display: 'inline-block',
+        padding: '0.35em 0.1em',
+        fontSize: '0.9em',
+        letterSpacing: '-3px',
+        color: 'goldenrod'
+    }),
+    ban: css({
+        position: 'absolute',
+        left: 0,
+        height: '1.6em',
+        color: params.game.notOutYet.bg
+    }),
+    message: css({
+        alignSelf: 'center',
+        fontSize: '0.5em',
+        padding: '0.33em 0'
     })
 }

@@ -8,32 +8,21 @@ import params from '../utils/css/params'
 
 type Id = string
 type Title = string
-type Video = [Id, Title]
-
-export const videos: Video[] = [
-    ['aeWfN6CinGY', `When i'm TWI !`],
-    ['0AfNhK9aCjo', `My work here is done`],
-    ['psCSnnioq0M', `YOU WON'T BELIEVE WHAT THIS SCREAMING MAN CAN DO !!`],
-    ['SB4Qr06E9pk', `Cette vidéo peut causer des lésions au cerveau...`],
-    ['SSsXZEGOEFQ', `Jean Plank I : Naissance des Flammes de la Vengeance`],
-    ['neqEc1DTN4k', `Jean Plank II : Les Flammes de la Vengeance`],
-    ['0Z0vribHAGg', `TEASER JP2 VALHALLA OUAKBAR`],
-    ['Wenq_ezDckc', `Genièvre épisode 1 : Le début`]
-]
+export type Video = [Id, Title]
 
 interface Props {
-    videos: Video[]
+    children: Video[]
 }
 
 const styles = getStyles()
 
-const Videos: FunctionComponent<Props> = ({ videos }) => {
+export const Videos: FunctionComponent<Props> = ({ children }) => {
     const transl = useContext(AppContext).translation
     return (
         <div css={styles.container}>
             <h2 css={styles.title}>{transl.videos}</h2>
             <div css={styles.videos}>
-                {videos.map(([id, title], i) => {
+                {children.map(([id, title], i) => {
                     // const embed = `https://www.youtube.com/embed/${id}`
                     // const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
                     const img = `https://i.ytimg.com/vi/${id}/hq720.jpg`
@@ -41,7 +30,7 @@ const Videos: FunctionComponent<Props> = ({ videos }) => {
                         <a
                             key={i}
                             href={`https://youtu.be/${id}`}
-                            target="_blank"
+                            target='_blank'
                             css={styles.video}
                         >
                             <span css={styles.thumbnail}>
@@ -57,7 +46,6 @@ const Videos: FunctionComponent<Props> = ({ videos }) => {
         </div>
     )
 }
-export default Videos
 
 function getStyles() {
     return {

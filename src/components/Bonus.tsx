@@ -11,7 +11,8 @@ import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import BonusBg from './BonusBg'
 import Game from './Game'
-import Videos, { videos } from './Videos'
+import { Label } from './Label'
+import { Video, Videos } from './Videos'
 
 const Bonus: FunctionComponent = () => {
     const transl = useContext(AppContext).translation
@@ -27,7 +28,7 @@ const Bonus: FunctionComponent = () => {
                         image={jpgs.jp1}
                         style={{ container: styles.thestory }}
                     />
-                    <div css={styles.label}>{transl.thestoryLabel}</div>
+                    <Label>{transl.thestoryLabel}</Label>
                 </div>
 
                 <div css={[parallax.layerBase, styles.tutorialContainer]}>
@@ -35,13 +36,24 @@ const Bonus: FunctionComponent = () => {
                 </div>
 
                 <div css={[parallax.layerBack, styles.videosContainer]}>
-                    <Videos videos={videos} />
+                    <Videos>{videos}</Videos>
                 </div>
             </div>
         </Fragment>
     )
 }
 export default Bonus
+
+const videos: Video[] = [
+    ['aeWfN6CinGY', `When i'm TWI !`],
+    ['0AfNhK9aCjo', `My work here is done`],
+    ['psCSnnioq0M', `YOU WON'T BELIEVE WHAT THIS SCREAMING MAN CAN DO !!`],
+    ['SB4Qr06E9pk', `Cette vidéo peut causer des lésions au cerveau...`],
+    ['SSsXZEGOEFQ', `Jean Plank I : Naissance des Flammes de la Vengeance`],
+    ['neqEc1DTN4k', `Jean Plank II : Les Flammes de la Vengeance`],
+    ['0Z0vribHAGg', `TEASER JP2 VALHALLA OUAKBAR`],
+    ['Wenq_ezDckc', `Genièvre épisode 1 : Le début`]
+]
 
 const styles = {
     group: css({

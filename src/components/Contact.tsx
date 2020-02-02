@@ -4,40 +4,53 @@ import * as A from 'fp-ts/lib/Array'
 import * as NA from 'fp-ts/lib/NonEmptyArray'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
-import {
-    ChangeEvent,
-    Fragment,
-    FunctionComponent,
-    ReactNode,
-    useState
-} from 'react'
+import { ChangeEvent, FunctionComponent, ReactNode, useState } from 'react'
 
 interface Choice {
-    value: string
     label: string
-    others: O.Option<NA.NonEmptyArray<Choice>>
+    options: NA.NonEmptyArray<ChoiceOption>
 }
 
-const choice = (label: string, others?: NA.NonEmptyArray<Choice>): Choice => {
+interface ChoiceOption {
+    label: string
+    value: string
+    leadsTo: O.Option<Choice>
+}
+
+const choice = (
+    label: string,
+    options: NA.NonEmptyArray<ChoiceOption>
+): Choice => ({
+    label,
+    options
+})
+
+const option = (label: string, leadsTo?: Choice): ChoiceOption => {
     const value = Math.random()
         .toString(36)
         .substring(2)
-    return { value, label, others: O.fromNullable(others) }
+    return { value, label, leadsTo: O.fromNullable(leadsTo) }
 }
 
 export const Contact: FunctionComponent = () => (
     <div css={styles.container}>
         <Select
-            choices={[
-                choice('choix 1'),
-                choice('choix 2', [
-                    choice('choix 2 - 1'),
-                    choice('choix 2 - 2', [
-                        choice('choix 2 - 2 - 1'),
-                        choice('choix 2 - 2 - 2')
+            choice={choice('Premier choix :', [
+                option('option 1'),
+                option(
+                    'option 2',
+                    choice('Deuxième choix :', [
+                        option('option 2 - 1'),
+                        option(
+                            'option 2 - 2',
+                            choice('Troisième choix :', [
+                                option('option 2 - 2 - 1'),
+                                option('option 2 - 2 - 2')
+                            ])
+                        )
                     ])
-                ])
-            ]}
+                )
+            ])}
         />
     </div>
 )
@@ -45,17 +58,17 @@ export const Contact: FunctionComponent = () => (
 const NONE = 'none'
 
 interface Props {
-    choices: NA.NonEmptyArray<Choice>
+    choice: Choice
 }
 
-const Select: FunctionComponent<Props> = ({ choices }) => {
-    const [selected, setSelected] = useState<O.Option<Choice>>(O.none)
+const Select: FunctionComponent<Props> = ({ choice }) => {
+    const [selected, setSelected] = useState<O.Option<ChoiceOption>>(O.none)
 
     pipe(
         selected,
         O.fold(
-            () => console.log('none'),
-            _ => console.log('some(', _, ')')
+            () => console.log(choice.label, 'none'),
+            _ => console.log(choice.label, 'some(', _.label, ')')
         )
     )
 
@@ -66,32 +79,33 @@ const Select: FunctionComponent<Props> = ({ choices }) => {
             _ => _.value
         )
     )
-    const others: ReactNode = pipe(
+    const leadsTo: ReactNode = pipe(
         selected,
-        O.chain(_ => _.others),
+        O.chain(_ => _.leadsTo),
         O.fold(
             () => null,
-            _ => <Select choices={_} />
+            _ => <Select choice={_} />
         )
     )
     return (
-        <Fragment>
+        <label>
+            {choice.label}
             <select value={value} onChange={select}>
                 <option value={NONE} />
-                {choices.map(choice => (
+                {choice.options.map(choice => (
                     <option key={choice.value} value={choice.value}>
                         {choice.label}
                     </option>
                 ))}
             </select>
-            {others}
-        </Fragment>
+            {leadsTo}
+        </label>
     )
 
     function select(e: ChangeEvent<HTMLSelectElement>) {
         setSelected(
             pipe(
-                choices,
+                choice.options,
                 A.findFirst(_ => _.value === e.target.value)
             )
         )
@@ -102,6 +116,7 @@ const styles = {
     container: css({
         height: '100%',
         width: '100%',
-        paddingTop: '5em'
+        paddingTop: '5em',
+        color: 'white'
     })
 }

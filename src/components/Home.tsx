@@ -2,20 +2,30 @@
 import { css, jsx, ObjectInterpolation, SerializedStyles } from '@emotion/core'
 import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
-import { Fragment, FunctionComponent, ReactNode, useState } from 'react'
+import {
+    Fragment,
+    FunctionComponent,
+    ReactNode,
+    useContext,
+    useState
+} from 'react'
 
 import jpgs from '../../img/*.jpg'
 
+import AppContext from '../contexts/AppContext'
 import fadeIn from '../utils/css/fadeIn'
+import { fontFamily } from '../utils/css/fonts'
 import media from '../utils/css/media'
 import * as parallax from '../utils/css/parallax'
 import params from '../utils/css/params'
 import * as strokeBefore from '../utils/css/strokeBefore'
 import { AngleDown, AngleUp } from '../utils/svg'
 import Game from './Game'
+import { Label } from './Label'
 import SiteMap from './SiteMap'
 
 const Home: FunctionComponent = () => {
+    const transl = useContext(AppContext).translation
     const [pages, setPages] = useState<O.Option<HTMLElement[]>>(O.none)
 
     const onMount = (elt: HTMLElement | null) => {
@@ -48,6 +58,9 @@ const Home: FunctionComponent = () => {
                             game: styles.reverse
                         }}
                     />
+                    <Label css={styles.revengefulLabel}>
+                        {transl.revengefulTrilogy}
+                    </Label>
                 </div>
                 <div id='jp2' css={[styles.page, styles.strokeH]}>
                     <Game
@@ -136,10 +149,31 @@ const styles = {
         animation: fadeIn('1.5s')
     }),
 
+    revengefulLabel: css({
+        position: 'absolute',
+        bottom: '1em',
+        right: '0.5em',
+        display: 'flex',
+        flexDirection: 'column',
+        fontSize: '0.9em',
+
+        '& q': {
+            fontFamily: fontFamily.yarr,
+            fontSize: '1.1em',
+            letterSpacing: '0.03em'
+        },
+
+        '& a': {
+            alignSelf: 'flex-end',
+            color: 'inherit'
+        }
+    }),
+
     page: css({
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
+        position: 'relative',
 
         [media.mobile]: {
             flexDirection: 'column'

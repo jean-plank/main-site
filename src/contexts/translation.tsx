@@ -28,6 +28,7 @@ export type Translation = {
     notOutYet: string
     launch: string
     dl: string
+    revengefulTrilogy: ReactNode
     thestoryLabel: ReactNode
     tutorialImg: string
     videos: string
@@ -139,6 +140,14 @@ export const translations: Record<Language, Translation> = {
                 dl: O.none
             }
         },
+        revengefulTrilogy: (
+            <>
+                <q>"Une tragédie vengeresse en trois actes."</q>
+                <a href='https://twitter.com/MohamedZdong' target='_blank'>
+                    Maitre ZDONG
+                </a>
+            </>
+        ),
         thestoryLabel: (
             <>
                 <h4>Le saviez-vous ?</h4>
@@ -242,6 +251,11 @@ export const translations: Record<Language, Translation> = {
                 dl: O.none
             }
         },
+        revengefulTrilogy: (
+            <>
+                <q>"A revengeful tragedy in three acts."</q>
+            </>
+        ),
         thestoryLabel: (
             <>
                 <h4>Did you know it?</h4>

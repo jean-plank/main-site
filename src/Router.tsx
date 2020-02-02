@@ -6,7 +6,7 @@ import * as R from 'fp-ts/lib/Record'
 import { FunctionComponent, ReactElement, useContext, useEffect } from 'react'
 
 import Bonus from './components/Bonus'
-import Contact from './components/Contact'
+import { Contact } from './components/Contact'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
 import AppContext from './contexts/AppContext'
@@ -23,7 +23,10 @@ const Router: FunctionComponent<Props> = ({ path }) => {
         'Jean Plank',
         ...pipe(
             subTitle,
-            O.fold(() => [], _ => [_])
+            O.fold(
+                () => [],
+                _ => [_]
+            )
         )
     ].join(' | ')
 

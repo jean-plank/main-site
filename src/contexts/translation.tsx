@@ -254,6 +254,9 @@ export const translations: Record<Language, Translation> = {
         revengefulTrilogy: (
             <>
                 <q>"A revengeful tragedy in three acts."</q>
+                <a href='https://twitter.com/MohamedZdong' target='_blank'>
+                    Master ZDONG
+                </a>
             </>
         ),
         thestoryLabel: (

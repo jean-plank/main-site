@@ -11,6 +11,7 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import AppContext from './contexts/AppContext'
 import { Translation } from './contexts/translation'
+import { OptionHelpers } from './utils/OptionHelpers'
 
 interface Props {
     path: string
@@ -19,16 +20,7 @@ interface Props {
 const Router: FunctionComponent<Props> = ({ path }) => {
     const transl = useContext(AppContext).translation
     const [subTitle, node] = route(transl)(path)
-    const title = [
-        'Jean Plank',
-        ...pipe(
-            subTitle,
-            O.fold(
-                () => [],
-                _ => [_]
-            )
-        )
-    ].join(' | ')
+    const title = ['Jean Plank', ...OptionHelpers.toArray(subTitle)].join(' | ')
 
     useEffect(() => {
         document.title = title

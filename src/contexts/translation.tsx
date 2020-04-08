@@ -133,7 +133,7 @@ export const translations: Record<Language, Translation> = {
       }
     },
     jp3: {
-      title: 'La Vengeance',
+      title: "La Vengeance Est un Plat Qui se Mange À l'Eau de la Mer",
       summary: '',
       links: {
         launch: O.none,
@@ -235,8 +235,8 @@ export const translations: Record<Language, Translation> = {
           Jean Plank, betrayed by his mentor and now deceased, is seeking revenge from the top of
           the Valhalla.
           {/* <br />
-                    But how do you return to the Kingdom of Mortals when you're
-                    dead? */}
+            But how do you return to the Kingdom of Mortals when you're
+            dead? */}
         </>
       ),
       links: {
@@ -245,7 +245,7 @@ export const translations: Record<Language, Translation> = {
       }
     },
     jp3: {
-      title: 'The Revenge',
+      title: 'Revenge Is a Dish Better Served With the Water of the Sea',
       summary: '',
       links: {
         launch: O.none,

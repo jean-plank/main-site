@@ -46,9 +46,10 @@ export default Bonus
 
 const videos: Video[] = [
   ['aeWfN6CinGY', `When i'm TWI !`],
-  ['0AfNhK9aCjo', `My work here is done`],
   ['psCSnnioq0M', `YOU WON'T BELIEVE WHAT THIS SCREAMING MAN CAN DO !!`],
-  ['SB4Qr06E9pk', `Cette vidéo peut causer des lésions au cerveau...`],
+  ['0AfNhK9aCjo', `My work here is done`],
+  // ['SB4Qr06E9pk', `Cette vidéo peut causer des lésions au cerveau...`],
+  ['0oYg2Skoky8', `Lucien Dead Metal - Le Siphon`],
   ['SSsXZEGOEFQ', `Jean Plank I : Naissance des Flammes de la Vengeance`],
   ['neqEc1DTN4k', `Jean Plank II : Les Flammes de la Vengeance`],
   ['0Z0vribHAGg', `TEASER JP2 VALHALLA OUAKBAR`],

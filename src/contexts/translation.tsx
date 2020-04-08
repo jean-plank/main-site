@@ -27,7 +27,7 @@ export type Translation = {
   advisory: string
   advisoryAlready: string
   notOutYet: string
-  launch: string
+  launch: ReactNode
   dl: string
   revengefulTrilogy: ReactNode
   thestoryLabel: ReactNode
@@ -65,7 +65,12 @@ export const translations: Record<Language, Translation> = {
     advisory: '(déconseillé aux moins de 18 ans)',
     advisoryAlready: '(déjà déconseillé aux moins de 18 ans)',
     notOutYet: 'pas encore sorti',
-    launch: 'Jouer sur navigateur',
+    launch: (
+      <>
+        Jouer sur navigateur
+        <i>(potentiellement instable)</i>
+      </>
+    ),
     dl: 'Télécharger le jeu',
     thestory: {
       title: 'The Story',
@@ -174,7 +179,12 @@ export const translations: Record<Language, Translation> = {
     advisory: '(not recommended under 18)',
     advisoryAlready: '(already not recommended under 18)',
     notOutYet: 'not out yet',
-    launch: 'Play in your browser',
+    launch: (
+      <>
+        Play in your browser
+        <i>(may not work properly)</i>
+      </>
+    ),
     dl: 'Download the game',
     thestory: {
       title: 'The Story',
@@ -247,6 +257,7 @@ export const translations: Record<Language, Translation> = {
         <q>"A revengeful tragedy in three acts."</q>
         <a href='https://twitter.com/MohamedZdong' target='_blank'>
           Master ZDONG
+          <ExternalLink />
         </a>
       </>
     ),

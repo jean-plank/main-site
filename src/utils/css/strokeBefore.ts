@@ -3,7 +3,7 @@ import { Interpolation } from '@emotion/css'
 import params from './params'
 
 export const common: Record<string, Interpolation> = {
-    content: `''`,
+    content: '\'\'',
     borderStyle: 'dotted',
     borderColor: params.stroke.color,
     position: 'absolute',

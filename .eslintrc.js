@@ -24,13 +24,7 @@ module.exports = {
   },
   reportUnusedDisableDirectives: true,
   rules: {
-    '@typescript-eslint/array-type': [
-      'error',
-      {
-        default: 'array',
-        readonly: 'array'
-      }
-    ],
+    '@typescript-eslint/array-type': ['error', { default: 'array', readonly: 'array' }],
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-empty-function': 'off',
@@ -38,10 +32,7 @@ module.exports = {
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      {
-        varsIgnorePattern: '^_',
-        argsIgnorePattern: '^_'
-      }
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }
     ],
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
@@ -57,28 +48,18 @@ module.exports = {
         functions: 'never'
       }
     ],
-    'max-len': [
-      'error',
-      {
-        code: 100,
-        tabWidth: 2
-      }
-    ],
+    'max-len': ['error', { code: 100, tabWidth: 2, ignoreStrings: true }],
     'no-console': 'off',
     'no-empty-function': 'off',
     'no-inner-declarations': 'off',
-    'no-multiple-empty-lines': [
-      'error',
-      {
-        max: 1
-      }
-    ],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
     'no-multi-spaces': 'error',
     'no-redeclare': 'off',
     'no-shadow': 'off',
     'no-undef': 'off',
     'prettier/prettier': 'off',
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
+    'react/prop-types': 'off',
     'sort-imports': 'off',
     'space-in-parens': ['error', 'never'],
     strict: 'error'

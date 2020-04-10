@@ -13,7 +13,8 @@ import {
   RefObject,
   useImperativeHandle,
   useState,
-  Fragment
+  Fragment,
+  ForwardRefRenderFunction
 } from 'react'
 
 import { fontFamily } from '../../utils/css/fonts'
@@ -38,7 +39,7 @@ interface Props {
   choice: Choice
 }
 
-export const Select = forwardRef<OptionsGetable, Props>(({ i, choice }, ref) => {
+const _Select: ForwardRefRenderFunction<OptionsGetable, Props> = ({ i, choice }, ref) => {
   useImperativeHandle(ref, () => ({ getOptions }))
 
   const optionsGetable: RefObject<OptionsGetable> = createRef()
@@ -98,7 +99,8 @@ export const Select = forwardRef<OptionsGetable, Props>(({ i, choice }, ref) => 
     )
     return [selected, ...tail]
   }
-})
+}
+export const Select = forwardRef<OptionsGetable, Props>(_Select)
 
 const NONE = 'none'
 

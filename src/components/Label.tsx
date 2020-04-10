@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import labelJpg from '../../img/label.jpg'
 import { fontFamily } from '../utils/css/fonts'
 
 interface Props {
@@ -18,7 +18,7 @@ export const Label: FunctionComponent<Props> = ({ className, children }) => (
 const styles = css({
   maxWidth: '1100px',
   margin: '0 1.67em',
-  background: `url('${jpgs.label}')`,
+  background: `url('${labelJpg}')`,
   backgroundSize: 'cover',
   padding: '0.5em 1em 0.3em',
   border: '5px solid #8e6400',

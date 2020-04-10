@@ -2,11 +2,12 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import bgNotFoundJpg from '../../img/bg_not_found.jpg'
+import maintenanceJpg from '../../img/maintenance.jpg'
 
 export const Maintenance: FunctionComponent = () => (
   <div css={styles.container}>
-    <img src={jpgs.maintenance} css={styles.image} />
+    <img src={maintenanceJpg} css={styles.image} />
   </div>
 )
 
@@ -17,7 +18,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: `url('${jpgs.bg_not_found}')`,
+    background: `url('${bgNotFoundJpg}')`,
     backgroundSize: 'cover',
     boxShadow: '0 0 10px black'
   }),

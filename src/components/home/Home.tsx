@@ -4,19 +4,23 @@ import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { Fragment, FunctionComponent, ReactNode, useContext, useState } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import backgroundJpg from '../../../img/background.jpg'
+import jp2Jpg from '../../../img/jp2.jpg'
+import jp3Jpg from '../../../img/jp3.jpg'
+import jp3bJpg from '../../../img/jp3b.jpg'
+import jp4Jpg from '../../../img/jp4.jpg'
 
-import AppContext from '../contexts/AppContext'
-import fadeIn from '../utils/css/fadeIn'
-import { fontFamily } from '../utils/css/fonts'
-import media from '../utils/css/media'
-import * as parallax from '../utils/css/parallax'
-import params from '../utils/css/params'
-import * as strokeBefore from '../utils/css/strokeBefore'
-import { AngleDown, AngleUp } from '../utils/svg'
-import Game from './Game'
-import { Label } from './Label'
 import SiteMap from './SiteMap'
+import Game from '../Game'
+import { Label } from '../Label'
+import AppContext from '../../contexts/AppContext'
+import fadeIn from '../../utils/css/fadeIn'
+import { fontFamily } from '../../utils/css/fonts'
+import media from '../../utils/css/media'
+import * as parallax from '../../utils/css/parallax'
+import params from '../../utils/css/params'
+import * as strokeBefore from '../../utils/css/strokeBefore'
+import { AngleDown, AngleUp } from '../../utils/svg'
 
 const Home: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
@@ -31,14 +35,14 @@ const Home: FunctionComponent = () => {
 
   return (
     <Fragment>
-      <img src={jpgs.background} css={[parallax.layerBack, styles.bg]} />
+      <img src={backgroundJpg} css={[parallax.layerBack, styles.bg]} />
 
       <div ref={onMount} css={[parallax.layerBase, styles.main]}>
         <div id='jp1' css={styles.page}>
           <Game
             gameId='jp1'
             jpTitle='Jean Plank I'
-            image={jpgs.jp2}
+            image={jp2Jpg}
             footer={
               <Fragment>
                 {arrow('desktop', 'down')('#jp2')}
@@ -57,7 +61,7 @@ const Home: FunctionComponent = () => {
             id='jp2a'
             gameId='jp2'
             jpTitle='Jean Plank II'
-            image={jpgs.jp3}
+            image={jp3Jpg}
             header={arrow('mobile', 'up')('#jp1')}
             footer={
               <Fragment>
@@ -71,7 +75,7 @@ const Home: FunctionComponent = () => {
             id='jp2b'
             gameId='jp2b'
             jpTitle='Jean Plank II'
-            image={jpgs.jp3b}
+            image={jp3bJpg}
             header={arrow('mobile', 'up')('#jp2a')}
             footer={arrow('mobile', 'down')('#jp3')}
             style={{
@@ -84,7 +88,7 @@ const Home: FunctionComponent = () => {
           <Game
             gameId='jp3'
             jpTitle='Jean Plank III'
-            image={jpgs.jp4}
+            image={jp4Jpg}
             header={arrow('mobile', 'up')('#jp2b')}
             style={{ container: styles.strokeVTop }}
           />

@@ -3,7 +3,8 @@ import { eqString } from 'fp-ts/lib/Eq'
 import * as O from 'fp-ts/lib/Option'
 import React, { ReactNode } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import tutorialFrJpg from '../../img/tutorial_fr.jpg'
+import tutorialEnJpg from '../../img/tutorial_en.jpg'
 
 import { ExternalLink } from '../utils/svg'
 
@@ -23,6 +24,7 @@ export type Translation = {
   contact: {
     title: string
     label: ReactNode
+    send: string
   }
   advisory: string
   advisoryAlready: string
@@ -60,7 +62,8 @@ export const translations: Record<Language, Translation> = {
         <>
           <s>Faire un procès</s>&nbsp;Contact
         </>
-      )
+      ),
+      send: 'Envoyer'
     },
     advisory: '(déconseillé aux moins de 18 ans)',
     advisoryAlready: '(déjà déconseillé aux moins de 18 ans)',
@@ -158,7 +161,7 @@ export const translations: Record<Language, Translation> = {
         Mais bon, c'est quand même de la merde hein, faut pas se mentir.
       </>
     ),
-    tutorialImg: jpgs.tutorial_fr,
+    tutorialImg: tutorialFrJpg,
     videos: "Vidéos aléatoires de l'équipe de dev"
   },
   en: {
@@ -174,7 +177,8 @@ export const translations: Record<Language, Translation> = {
         <>
           <s>Sue the devs</s>&nbsp;Contact
         </>
-      )
+      ),
+      send: 'Submit'
     },
     advisory: '(not recommended under 18)',
     advisoryAlready: '(already not recommended under 18)',
@@ -270,7 +274,7 @@ export const translations: Record<Language, Translation> = {
         But hey, it's still crap, right. Don't lie to yourself.
       </>
     ),
-    tutorialImg: jpgs.tutorial_en,
+    tutorialImg: tutorialEnJpg,
     videos: 'Random videos from the devs'
   }
 }

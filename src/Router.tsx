@@ -5,9 +5,9 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import * as R from 'fp-ts/lib/Record'
 import { FunctionComponent, ReactElement, useContext, useEffect } from 'react'
 
-import Bonus from './components/Bonus'
-import { Maintenance } from './components/Maintenance'
-import Home from './components/Home'
+import Bonus from './components/bonus/Bonus'
+import { Contact } from './components/contact/Contact'
+import Home from './components/home/Home'
 import NotFound from './components/NotFound'
 import AppContext from './contexts/AppContext'
 import { Translation } from './contexts/translation'
@@ -36,7 +36,7 @@ const route = (transl: Translation) => (path: string): [O.Option<string>, ReactE
     R.lookup(path, {
       [routes.home]: [O.none, <Home />],
       [routes.bonus]: [O.some(transl.bonus), <Bonus />],
-      [routes.contact]: [O.some(transl.contact.title), <Maintenance />]
+      [routes.contact]: [O.some(transl.contact.title), <Contact />]
     }),
     O.getOrElse(() => [O.some(transl.notFound.title), <NotFound />])
   )

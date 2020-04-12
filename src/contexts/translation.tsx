@@ -38,6 +38,7 @@ export interface Translation {
   }
   contact: {
     send: string
+    form: FormTranslation
   }
   game: {
     advisory: string
@@ -47,6 +48,59 @@ export interface Translation {
     dl: string
   }
   games: Record<GameId, GameTranslation>
+}
+
+export interface FormTranslation {
+  whatDoYouWant: string
+  devsAreAssholes: string
+  butICant: string
+  devsAreAwesome: string
+  whatElse: string
+  congrats: string
+  congratsSonOfABitch: string
+  iWannaSuggestScene: string
+  whichCharacter: string
+  sceneDescription: string
+  jpNoNeedToIntroduceMe: string
+  luchien: string
+  mf: string
+  stGede: string
+  haddock: string
+  haddockTintin: string
+  kaarthus: string
+  rammus: string
+  rammusOk: string
+  pikachu: string
+  otherWithPrecision: string
+  iAmATalentedMusician: string
+  giveUsYourContact: string
+  iAmShocked: string
+  why: string
+  itsRacist: string
+  forWho: string
+  niggers: string
+  chineses: string
+  itCouldBeWorse: string
+  vikings: string
+  pirates: string
+  aLotOfPeople: string
+  itsSexist: string
+  itsHomo: string
+  itsReligonUnfriendly: string
+  itsPedophile: string
+  itsTerroristic: string
+  itsNotFunny: string
+  noneOfThis: string
+  technicalProblem: string
+  whichOne: string
+  onelineVersionDoesntWork: string
+  blameYourself: string
+  andDownloadTheGame: string
+  imLeftHanded: string
+  trueIndeed: string
+  needMoarOars: string
+  mySuggestionIsSoAwesome: string
+  ohWell: string
 }
 
 export type GameId = 'thestory' | 'jp1' | 'jp2' | 'jp2b' | 'jp3'
@@ -109,7 +163,63 @@ export const translations: Record<Language, Translation> = {
     },
 
     contact: {
-      send: 'Envoyer'
+      send: 'Envoyer',
+      form: {
+        whatDoYouWant: 'De quoi voulez-vous nous parler ?',
+        devsAreAssholes: 'Les développeurs sont des enculés et je veux envoyer un message de haine',
+        butICant: 'Mais je ne peux pas.',
+        devsAreAwesome: 'Les développeurs sont formidables et je veux les féliciter',
+        whatElse: 'Mais encore ?',
+        congrats: 'Bravo.',
+        congratsSonOfABitch: 'Bravo, fils de pute.',
+        iWannaSuggestScene:
+          'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
+        whichCharacter: 'Avec quel personnage ?',
+        sceneDescription: 'Description de la scène :',
+        jpNoNeedToIntroduceMe: '"Ha, ha ! Inutile de me présenter !"',
+        luchien: 'Luchien',
+        mf: 'Miss Fourtune',
+        stGede: 'Saint Gède',
+        haddock: 'Haddock',
+        haddockTintin: '"TINTIN ?!"',
+        kaarthus: 'Kaarthus',
+        rammus: 'Rammus',
+        rammusOk: '"OK."',
+        pikachu: 'Pikachu',
+        otherWithPrecision: 'Autre (préciser)',
+        iAmATalentedMusician:
+          "Je suis un musicien compétent et je souhaite intégrer l'équipe de dev'",
+        giveUsYourContact: 'Laisse nous un moyen de te contacter 😉',
+        iAmShocked: 'Je suis outré par le contenu de ce jeu formidable et je veux le faire savoir',
+        why: 'Pourquoi donc ?',
+        itsRacist: "C'est raciste",
+        forWho: 'Envers qui ?',
+        niggers: 'Les noirs',
+        chineses: 'Les chinois',
+        itCouldBeWorse: 'Ça va, il y a pire...',
+        vikings: 'Les vikings',
+        pirates: 'Les pirates',
+        aLotOfPeople: 'Beaucoup trop de monde',
+        itsSexist: "C'est sexiste",
+        itsHomo: "C'est homophobe",
+        itsReligonUnfriendly: "C'est dégradant envers la religion",
+        itsPedophile: "Ça contient de la pédophilie (À PEINE DISSIMULÉE) et je n'aime pas ça",
+        itsTerroristic: "Ça fait l'apologie du terrorisme",
+        itsNotFunny: "C'est pas drôle, fils de pute",
+        noneOfThis: 'Rien de tout cela',
+        technicalProblem: "J'ai rencontré un problème technique",
+        whichOne: 'Lequel ?',
+        onelineVersionDoesntWork:
+          "Un truc ne marche pas sur la version en ligne alors qu'on m'a dit qu'elle n'était pas stable et je ne peux m'en prendre qu'à moi-même",
+        blameYourself: "Ne t'en prends qu'à toi même.",
+        andDownloadTheGame: '(Et télécharge le jeu.)',
+        imLeftHanded: 'En fait, je suis gaucher',
+        trueIndeed: 'Aucun doute, il disait vrai.',
+        needMoarOars: "Je n'ai pas assez de RAM - il me faut plus de rames",
+        mySuggestionIsSoAwesome:
+          "Ma recommandation est si intéressante qu'elle ne figure pas dans les choix sus-mentionnés",
+        ohWell: 'Eh ben...'
+      }
     },
 
     game: {
@@ -249,7 +359,63 @@ export const translations: Record<Language, Translation> = {
     },
 
     contact: {
-      send: 'Submit'
+      send: 'Submit',
+      form: {
+        whatDoYouWant: 'De quoi voulez-vous nous parler ?',
+        devsAreAssholes: 'Les développeurs sont des enculés et je veux envoyer un message de haine',
+        butICant: 'Mais je ne peux pas.',
+        devsAreAwesome: 'Les développeurs sont formidables et je veux les féliciter',
+        whatElse: 'Mais encore ?',
+        congrats: 'Bravo.',
+        congratsSonOfABitch: 'Bravo, fils de pute.',
+        iWannaSuggestScene:
+          'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
+        whichCharacter: 'Avec quel personnage ?',
+        sceneDescription: 'Description de la scène :',
+        jpNoNeedToIntroduceMe: '"Ha, ha ! Inutile de me présenter !"',
+        luchien: 'Luchien',
+        mf: 'Miss Fourtune',
+        stGede: 'Saint Gède',
+        haddock: 'Haddock',
+        haddockTintin: '"TINTIN ?!"',
+        kaarthus: 'Kaarthus',
+        rammus: 'Rammus',
+        rammusOk: '"OK."',
+        pikachu: 'Pikachu',
+        otherWithPrecision: 'Autre (préciser)',
+        iAmATalentedMusician:
+          "Je suis un musicien compétent et je souhaite intégrer l'équipe de dev'",
+        giveUsYourContact: 'Laisse nous un moyen de te contacter 😉',
+        iAmShocked: 'Je suis outré par le contenu de ce jeu formidable et je veux le faire savoir',
+        why: 'Pourquoi donc ?',
+        itsRacist: "C'est raciste",
+        forWho: 'Envers qui ?',
+        niggers: 'Les noirs',
+        chineses: 'Les chinois',
+        itCouldBeWorse: 'Ça va, il y a pire...',
+        vikings: 'Les vikings',
+        pirates: 'Les pirates',
+        aLotOfPeople: 'Beaucoup trop de monde',
+        itsSexist: "C'est sexiste",
+        itsHomo: "C'est homophobe",
+        itsReligonUnfriendly: "C'est dégradant envers la religion",
+        itsPedophile: "Ça contient de la pédophilie (À PEINE DISSIMULÉE) et je n'aime pas ça",
+        itsTerroristic: "Ça fait l'apologie du terrorisme",
+        itsNotFunny: "C'est pas drôle, fils de pute",
+        noneOfThis: 'Rien de tout cela',
+        technicalProblem: "J'ai rencontré un problème technique",
+        whichOne: 'Lequel ?',
+        onelineVersionDoesntWork:
+          "Un truc ne marche pas sur la version en ligne alors qu'on m'a dit qu'elle n'était pas stable et je ne peux m'en prendre qu'à moi-même",
+        blameYourself: "Ne t'en prends qu'à toi même.",
+        andDownloadTheGame: '(Et télécharge le jeu.)',
+        imLeftHanded: 'En fait, je suis gaucher',
+        trueIndeed: 'Aucun doute, il disait vrai.',
+        needMoarOars: "Je n'ai pas assez de RAM - il me faut plus de rames",
+        mySuggestionIsSoAwesome:
+          "Ma recommandation est si intéressante qu'elle ne figure pas dans les choix sus-mentionnés",
+        ohWell: 'Eh ben...'
+      }
     },
 
     game: {

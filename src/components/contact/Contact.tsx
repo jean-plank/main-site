@@ -11,6 +11,7 @@ import bgNotFoundJpg from '../../../img/bg_not_found.jpg'
 import { ContactEnd } from './ContactEnd'
 import { ContactSelect } from './ContactSelect'
 import AppContext from '../../contexts/AppContext'
+import { FormTranslation } from '../../contexts/translation'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 import {
   Question,
@@ -45,7 +46,11 @@ export const Contact: FunctionComponent = () => {
       <div css={styles.container}>
         <div css={styles.form}>
           <div css={styles.selects}>
-            <ContactSelect selected={selected} setSelected={setSelected} question={question} />
+            <ContactSelect
+              selected={selected}
+              setSelected={setSelected}
+              question={question(transl.contact.form)}
+            />
             {pipe(
               selected,
               O.chain(([, _]) => _),
@@ -103,120 +108,123 @@ export const Contact: FunctionComponent = () => {
   }
 }
 
-const question = Question(
-  'De quoi voulez-vous nous parler ?',
-  Answer(
-    'Les développeurs sont des enculés et je veux envoyer un message de haine',
-    Message('Mais je ne peux pas.')
-  ),
-  Answer(
-    'Les développeurs sont formidables et je veux les féliciter',
-    Question('Mais encore ?', Answer('Bravo.'), Answer('Bravo, fils de pute.', FreeMsg()))
-  ),
-  Answer(
-    'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
-    Question(
-      'Avec quel personnage ?',
-      Answer(
-        'Jean Plank',
-        FreeMsg(
-          <Fragment>
-            "Ha, ha ! Inutile de me présenter !"
-            <br />
-            <br />
-            Description de la scène :
-          </Fragment>
-        )
-      ),
-      Answer('Luchien', FreeMsg('Description de la scène :')),
-      Answer('Miss Fourtune', FreeMsg('Description de la scène :')),
-      Answer('Saint Gède', FreeMsg('Description de la scène :')),
-      Answer(
-        'Haddock',
-        FreeMsg(
-          <Fragment>
-            "TINTIN ?!"
-            <br />
-            <br />
-            Description de la scène :
-          </Fragment>
-        )
-      ),
-      Answer('Kaarthus', FreeMsg('Description de la scène :')),
-      Answer(
-        'Rammus',
-        FreeMsg(
-          <Fragment>
-            "OK."
-            <br />
-            <br />
-            Description de la scène :
-          </Fragment>
-        )
-      ),
-      Answer('Pikachu', FreeMsg('Description de la scène :')),
-      Answer('Autre (préciser)', FreeMsg('Description de la scène :'))
-    )
-  ),
-  Answer(
-    "Je suis un musicien compétent et je souhaite intégrer l'équipe de dev'",
-    FreeMsg('Laisse nous un moyen de te contacter 😉')
-  ),
-  Answer(
-    'Je suis outré par le contenu de ce jeu formidable et je veux le faire savoir',
-    Question(
-      'Pourquoi donc ?',
-      Answer(
-        "C'est raciste",
-        Question(
-          'Envers qui ?',
-          Answer('Les noirs', Link('http://le-cran.fr')),
-          Answer('Les chinois', MessageLink('https://t.co/zh0cyds07K', 'Ça va, il y a pire...')),
-          Answer(
-            'Les vikings',
-            Link('http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm')
-          ),
-          Answer('Les pirates'),
-          Answer('Les noirs'),
-          Answer('Beaucoup trop de monde')
-        )
-      ),
-      Answer("C'est sexiste"),
-      Answer("C'est homophobe"),
-      Answer("C'est dégradant envers la religion"),
-      Answer("Ça contient de la pédophilie (À PEINE DISSIMULÉE) et je n'aime pas ça"),
-      Answer("Ça fait l'apologie du terrorisme", Link('https://twitter.com/Gendarmerie')),
-      Answer("C'est pas drôle, fils de pute", Link('https://youtu.be/psCSnnioq0M')),
-      Answer('Rien de tout cela', FreeMsg())
-    )
-  ),
-  Answer(
-    "J'ai rencontré un problème technique",
-    Question(
-      'Lequel ?',
-      Answer(
-        "Un truc ne marche pas sur la version en ligne alors qu'on m'a dit qu'elle n'était pas stable et je ne peux m'en prendre qu'à moi-même",
-        Message(
-          <Fragment>
-            Ne t'en prends qu'à toi même.
-            <br />
-            <br />
-            (Et télécharge le jeu.)
-          </Fragment>
-        )
-      ),
-      Answer('En fait, je suis gaucher', Message('Aucun doute, il disait vrai.')),
-      Answer(
-        "Je n'ai pas assez de RAM - il me faut plus de rames",
-        Link('https://downloadmoreram.com')
+const question = (transl: FormTranslation) =>
+  Question(
+    transl.whatDoYouWant,
+    Answer(
+      'Les développeurs sont des enculés et je veux envoyer un message de haine',
+      Message('Mais je ne peux pas.')
+    ),
+    Answer(
+      'Les développeurs sont formidables et je veux les féliciter',
+      Question('Mais encore ?', Answer('Bravo.'), Answer('Bravo, fils de pute.', FreeMsg()))
+    ),
+    Answer(
+      'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
+      Question(
+        'Avec quel personnage ?',
+        Answer(
+          'Jean Plank',
+          FreeMsg(
+            <Fragment>
+              "Ha, ha ! Inutile de me présenter !"
+              <br />
+              <br />
+              Description de la scène :
+            </Fragment>
+          )
+        ),
+        Answer('Luchien', FreeMsg('Description de la scène :')),
+        Answer('Miss Fourtune', FreeMsg('Description de la scène :')),
+        Answer('Saint Gède', FreeMsg('Description de la scène :')),
+        Answer(
+          'Haddock',
+          FreeMsg(
+            <Fragment>
+              "TINTIN ?!"
+              <br />
+              <br />
+              Description de la scène :
+            </Fragment>
+          )
+        ),
+        Answer('Kaarthus', FreeMsg('Description de la scène :')),
+        Answer(
+          'Rammus',
+          FreeMsg(
+            <Fragment>
+              "OK."
+              <br />
+              <br />
+              Description de la scène :
+            </Fragment>
+          )
+        ),
+        Answer('Pikachu', FreeMsg('Description de la scène :')),
+        Answer('Autre (préciser)', FreeMsg('Description de la scène :'))
       )
+    ),
+    Answer(
+      "Je suis un musicien compétent et je souhaite intégrer l'équipe de dev'",
+      FreeMsg('Laisse nous un moyen de te contacter 😉')
+    ),
+    Answer(
+      'Je suis outré par le contenu de ce jeu formidable et je veux le faire savoir',
+      Question(
+        'Pourquoi donc ?',
+        Answer(
+          "C'est raciste",
+          Question(
+            'Envers qui ?',
+            Answer('Les noirs', Link('http://le-cran.fr')),
+            Answer('Les chinois', MessageLink('https://t.co/zh0cyds07K', 'Ça va, il y a pire...')),
+            Answer(
+              'Les vikings',
+              Link(
+                'http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm'
+              )
+            ),
+            Answer('Les pirates'),
+            Answer('Les noirs'),
+            Answer('Beaucoup trop de monde')
+          )
+        ),
+        Answer("C'est sexiste"),
+        Answer("C'est homophobe"),
+        Answer("C'est dégradant envers la religion"),
+        Answer("Ça contient de la pédophilie (À PEINE DISSIMULÉE) et je n'aime pas ça"),
+        Answer("Ça fait l'apologie du terrorisme", Link('https://twitter.com/Gendarmerie')),
+        Answer("C'est pas drôle, fils de pute", Link('https://youtu.be/psCSnnioq0M')),
+        Answer('Rien de tout cela', FreeMsg())
+      )
+    ),
+    Answer(
+      "J'ai rencontré un problème technique",
+      Question(
+        'Lequel ?',
+        Answer(
+          "Un truc ne marche pas sur la version en ligne alors qu'on m'a dit qu'elle n'était pas stable et je ne peux m'en prendre qu'à moi-même",
+          Message(
+            <Fragment>
+              Ne t'en prends qu'à toi même.
+              <br />
+              <br />
+              (Et télécharge le jeu.)
+            </Fragment>
+          )
+        ),
+        Answer('En fait, je suis gaucher', Message('Aucun doute, il disait vrai.')),
+        Answer(
+          "Je n'ai pas assez de RAM - il me faut plus de rames",
+          Link('https://downloadmoreram.com')
+        )
+      )
+    ),
+    Answer(
+      "Ma recommandation est si intéressante qu'elle ne figure pas dans les choix sus-mentionnés",
+      FreeMsg('Eh ben...')
     )
-  ),
-  Answer(
-    "Ma recommandation est si intéressante qu'elle ne figure pas dans les choix sus-mentionnés",
-    FreeMsg('Eh ben...')
   )
-)
 
 const styles = {
   contact: css({

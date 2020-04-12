@@ -17,7 +17,7 @@ interface Props {
   path: string
 }
 
-const Router: FunctionComponent<Props> = ({ path }) => {
+export const Router: FunctionComponent<Props> = ({ path }) => {
   const transl = useContext(AppContext).translation
   const [subTitle, node] = route(transl)(path)
   const title = ['Jean Plank', ...OptionHelpers.toArray(subTitle)].join(' | ')
@@ -28,19 +28,18 @@ const Router: FunctionComponent<Props> = ({ path }) => {
 
   return node
 }
-export default Router
 
-/* tslint:disable: jsx-key */
+/* eslint-disable react/jsx-key */
 const route = (transl: Translation) => (path: string): [O.Option<string>, ReactElement] =>
   pipe(
     R.lookup(path, {
       [routes.home]: [O.none, <Home />],
-      [routes.bonus]: [O.some(transl.bonus), <Bonus />],
-      [routes.contact]: [O.some(transl.contact.title), <Contact />]
+      [routes.bonus]: [O.some(transl.documentTitle.bonus), <Bonus />],
+      [routes.contact]: [O.some(transl.documentTitle.contact), <Contact />]
     }),
-    O.getOrElse(() => [O.some(transl.notFound.title), <NotFound />])
+    O.getOrElse(() => [O.some(transl.documentTitle.notFound), <NotFound />])
   )
-/* tslint:enable: jsx-key */
+/* eslint-enable react/jsx-key */
 
 export const routes = {
   home: '/',

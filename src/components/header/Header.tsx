@@ -26,16 +26,16 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
     <div css={styles.container}>
       <div css={styles.nav}>
         <Link to={routes.home} css={styles.title}>
-          <div css={[styles.yarr, styles.trueStory]}>{transl.preTitle}</div>
+          <div css={[styles.yarr, styles.trueStory]}>{transl.header.preTitle}</div>
           <div css={styles.link} className={routes.home === path ? 'current' : undefined}>
             J<span>ean</span> P<span>lank</span>
           </div>
         </Link>
         <HeaderLink path={path} to={routes.bonus}>
-          {transl.bonus}
+          {transl.header.bonus}
         </HeaderLink>
         <HeaderLink path={path} to={routes.contact}>
-          {transl.contact.label}
+          {transl.header.contact}
         </HeaderLink>
       </div>
       <LangPicker

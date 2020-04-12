@@ -37,7 +37,7 @@ export const Game: FunctionComponent<Props> = ({
   style
 }) => {
   const transl = useContext(AppContext).translation
-  const gameTransl = transl[gameId]
+  const gameTransl = transl.games[gameId]
 
   return (
     <div id={id} css={[styles.container, style?.container]}>
@@ -56,7 +56,7 @@ export const Game: FunctionComponent<Props> = ({
               <div>{gameTransl.title}</div>
             </div>
           </div>
-          {noLinks() ? <div css={styles.notOutYet}>{transl.notOutYet}</div> : null}
+          {noLinks() ? <div css={styles.notOutYet}>{transl.game.notOutYet}</div> : null}
         </div>
       </div>
       {footer}
@@ -72,7 +72,7 @@ export const Game: FunctionComponent<Props> = ({
     if (noLinks()) {
       return (
         <div css={styles.launchDl}>
-          <Under18>{transl.advisoryAlready}</Under18>
+          <Under18>{transl.game.advisoryAlready}</Under18>
         </div>
       )
     }
@@ -84,7 +84,7 @@ export const Game: FunctionComponent<Props> = ({
             () => null,
             dl => (
               <a href={dl} download={true}>
-                {transl.dl}
+                {transl.game.dl}
               </a>
             )
           )
@@ -95,12 +95,12 @@ export const Game: FunctionComponent<Props> = ({
             () => null,
             launch => (
               <TargetBlank href={launch} css={styles.launch}>
-                {transl.launch}
+                {transl.game.launch}
               </TargetBlank>
             )
           )
         )}
-        <Under18>{transl.advisory}</Under18>
+        <Under18>{transl.game.advisory}</Under18>
       </div>
     )
   }

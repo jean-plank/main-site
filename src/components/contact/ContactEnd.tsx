@@ -7,7 +7,6 @@ import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent } from 'react'
 
 import { PrettyTargetBlank } from '../PrettyTargetBlank'
 import { DisplayableEndOutput } from '../../models/choices'
-import { fontFamily } from '../../utils/css/fonts'
 
 interface Props {
   end: DisplayableEndOutput

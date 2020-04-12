@@ -21,7 +21,7 @@ export const Videos: FunctionComponent<Props> = ({ videos }) => {
   const transl = useContext(AppContext).translation
   return (
     <div css={styles.container}>
-      <h2 css={styles.title}>{transl.videos}</h2>
+      <h2 css={styles.title}>{transl.bonus.videos}</h2>
       <div css={styles.videos}>
         {videos.map(([id, title], i) => {
           // const embed = `https://www.youtube.com/embed/${id}`

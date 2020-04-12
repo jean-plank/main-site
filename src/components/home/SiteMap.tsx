@@ -30,7 +30,7 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
         O.fromNullable(parallaxRef.current),
         O.map(elt => [elt, () => setCurrent(findCurrent(elt.scrollTop, sections))])
       ),
-    [parallaxRef.current, setCurrent, sections]
+    [parallaxRef, setCurrent, sections]
   )
 
   useEffect(

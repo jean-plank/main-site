@@ -54,7 +54,7 @@ const Home: FunctionComponent = () => {
               game: styles.reverse
             }}
           />
-          <Label css={styles.revengefulLabel}>{transl.revengefulTrilogy}</Label>
+          <Label css={styles.revengefulLabel}>{transl.home.revengefulTrilogy}</Label>
         </div>
         <div id='jp2' css={[styles.page, styles.strokeH]}>
           <Game

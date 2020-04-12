@@ -29,11 +29,11 @@ const Bonus: FunctionComponent = () => {
             image={jp1Jpg}
             style={{ container: styles.thestory }}
           />
-          <Label css={styles.label}>{transl.thestoryLabel}</Label>
+          <Label css={styles.label}>{transl.bonus.thestoryLabel}</Label>
         </div>
 
         <div css={[parallax.layerBase, styles.tutorialContainer]}>
-          <img src={transl.tutorialImg} css={styles.tutorial} />
+          <img src={transl.bonus.tutorialImg} css={styles.tutorial} />
         </div>
 
         <div css={[parallax.layerBack, styles.videosContainer]}>

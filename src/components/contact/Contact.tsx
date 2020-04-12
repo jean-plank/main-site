@@ -31,15 +31,23 @@ export const Contact: FunctionComponent = () => {
   const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(O.none)
   const [freeMsg, setFreeMsg] = useState<Option<string>>(O.none)
 
-  const disabled =
-    O.isNone(selected) ||
-    pipe(
-      ArrayWithEnd.lastA(selected),
-      O.chain(_ => _.leadsTo),
-      O.exists(
-        _ => AnswerNext.isQuestion(_) || AnswerNext.isMessage(_) || AnswerNext.isMessageLink(_)
-      )
+  const freeMsgIsEmpty = pipe(
+    freeMsg,
+    O.fold(
+      () => true,
+      _ => _.trim() === ''
     )
+  )
+
+  const lastIsQuestionOrMessage = pipe(
+    ArrayWithEnd.lastA(selected),
+    O.chain(_ => _.leadsTo),
+    O.exists(
+      _ => AnswerNext.isQuestion(_) || AnswerNext.isMessage(_) || AnswerNext.isMessageLink(_)
+    )
+  )
+
+  const disabled = O.isNone(selected) || freeMsgIsEmpty || lastIsQuestionOrMessage
 
   return (
     <div css={styles.contact}>
@@ -81,7 +89,7 @@ export const Contact: FunctionComponent = () => {
     pipe(
       end,
       O.fold(
-        () => send(answers),
+        () => {},
         end => {
           switch (end._tag) {
             case 'Link':
@@ -93,7 +101,13 @@ export const Contact: FunctionComponent = () => {
               break
 
             case 'FreeMsg':
-              send(answers, freeMsg)
+              pipe(
+                freeMsg,
+                O.map(msg => {
+                  const trimed = msg.trim()
+                  if (trimed !== '') send(answers, trimed)
+                })
+              )
               break
           }
         }
@@ -101,10 +115,10 @@ export const Contact: FunctionComponent = () => {
     )
   }
 
-  function send(answers: NonEmptyArray<Answer>, msg: Option<string> = O.none) {
+  function send(answers: NonEmptyArray<Answer>, msg: string) {
     // TODO: send answers and freeMsg
     console.table(answers.map(_ => _.label))
-    O.option.map(msg, console.log)
+    console.log(msg)
   }
 }
 

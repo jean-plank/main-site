@@ -111,119 +111,111 @@ export const Contact: FunctionComponent = () => {
 const question = (transl: FormTranslation) =>
   Question(
     transl.whatDoYouWant,
+    Answer(transl.devsAreAssholes, Message(transl.butICant)),
     Answer(
-      'Les développeurs sont des enculés et je veux envoyer un message de haine',
-      Message('Mais je ne peux pas.')
-    ),
-    Answer(
-      'Les développeurs sont formidables et je veux les féliciter',
-      Question('Mais encore ?', Answer('Bravo.'), Answer('Bravo, fils de pute.', FreeMsg()))
-    ),
-    Answer(
-      'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
+      transl.devsAreAwesome,
       Question(
-        'Avec quel personnage ?',
+        transl.whatElse,
+        Answer(transl.congrats),
+        Answer(transl.congratsSonOfABitch, FreeMsg())
+      )
+    ),
+    Answer(
+      transl.iWannaSuggestScene,
+      Question(
+        transl.whichCharacter,
         Answer(
           'Jean Plank',
           FreeMsg(
             <Fragment>
-              "Ha, ha ! Inutile de me présenter !"
+              {transl.jpNoNeedToIntroduceMe}
               <br />
               <br />
-              Description de la scène :
+              {transl.sceneDescription}
             </Fragment>
           )
         ),
-        Answer('Luchien', FreeMsg('Description de la scène :')),
-        Answer('Miss Fourtune', FreeMsg('Description de la scène :')),
-        Answer('Saint Gède', FreeMsg('Description de la scène :')),
+        Answer(transl.luchien, FreeMsg(transl.sceneDescription)),
+        Answer(transl.mf, FreeMsg(transl.sceneDescription)),
+        Answer(transl.stGede, FreeMsg(transl.sceneDescription)),
         Answer(
-          'Haddock',
+          transl.haddock,
           FreeMsg(
             <Fragment>
-              "TINTIN ?!"
+              {transl.haddockTintin}
               <br />
               <br />
-              Description de la scène :
+              {transl.sceneDescription}
             </Fragment>
           )
         ),
-        Answer('Kaarthus', FreeMsg('Description de la scène :')),
+        Answer(transl.kaarthus, FreeMsg(transl.sceneDescription)),
         Answer(
-          'Rammus',
+          transl.rammus,
           FreeMsg(
             <Fragment>
-              "OK."
+              {transl.rammusOk}
               <br />
               <br />
-              Description de la scène :
+              {transl.sceneDescription}
             </Fragment>
           )
         ),
-        Answer('Pikachu', FreeMsg('Description de la scène :')),
-        Answer('Autre (préciser)', FreeMsg('Description de la scène :'))
+        Answer(transl.pikachu, FreeMsg(transl.sceneDescription)),
+        Answer(transl.otherWithPrecision, FreeMsg(transl.sceneDescription))
       )
     ),
+    Answer(transl.iAmATalentedMusician, FreeMsg(transl.giveUsYourContact)),
     Answer(
-      "Je suis un musicien compétent et je souhaite intégrer l'équipe de dev'",
-      FreeMsg('Laisse nous un moyen de te contacter 😉')
-    ),
-    Answer(
-      'Je suis outré par le contenu de ce jeu formidable et je veux le faire savoir',
+      transl.iAmShocked,
       Question(
-        'Pourquoi donc ?',
+        transl.why,
         Answer(
-          "C'est raciste",
+          transl.itsRacist,
           Question(
-            'Envers qui ?',
-            Answer('Les noirs', Link('http://le-cran.fr')),
-            Answer('Les chinois', MessageLink('https://t.co/zh0cyds07K', 'Ça va, il y a pire...')),
+            transl.forWho,
+            Answer(transl.niggers, Link('http://le-cran.fr')),
+            Answer(transl.chineses, MessageLink('https://t.co/zh0cyds07K', transl.itCouldBeWorse)),
             Answer(
-              'Les vikings',
+              transl.vikings,
               Link(
                 'http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm'
               )
             ),
-            Answer('Les pirates'),
-            Answer('Les noirs'),
-            Answer('Beaucoup trop de monde')
+            Answer(transl.pirates),
+            Answer(transl.niggers),
+            Answer(transl.aLotOfPeople)
           )
         ),
-        Answer("C'est sexiste"),
-        Answer("C'est homophobe"),
-        Answer("C'est dégradant envers la religion"),
-        Answer("Ça contient de la pédophilie (À PEINE DISSIMULÉE) et je n'aime pas ça"),
-        Answer("Ça fait l'apologie du terrorisme", Link('https://twitter.com/Gendarmerie')),
-        Answer("C'est pas drôle, fils de pute", Link('https://youtu.be/psCSnnioq0M')),
-        Answer('Rien de tout cela', FreeMsg())
+        Answer(transl.itsSexist),
+        Answer(transl.itsHomo),
+        Answer(transl.itsReligonUnfriendly),
+        Answer(transl.itsPedophile),
+        Answer(transl.itsTerroristic, Link('https://twitter.com/Gendarmerie')),
+        Answer(transl.itsNotFunny, Link('https://youtu.be/psCSnnioq0M')),
+        Answer(transl.noneOfThis, FreeMsg())
       )
     ),
     Answer(
-      "J'ai rencontré un problème technique",
+      transl.technicalProblem,
       Question(
-        'Lequel ?',
+        transl.whichOne,
         Answer(
-          "Un truc ne marche pas sur la version en ligne alors qu'on m'a dit qu'elle n'était pas stable et je ne peux m'en prendre qu'à moi-même",
+          transl.onelineVersionDoesntWork,
           Message(
             <Fragment>
-              Ne t'en prends qu'à toi même.
+              {transl.blameYourself}
               <br />
               <br />
-              (Et télécharge le jeu.)
+              {transl.andDownloadTheGame}
             </Fragment>
           )
         ),
-        Answer('En fait, je suis gaucher', Message('Aucun doute, il disait vrai.')),
-        Answer(
-          "Je n'ai pas assez de RAM - il me faut plus de rames",
-          Link('https://downloadmoreram.com')
-        )
+        Answer(transl.imLeftHanded, Message(transl.trueIndeed)),
+        Answer(transl.needMoarOars, Link('https://downloadmoreram.com'))
       )
     ),
-    Answer(
-      "Ma recommandation est si intéressante qu'elle ne figure pas dans les choix sus-mentionnés",
-      FreeMsg('Eh ben...')
-    )
+    Answer(transl.mySuggestionIsSoAwesome, FreeMsg(transl.ohWell))
   )
 
 const styles = {

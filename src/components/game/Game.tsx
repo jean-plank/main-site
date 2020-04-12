@@ -4,14 +4,15 @@ import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, ReactNode, useContext } from 'react'
 
-import ratioHolder from '../../img/ratio_holder.png'
+import ratioHolder from '../../../img/ratio_holder.png'
 
-import AppContext from '../contexts/AppContext'
-import { GameId } from '../contexts/translation'
-import { fontFamily } from '../utils/css/fonts'
-import media from '../utils/css/media'
-import params from '../utils/css/params'
-import { Ban } from '../utils/svg'
+import { Under18 } from './Under18'
+import { TargetBlank } from '../TargetBlank'
+import AppContext from '../../contexts/AppContext'
+import { GameId } from '../../contexts/translation'
+import { fontFamily } from '../../utils/css/fonts'
+import media from '../../utils/css/media'
+import params from '../../utils/css/params'
 
 interface Props {
   id?: string
@@ -26,7 +27,15 @@ interface Props {
   }
 }
 
-const Game: FunctionComponent<Props> = ({ id, gameId, jpTitle, image, header, footer, style }) => {
+export const Game: FunctionComponent<Props> = ({
+  id,
+  gameId,
+  jpTitle,
+  image,
+  header,
+  footer,
+  style
+}) => {
   const transl = useContext(AppContext).translation
   const gameTransl = transl[gameId]
 
@@ -61,48 +70,41 @@ const Game: FunctionComponent<Props> = ({ id, gameId, jpTitle, image, header, fo
   function launchDl(): ReactNode {
     const links = gameTransl.links
     if (noLinks()) {
-      return <div css={styles.launchDl}>{under18(transl.advisoryAlready)}</div>
+      return (
+        <div css={styles.launchDl}>
+          <Under18>{transl.advisoryAlready}</Under18>
+        </div>
+      )
     }
     return (
       <div css={styles.launchDl}>
         {pipe(
           links.dl,
-          O.map(dl => (
-            // tslint:disable-next-line: jsx-key
-            <a href={dl} download={true}>
-              {transl.dl}
-            </a>
-          )),
-          O.toNullable
+          O.fold(
+            () => null,
+            dl => (
+              <a href={dl} download={true}>
+                {transl.dl}
+              </a>
+            )
+          )
         )}
         {pipe(
           links.launch,
-          O.map(launch => (
-            // tslint:disable-next-line: jsx-key
-            <a href={launch} target='_blank' css={styles.launch}>
-              {transl.launch}
-            </a>
-          )),
-          O.toNullable
+          O.fold(
+            () => null,
+            launch => (
+              <TargetBlank href={launch} css={styles.launch}>
+                {transl.launch}
+              </TargetBlank>
+            )
+          )
         )}
-        {under18(transl.advisory)}
-      </div>
-    )
-  }
-
-  function under18(message: string): ReactNode {
-    return (
-      <div css={styles18.container}>
-        <span css={styles18.sign}>
-          <span css={styles18.eighteen}>-18</span>
-          <Ban css={styles18.ban} />
-        </span>
-        <span css={styles18.message}>{message}</span>
+        <Under18>{transl.advisory}</Under18>
       </div>
     )
   }
 }
-export default Game
 
 const styles = {
   container: css({
@@ -230,7 +232,7 @@ const styles = {
   launch: css({
     '& i': {
       display: 'block',
-      fontFamily: fontFamily.normal,
+      fontFamily: fontFamily.baloopaaji2,
       fontSize: '0.5em',
       color: params.game.details.color,
       marginTop: '0.1em'
@@ -307,36 +309,5 @@ const styles = {
     [media.mobile]: {
       fontSize: '1.7em'
     }
-  })
-}
-
-const styles18 = {
-  container: css({
-    fontFamily: fontFamily.normal,
-    height: '1.7em',
-    display: 'flex',
-    alignItems: 'center'
-  }),
-  sign: css({
-    position: 'relative',
-    marginRight: '0.33em'
-  }),
-  eighteen: css({
-    display: 'inline-block',
-    padding: '0.35em 0.1em',
-    fontSize: '0.9em',
-    letterSpacing: '-3px',
-    color: 'goldenrod'
-  }),
-  ban: css({
-    position: 'absolute',
-    left: 0,
-    height: '1.6em',
-    color: params.game.notOutYet.bg
-  }),
-  message: css({
-    alignSelf: 'center',
-    fontSize: '0.5em',
-    padding: '0.33em 0'
   })
 }

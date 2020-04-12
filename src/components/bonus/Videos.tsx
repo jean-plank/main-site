@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext } from 'react'
 
+import { TargetBlank } from '../TargetBlank'
 import AppContext from '../../contexts/AppContext'
 import { fontFamily } from '../../utils/css/fonts'
 import params from '../../utils/css/params'
@@ -27,14 +28,14 @@ export const Videos: FunctionComponent<Props> = ({ videos }) => {
           // const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
           const img = `https://i.ytimg.com/vi/${id}/hq720.jpg`
           return (
-            <a key={i} href={`https://youtu.be/${id}`} target='_blank' css={styles.video}>
+            <TargetBlank key={i} href={`https://youtu.be/${id}`} css={styles.video}>
               <span css={styles.thumbnail}>
                 <img src={img} />
               </span>
               <div css={styles.videoTitle}>
                 <span>{title}</span>
               </div>
-            </a>
+            </TargetBlank>
           )
         })}
       </div>
@@ -47,6 +48,7 @@ function getStyles() {
     container: css({
       width: '100%',
       padding: '2em 0',
+      fontFamily: fontFamily.baloopaaji2,
       color: '#f1e6b7'
     }),
 
@@ -100,8 +102,7 @@ function getStyles() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      fontFamily: fontFamily.normal,
-      letterSpacing: '-1px'
+      letterSpacing: 0
     })
   }
 }

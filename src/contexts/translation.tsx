@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react'
 import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import tutorialEnJpg from '../../img/tutorial_en.jpg'
 
-import { ExternalLink } from '../utils/svg'
+import { PrettyTargetBlank } from '../components/PrettyTargetBlank'
 
 export const LANG_KEY = 'lang'
 
@@ -146,10 +146,7 @@ export const translations: Record<Language, Translation> = {
     revengefulTrilogy: (
       <>
         <q>"Une tragédie vengeresse en trois actes."</q>
-        <a href='https://twitter.com/MohamedZdong' target='_blank'>
-          Maitre ZDONG
-          <ExternalLink />
-        </a>
+        <PrettyTargetBlank href='https://twitter.com/MohamedZdong'>Maitre ZDONG</PrettyTargetBlank>
       </>
     ),
     thestoryLabel: (
@@ -162,7 +159,7 @@ export const translations: Record<Language, Translation> = {
       </>
     ),
     tutorialImg: tutorialFrJpg,
-    videos: "Vidéos aléatoires de l'équipe de dev"
+    videos: "Diverses vidéos diverses de l'équipe de dev"
   },
   en: {
     notFound: {
@@ -259,10 +256,7 @@ export const translations: Record<Language, Translation> = {
     revengefulTrilogy: (
       <>
         <q>"A revengeful tragedy in three acts."</q>
-        <a href='https://twitter.com/MohamedZdong' target='_blank'>
-          Master ZDONG
-          <ExternalLink />
-        </a>
+        <PrettyTargetBlank href='https://twitter.com/MohamedZdong'>Master ZDONG</PrettyTargetBlank>
       </>
     ),
     thestoryLabel: (

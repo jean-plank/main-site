@@ -4,13 +4,12 @@ import { Fragment, FunctionComponent, useContext } from 'react'
 
 import bgNotFoundJpg from '../../../img/bg_not_found.jpg'
 import jp1Jpg from '../../../img/jp1.jpg'
-import labelJpg from '../../../img/label.jpg'
 
 import BonusBg from './BonusBg'
 import { Video, Videos } from './Videos'
-import AppContext from '../../contexts/AppContext'
-import Game from '../Game'
 import { Label } from '../Label'
+import { Game } from '../game/Game'
+import AppContext from '../../contexts/AppContext'
 import fadeIn from '../../utils/css/fadeIn'
 import { fontFamily } from '../../utils/css/fonts'
 import * as parallax from '../../utils/css/parallax'
@@ -30,7 +29,7 @@ const Bonus: FunctionComponent = () => {
             image={jp1Jpg}
             style={{ container: styles.thestory }}
           />
-          <Label>{transl.thestoryLabel}</Label>
+          <Label css={styles.label}>{transl.thestoryLabel}</Label>
         </div>
 
         <div css={[parallax.layerBase, styles.tutorialContainer]}>
@@ -81,15 +80,6 @@ const styles = {
   }),
 
   label: css({
-    maxWidth: '1100px',
-    margin: '0 1.67em',
-    background: `url('${labelJpg}')`,
-    backgroundSize: 'cover',
-    padding: '0.5em 1em 0.3em',
-    border: '5px solid #8e6400',
-    boxShadow: '0 0 10px black',
-    fontSize: '0.9em',
-
     '& h4': {
       fontFamily: fontFamily.yarr,
       fontSize: '1.1em',

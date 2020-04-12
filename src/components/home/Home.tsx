@@ -11,8 +11,8 @@ import jp3bJpg from '../../../img/jp3b.jpg'
 import jp4Jpg from '../../../img/jp4.jpg'
 
 import SiteMap from './SiteMap'
-import Game from '../Game'
 import { Label } from '../Label'
+import { Game } from '../game/Game'
 import AppContext from '../../contexts/AppContext'
 import fadeIn from '../../utils/css/fadeIn'
 import { fontFamily } from '../../utils/css/fonts'
@@ -98,9 +98,10 @@ const Home: FunctionComponent = () => {
 
       {pipe(
         pages,
-        // tslint:disable-next-line: jsx-key
-        O.map(_ => <SiteMap sections={_} />),
-        O.toNullable
+        O.fold(
+          () => null,
+          _ => <SiteMap sections={_} />
+        )
       )}
     </Fragment>
   )
@@ -151,29 +152,23 @@ const styles = {
     paddingBottom: '0.25em',
 
     '& q': {
-      fontFamily: fontFamily.yarr,
-      fontSize: '1.1em',
-      letterSpacing: '0.03em'
+      fontFamily: fontFamily.baloopaaji2,
+      letterSpacing: '-1px',
+      fontSize: '1.1em'
     },
 
     '& a': {
       alignSelf: 'flex-end',
       display: 'flex',
       alignItems: 'center',
-      color: 'inherit',
-      transition: 'all 0.2s',
-      borderRadius: '2px',
-      padding: '0.1em',
-      marginTop: '-0.1em',
+      fontFamily: fontFamily.yarr,
+      letterSpacing: '0.03em',
+      padding: '0.25em 0.1em 0'
 
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
-      },
-
-      '& svg': {
-        height: '0.7em',
-        marginLeft: '0.4em'
-      }
+      // '& svg': {
+      //   height: '0.7em',
+      //   marginLeft: '0.4em'
+      // }
     }
   }),
 

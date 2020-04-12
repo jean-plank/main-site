@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    port: 3000,
+    port: 8675,
     contentBase: common.output.path,
     inline: true, // iframe or inline script
     host: '0.0.0.0',
@@ -14,6 +14,8 @@ module.exports = merge(common, {
       errors: true,
       warnings: true
     },
+    historyApiFallback: true,
+    // disableHostCheck: true,
     hot: true
   }
 })

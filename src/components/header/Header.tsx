@@ -152,7 +152,8 @@ const styles = {
       width: `calc(100% - ${sizes.linkTextWidth}em)`,
       right: `${sizes.linkPaddingRight + sizes.underlinePadding}em`,
       bottom: '-0.05em',
-      borderBottom: `2px solid ${params.title.linkSepColor}`,
+      border: `1px solid ${params.title.linkSepColor}`,
+      borderWidth: '1px 0',
       borderRadius: '50%',
       transition: 'opacity 0.3s',
       opacity: 0

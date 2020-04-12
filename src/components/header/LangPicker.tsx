@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/core'
-import { createRef, FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useState, MouseEventHandler } from 'react'
 
 import { Language, languages } from '../../contexts/translation'
+import { useClickOutside } from '../../hooks/useClickOutside'
 import params from '../../utils/css/params'
 
 interface Props {
@@ -16,29 +17,11 @@ const LangPicker: FunctionComponent<Props> = ({
   setLanguage,
   styles: overroadStyles
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = createRef<HTMLDivElement>()
-
-  const closeLangs = (e: MouseEvent) => {
-    if (menuRef.current === null || !menuRef.current.contains(e.target as Node | null)) {
-      setIsOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.body.addEventListener('click', closeLangs)
-    return () => document.body.removeEventListener('click', closeLangs)
-  }, [closeLangs])
-
-  const toggleMenu = () => setIsOpen(!isOpen)
-
-  const changeLanguage = (lang: Language) => () => {
-    setLanguage(lang)
-    setIsOpen(false)
-  }
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const clickOutsideRef = useClickOutside<HTMLDivElement>(close)
 
   return (
-    <div ref={menuRef} css={[styles.container, overroadStyles]}>
+    <div ref={clickOutsideRef} css={[styles.container, overroadStyles]}>
       <button onClick={toggleMenu} css={styles.langBtn} className={'current'}>
         {currentLang}
       </button>
@@ -58,6 +41,21 @@ const LangPicker: FunctionComponent<Props> = ({
       ) : null}
     </div>
   )
+
+  function close(): void {
+    setIsOpen(false)
+  }
+
+  function toggleMenu(): void {
+    setIsOpen(_ => !_)
+  }
+
+  function changeLanguage(lang: Language): MouseEventHandler {
+    return _ => {
+      setLanguage(lang)
+      setIsOpen(false)
+    }
+  }
 }
 export default LangPicker
 
@@ -121,7 +119,8 @@ const styles = {
         width: 'calc(100% - 1em)',
         left: '0.5em',
         bottom: '0.2em',
-        borderBottom: `2px solid ${params.title.notCurrentLang.hoverColor}`,
+        border: `1px solid ${params.title.notCurrentLang.hoverColor}`,
+        borderWidth: '1px 0',
         borderRadius: '50%',
         transition: 'opacity 0.3s',
         opacity: 0

@@ -66,9 +66,9 @@ export const MessageLink = (link: string, label: string): MessageLink => ({
 
 export interface FreeMsg {
   _tag: 'FreeMsg'
-  message: Option<string>
+  message: Option<ReactNode>
 }
-export const FreeMsg = (message?: string): FreeMsg => ({
+export const FreeMsg = (message?: ReactNode): FreeMsg => ({
   _tag: 'FreeMsg',
   message: O.fromNullable(message)
 })

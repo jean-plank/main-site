@@ -105,7 +105,10 @@ export const Contact: FunctionComponent = () => {
 
 const question = Question(
   'De quoi voulez-vous nous parler ?',
-  Answer('Les développeurs sont des enculés et je veux envoyer un message de haine'),
+  Answer(
+    'Les développeurs sont des enculés et je veux envoyer un message de haine',
+    Message('Mais je ne peux pas.')
+  ),
   Answer(
     'Les développeurs sont formidables et je veux les féliciter',
     Question('Mais encore ?', Answer('Bravo.'), Answer('Bravo, fils de pute.', FreeMsg()))
@@ -114,15 +117,45 @@ const question = Question(
     'Je veux proposer une scène (qui ne finira pas dans le jeu, mais ça me fait plaisir)',
     Question(
       'Avec quel personnage ?',
-      Answer('Jean Plank', FreeMsg('HAHA !')),
-      Answer('Luchien', FreeMsg()),
-      Answer('Miss Fourtune', FreeMsg()),
-      Answer('Saint Gède', FreeMsg()),
-      Answer('Haddock', FreeMsg('TINTIN ?!')),
-      Answer('Kaarthus', FreeMsg()),
-      Answer('Rammus', FreeMsg('OK.')),
-      Answer('Pikachu', FreeMsg()),
-      Answer('Autre (préciser)', FreeMsg())
+      Answer(
+        'Jean Plank',
+        FreeMsg(
+          <Fragment>
+            "Ha, ha ! Inutile de me présenter !"
+            <br />
+            <br />
+            Description de la scène :
+          </Fragment>
+        )
+      ),
+      Answer('Luchien', FreeMsg('Description de la scène :')),
+      Answer('Miss Fourtune', FreeMsg('Description de la scène :')),
+      Answer('Saint Gède', FreeMsg('Description de la scène :')),
+      Answer(
+        'Haddock',
+        FreeMsg(
+          <Fragment>
+            "TINTIN ?!"
+            <br />
+            <br />
+            Description de la scène :
+          </Fragment>
+        )
+      ),
+      Answer('Kaarthus', FreeMsg('Description de la scène :')),
+      Answer(
+        'Rammus',
+        FreeMsg(
+          <Fragment>
+            "OK."
+            <br />
+            <br />
+            Description de la scène :
+          </Fragment>
+        )
+      ),
+      Answer('Pikachu', FreeMsg('Description de la scène :')),
+      Answer('Autre (préciser)', FreeMsg('Description de la scène :'))
     )
   ),
   Answer(
@@ -167,6 +200,7 @@ const question = Question(
           <Fragment>
             Ne t'en prends qu'à toi même.
             <br />
+            <br />
             (Et télécharge le jeu.)
           </Fragment>
         )
@@ -201,7 +235,7 @@ const styles = {
     border: '10px double #b59458',
     color: 'black',
     width: 'calc(100% - 2em)',
-    maxWidth: '1600px',
+    maxWidth: '1400px',
     minHeight: '70%',
     display: 'flex',
     alignItems: 'stretch',

@@ -16,7 +16,7 @@ interface Props {
   setSelected: Dispatch<ArrayWithEnd<Answer, EndOutput>>
 }
 
-export const ContactSelect: FunctionComponent<Props> = ({ question, selected, setSelected }) => {
+export const Selects: FunctionComponent<Props> = ({ question, selected, setSelected }) => {
   const selectedAnswer: Option<Answer> = ArrayWithEnd.head(selected)
 
   const leadsTo: Option<Props> = Do(O.option)
@@ -46,7 +46,7 @@ export const ContactSelect: FunctionComponent<Props> = ({ question, selected, se
         leadsTo,
         O.fold(
           () => null,
-          _ => <ContactSelect {..._} />
+          _ => <Selects {..._} />
         )
       )}
     </Fragment>

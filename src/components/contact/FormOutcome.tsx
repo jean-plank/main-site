@@ -14,7 +14,7 @@ interface Props {
   setFreeMsg: Dispatch<SetStateAction<Option<string>>>
 }
 
-export const ContactEnd: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg }) => {
+export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg }) => {
   switch (end._tag) {
     case 'Message':
       return <div css={styles.container}>{end.value}</div>

@@ -14,6 +14,7 @@ export const AngleDown: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 320 512'
+    css={styles.base}
     className={className}
   >
     <path
@@ -28,6 +29,7 @@ export const AngleUp: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 320 512'
+    css={styles.base}
     className={className}
   >
     <path
@@ -42,6 +44,7 @@ export const Ban: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 512 512'
+    css={styles.base}
     className={className}
   >
     <g>
@@ -64,6 +67,7 @@ export const CaretLeft: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 192 512'
+    css={styles.base}
     className={className}
   >
     <path
@@ -78,6 +82,7 @@ export const ChevronDoubleDown: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 448 512'
+    css={styles.base}
     className={className}
   >
     <g>
@@ -100,6 +105,7 @@ export const ExternalLink: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 512 512'
+    css={styles.base}
     className={className}
   >
     <g className='fa-group'>
@@ -118,6 +124,10 @@ export const ExternalLink: SVGComponent = ({ className }) => (
 )
 
 const styles = {
+  base: css({
+    height: '1em'
+  }),
+
   primary: css({}),
 
   secondary: css({

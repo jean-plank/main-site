@@ -163,7 +163,7 @@ export const translations: Record<Language, Translation> = {
     },
 
     contact: {
-      send: 'Envoyer',
+      send: 'Ma sentence est irrévocable',
       form: {
         whatDoYouWant: 'De quoi voulez-vous nous parler ?',
         devsAreAssholes: 'Les développeurs sont des enculés et je veux envoyer un message de haine',
@@ -289,9 +289,6 @@ export const translations: Record<Language, Translation> = {
             <br />
             Jean Plank, trahi par son mentor et désormais décédé, cherche la vengeance du haut du
             Valhalla.
-            {/* <br />
-            Mais comment retourner dans le Royaume des Mortels lorsqu'on
-            est mort ? */}
           </>
         ),
         links: {

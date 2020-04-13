@@ -395,7 +395,7 @@ export const translations: Record<Language, Translation> = {
         rammusOk: '"OK."',
         pikachu: 'Pikachu',
         otherWithPrecision: 'Other (specify)',
-        iAmATalentedMusician: "I am a very talented musician and I wish to be a part of the band'",
+        iAmATalentedMusician: 'I am a very talented musician and I wish to be a part of the band',
         giveUsYourContact: 'Give us something to contact you 😉',
         iAmShocked:
           'I am absolutely shocked by the content displayed in this wonderful game and I want to let the world know',

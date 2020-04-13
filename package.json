@@ -7,7 +7,7 @@
     "~compile": "tsc -w --pretty false",
     "start": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "lint": "eslint --cache --fix --max-warnings 0 --ext .ts src"
+    "lint": "eslint --cache --fix --max-warnings 0 --ext .ts,.tsx src"
   },
   "repository": {
     "type": "git",

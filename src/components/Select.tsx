@@ -24,6 +24,7 @@ interface Props {
     container: SerializedStyles
     backgroundColor: string
     backgroundColorActive: string
+    backgroundColorActiveActive: string
     border: string
     borderColorActive: string
     caretColor: string
@@ -69,7 +70,15 @@ export const Select: FunctionComponent<Props> = ({
             <li
               key={opt.value}
               onClick={select(O.some(opt.value))}
-              css={_styles.option(styles.backgroundColorActive)}
+              css={_styles.option(styles.backgroundColorActive, styles.backgroundColorActiveActive)}
+              className={
+                pipe(
+                  selected,
+                  O.exists(_ => _.value === opt.value)
+                )
+                  ? SELECTED
+                  : undefined
+              }
             >
               {opt.label}
             </li>
@@ -96,6 +105,7 @@ export const Select: FunctionComponent<Props> = ({
 }
 
 const OPENED = 'opened'
+const SELECTED = 'selected'
 
 const _styles = {
   container: css({
@@ -161,15 +171,23 @@ const _styles = {
       borderTopWidth: 0
     }),
 
-  option: (backgroundColorActive?: string) =>
+  option: (backgroundColorActive?: string, backgroundColorActiveActive?: string) =>
     css({
       ...withPadding(),
 
       userSelect: 'none',
       cursor: 'pointer',
 
-      '&:hover, &:focus': {
+      [`&.${SELECTED}`]: {
         backgroundColor: withDefault(backgroundColorActive, '#eeeeee')
+      },
+
+      '&:hover, &:focus': {
+        backgroundColor: withDefault(backgroundColorActive, '#eeeeee'),
+
+        [`&.${SELECTED}`]: {
+          backgroundColor: withDefault(backgroundColorActiveActive, '#dddddd')
+        }
       }
     })
 }

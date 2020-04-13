@@ -102,6 +102,7 @@ const styles = {
     }),
     backgroundColor: '#e9e1c1',
     backgroundColorActive: '#d5d1bc',
+    backgroundColorActiveActive: '#bfbca9',
     border: '4px solid #d7cc9e',
     borderColorActive: '#aeab9a',
     caretColor: '#aeab9a'

@@ -20,12 +20,12 @@ export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg
 
   switch (end._tag) {
     case 'Message':
-      return <div css={styles.container}>{end.value}</div>
+      return <div css={styles.container}>{end.value(transl.form)}</div>
 
     case 'MessageLink':
       return (
         <PrettyTargetBlank href={end.link} css={styles.container}>
-          {end.label}
+          {end.label(transl.form)}
         </PrettyTargetBlank>
       )
 
@@ -36,7 +36,7 @@ export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg
             end.message,
             O.fold(
               () => null,
-              _ => <span css={styles.msg}>{_}</span>
+              _ => <span css={styles.msg}>{_(transl.form)}</span>
             )
           )}
           <textarea

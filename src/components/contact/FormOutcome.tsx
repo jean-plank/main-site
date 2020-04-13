@@ -7,7 +7,7 @@ import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent, useContext } 
 
 import { PrettyTargetBlank } from '../PrettyTargetBlank'
 import AppContext from '../../contexts/AppContext'
-import { DisplayableEndOutput } from '../../models/choices'
+import { DisplayableEndOutput } from '../../models/form'
 
 interface Props {
   end: DisplayableEndOutput

@@ -11,7 +11,7 @@ import { Buttons } from './Buttons'
 import { Selects } from './Selects'
 import { FormOutcome } from './FormOutcome'
 import AppContext from '../../contexts/AppContext'
-import { FormTranslation } from '../../contexts/translation'
+import { translations } from '../../contexts/translation'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 import {
   Question,
@@ -22,7 +22,7 @@ import {
   EndOutput,
   AnswerNext,
   MessageLink
-} from '../../models/choices'
+} from '../../models/form'
 
 interface Props {
   onSubmit: () => void
@@ -39,11 +39,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   return (
     <Fragment>
       <div css={styles.selects}>
-        <Selects
-          selected={selected}
-          setSelected={setSelected}
-          question={question(transl.contact.form)}
-        />
+        <Selects selected={selected} setSelected={setSelected} question={question} />
         {pipe(
           ArrayWithEnd.last(selected),
           O.filter(EndOutput.isDisplayable),
@@ -124,7 +120,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
       T.of(
         (() => {
           const formatted = [
-            ...answers.map(_ => _.label),
+            ...answers.map(_ => _.label(translations.fr.contact.form)),
             ...pipe(
               msg,
               O.map(_ => _.trim()),
@@ -144,115 +140,145 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   }
 }
 
-const question = (transl: FormTranslation) =>
-  Question(
-    transl.whatDoYouWant,
-    Answer(transl.devsAreAssholes, Message(transl.butICant)),
-    Answer(
-      transl.devsAreAwesome,
-      Question(
-        transl.whatElse,
-        Answer(transl.congrats),
-        Answer(transl.congratsSonOfABitch, FreeMsg())
+const question = Question(
+  _ => _.whatDoYouWant,
+  Answer(
+    _ => _.devsAreAssholes,
+    Message(_ => _.butICant)
+  ),
+  Answer(
+    _ => _.devsAreAwesome,
+    Question(
+      _ => _.whatElse,
+      Answer(_ => _.congrats),
+      Answer(_ => _.congratsSonOfABitch, FreeMsg())
+    )
+  ),
+  Answer(
+    _ => _.iWannaSuggestScene,
+    Question(
+      _ => _.whichCharacter,
+      Answer(
+        _ => 'Jean Plank',
+        FreeMsg(_ => (
+          <Fragment>
+            {_.jpNoNeedToIntroduceMe}
+            <br />
+            <br />
+            {_.sceneDescription}
+          </Fragment>
+        ))
+      ),
+      Answer(
+        _ => _.luchien,
+        FreeMsg(_ => _.sceneDescription)
+      ),
+      Answer(
+        _ => _.mf,
+        FreeMsg(_ => _.sceneDescription)
+      ),
+      Answer(
+        _ => _.stGede,
+        FreeMsg(_ => _.sceneDescription)
+      ),
+      Answer(
+        _ => _.haddock,
+        FreeMsg(_ => (
+          <Fragment>
+            {_.haddockTintin}
+            <br />
+            <br />
+            {_.sceneDescription}
+          </Fragment>
+        ))
+      ),
+      Answer(
+        _ => _.kaarthus,
+        FreeMsg(_ => _.sceneDescription)
+      ),
+      Answer(
+        _ => _.rammus,
+        FreeMsg(_ => (
+          <Fragment>
+            {_.rammusOk}
+            <br />
+            <br />
+            {_.sceneDescription}
+          </Fragment>
+        ))
+      ),
+      Answer(
+        _ => _.pikachu,
+        FreeMsg(_ => _.sceneDescription)
+      ),
+      Answer(
+        _ => _.otherWithPrecision,
+        FreeMsg(_ => _.sceneDescription)
       )
-    ),
-    Answer(
-      transl.iWannaSuggestScene,
-      Question(
-        transl.whichCharacter,
-        Answer(
-          'Jean Plank',
-          FreeMsg(
-            <Fragment>
-              {transl.jpNoNeedToIntroduceMe}
-              <br />
-              <br />
-              {transl.sceneDescription}
-            </Fragment>
-          )
-        ),
-        Answer(transl.luchien, FreeMsg(transl.sceneDescription)),
-        Answer(transl.mf, FreeMsg(transl.sceneDescription)),
-        Answer(transl.stGede, FreeMsg(transl.sceneDescription)),
-        Answer(
-          transl.haddock,
-          FreeMsg(
-            <Fragment>
-              {transl.haddockTintin}
-              <br />
-              <br />
-              {transl.sceneDescription}
-            </Fragment>
-          )
-        ),
-        Answer(transl.kaarthus, FreeMsg(transl.sceneDescription)),
-        Answer(
-          transl.rammus,
-          FreeMsg(
-            <Fragment>
-              {transl.rammusOk}
-              <br />
-              <br />
-              {transl.sceneDescription}
-            </Fragment>
-          )
-        ),
-        Answer(transl.pikachu, FreeMsg(transl.sceneDescription)),
-        Answer(transl.otherWithPrecision, FreeMsg(transl.sceneDescription))
-      )
-    ),
-    Answer(transl.iAmATalentedMusician, FreeMsg(transl.giveUsYourContact)),
-    Answer(
-      transl.iAmShocked,
-      Question(
-        transl.why,
-        Answer(
-          transl.itsRacist,
-          Question(
-            transl.forWho,
-            Answer(transl.niggers, Link('http://le-cran.fr')),
-            Answer(transl.chineses, MessageLink('https://t.co/zh0cyds07K', transl.itCouldBeWorse)),
-            Answer(
-              transl.vikings,
-              Link(
-                'http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm'
-              )
-            ),
-            Answer(transl.pirates),
-            Answer(transl.niggers),
-            Answer(transl.aLotOfPeople)
-          )
-        ),
-        Answer(transl.itsSexist),
-        Answer(transl.itsHomo),
-        Answer(transl.itsReligonUnfriendly),
-        Answer(transl.itsPedophile),
-        Answer(transl.itsTerroristic, Link('https://twitter.com/Gendarmerie')),
-        Answer(transl.itsNotFunny, Link('https://youtu.be/psCSnnioq0M')),
-        Answer(transl.noneOfThis, FreeMsg())
-      )
-    ),
-    Answer(
-      transl.technicalProblem,
-      Question(
-        transl.whichOne,
-        Answer(
-          transl.onelineVersionDoesntWork,
-          Message(
-            <Fragment>
-              {transl.blameYourself}
-              <br />
-              <br />
-              {transl.andDownloadTheGame}
-            </Fragment>
-          )
-        ),
-        Answer(transl.imLeftHanded, Message(transl.trueIndeed)),
-        Answer(transl.needMoarOars, Link('https://downloadmoreram.com'))
-      )
-    ),
-    Answer(transl.mySuggestionIsSoAwesome, FreeMsg(transl.ohWell))
+    )
+  ),
+  Answer(
+    _ => _.iAmATalentedMusician,
+    FreeMsg(_ => _.giveUsYourContact)
+  ),
+  Answer(
+    _ => _.iAmShocked,
+    Question(
+      _ => _.why,
+      Answer(
+        _ => _.itsRacist,
+        Question(
+          _ => _.forWho,
+          Answer(_ => _.niggers, Link('http://le-cran.fr')),
+          Answer(
+            _ => _.chineses,
+            MessageLink('https://t.co/zh0cyds07K', _ => _.itCouldBeWorse)
+          ),
+          Answer(
+            _ => _.vikings,
+            Link('http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm')
+          ),
+          Answer(_ => _.pirates),
+          Answer(_ => _.niggers),
+          Answer(_ => _.aLotOfPeople)
+        )
+      ),
+      Answer(_ => _.itsSexist),
+      Answer(_ => _.itsHomo),
+      Answer(_ => _.itsReligonUnfriendly),
+      Answer(_ => _.itsPedophile),
+      Answer(_ => _.itsTerroristic, Link('https://twitter.com/Gendarmerie')),
+      Answer(_ => _.itsNotFunny, Link('https://youtu.be/psCSnnioq0M')),
+      Answer(_ => _.noneOfThis, FreeMsg())
+    )
+  ),
+  Answer(
+    _ => _.technicalProblem,
+    Question(
+      _ => _.whichOne,
+      Answer(
+        _ => _.onelineVersionDoesntWork,
+        Message(_ => (
+          <Fragment>
+            {_.blameYourself}
+            <br />
+            <br />
+            {_.andDownloadTheGame}
+          </Fragment>
+        ))
+      ),
+      Answer(
+        _ => _.imLeftHanded,
+        Message(_ => _.trueIndeed)
+      ),
+      Answer(_ => _.needMoarOars, Link('https://downloadmoreram.com'))
+    )
+  ),
+  Answer(
+    _ => _.mySuggestionIsSoAwesome,
+    FreeMsg(_ => _.ohWell)
   )
+)
 
 const styles = {
   selects: css({

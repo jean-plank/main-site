@@ -9,15 +9,17 @@ import { FunctionComponent, Dispatch, useState, MouseEventHandler, SetStateActio
 import { useClickOutside } from '../hooks/useClickOutside'
 import { CaretLeft } from '../utils/svg'
 
-interface SelectOption {
-  value: string | number
+export type SelectValue = string | number
+
+export interface SelectOption {
+  value: SelectValue
   label: string
 }
 
 interface Props {
   options: NonEmptyArray<SelectOption>
   selected: Option<SelectOption>
-  setSelected: Dispatch<SetStateAction<Option<SelectOption>>>
+  setSelected: Dispatch<SetStateAction<Option<SelectValue>>>
   styles?: Partial<{
     container: SerializedStyles
     backgroundColor: string
@@ -66,7 +68,7 @@ export const Select: FunctionComponent<Props> = ({
           {options.map(opt => (
             <li
               key={opt.value}
-              onClick={select(O.some(opt))}
+              onClick={select(O.some(opt.value))}
               css={_styles.option(styles.backgroundColorActive)}
             >
               {opt.label}
@@ -85,7 +87,7 @@ export const Select: FunctionComponent<Props> = ({
     setIsOpen(_ => !_)
   }
 
-  function select(opt: Option<SelectOption>): MouseEventHandler {
+  function select(opt: Option<SelectValue>): MouseEventHandler {
     return _ => {
       setSelected(opt)
       setIsOpen(false)

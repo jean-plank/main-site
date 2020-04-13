@@ -1,13 +1,16 @@
 /** @jsx jsx */
+import * as A from 'fp-ts/lib/Array'
+import * as Nea from 'fp-ts/lib/NonEmptyArray'
 import * as O from 'fp-ts/lib/Option'
 import { css, jsx } from '@emotion/core'
 import { Option } from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { Do } from 'fp-ts-contrib/lib/Do'
-import { Fragment, FunctionComponent, Dispatch } from 'react'
+import { Fragment, FunctionComponent, Dispatch, useContext } from 'react'
 
-import { Select } from '../Select'
-import { Question, Answer, EndOutput, AnswerNext } from '../../models/choices'
+import { Select, SelectValue, SelectOption } from '../Select'
+import AppContext from '../../contexts/AppContext'
+import { Question, Answer, EndOutput, AnswerNext } from '../../models/form'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 
 interface Props {
@@ -17,6 +20,8 @@ interface Props {
 }
 
 export const Selects: FunctionComponent<Props> = ({ question, selected, setSelected }) => {
+  const transl = useContext(AppContext).translation.contact.form
+
   const selectedAnswer: Option<Answer> = ArrayWithEnd.head(selected)
 
   const leadsTo: Option<Props> = Do(O.option)
@@ -33,11 +38,11 @@ export const Selects: FunctionComponent<Props> = ({ question, selected, setSelec
   return (
     <Fragment>
       <div css={styles.container}>
-        <span>{question.label}</span>
+        <span>{question.value(transl)}</span>
 
         <Select
-          options={question.answers}
-          selected={selectedAnswer}
+          options={pipe(question.answers, Nea.map(toSelectOption))}
+          selected={pipe(selectedAnswer, O.map(toSelectOption))}
           setSelected={setSelectedAnswer}
           styles={styles.select}
         />
@@ -52,9 +57,22 @@ export const Selects: FunctionComponent<Props> = ({ question, selected, setSelec
     </Fragment>
   )
 
-  function setSelectedAnswer(a: Option<Answer>): void {
+  function toSelectOption(a: Answer): SelectOption {
+    return {
+      value: a.value,
+      label: a.label(transl)
+    }
+  }
+
+  function setSelectedAnswer(a: Option<SelectValue>): void {
     const newSelected: ArrayWithEnd<Answer, EndOutput> = pipe(
       a,
+      O.chain(k =>
+        pipe(
+          question.answers,
+          A.findFirst(_ => _.value === k)
+        )
+      ),
       O.chain(a => {
         const answerChanged = !pipe(
           selectedAnswer,

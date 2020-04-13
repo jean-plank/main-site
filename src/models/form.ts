@@ -2,26 +2,34 @@ import * as O from 'fp-ts/lib/Option'
 import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
 import { Option } from 'fp-ts/lib/Option'
 import { ReactNode } from 'react'
+import { FormTranslation } from '../contexts/translation'
+
+type TranslToString = (transl: FormTranslation) => string
+type TranslToNode = (transl: FormTranslation) => ReactNode
 
 export interface Question {
   _tag: 'Question'
-  label: string
+  value: TranslToString
   answers: NonEmptyArray<Answer>
 }
 
-export const Question = (label: string, answer: Answer, ...answers: Answer[]): Question => ({
+export const Question = (
+  value: TranslToString,
+  answer: Answer,
+  ...answers: Answer[]
+): Question => ({
   _tag: 'Question',
-  label,
+  value,
   answers: [answer, ...answers]
 })
 
 export interface Answer {
-  label: string
+  label: TranslToString
   value: string
   leadsTo: Option<AnswerNext>
 }
 
-export const Answer = (label: string, leadsTo?: AnswerNext): Answer => {
+export const Answer = (label: TranslToString, leadsTo?: AnswerNext): Answer => {
   const value = Math.random().toString(36).substring(2)
   return { label, value, leadsTo: O.fromNullable(leadsTo) }
 }
@@ -52,16 +60,19 @@ export type DisplayableEndOutput = Message | MessageLink | FreeMsg
 
 export interface Message {
   _tag: 'Message'
-  value: ReactNode
+  value: TranslToNode
 }
-export const Message = (value: ReactNode): Message => ({ _tag: 'Message', value })
+export const Message = (value: TranslToNode): Message => ({
+  _tag: 'Message',
+  value
+})
 
 export interface MessageLink {
   _tag: 'MessageLink'
   link: string
-  label: string
+  label: TranslToString
 }
-export const MessageLink = (link: string, label: string): MessageLink => ({
+export const MessageLink = (link: string, label: TranslToString): MessageLink => ({
   _tag: 'MessageLink',
   link,
   label
@@ -69,9 +80,9 @@ export const MessageLink = (link: string, label: string): MessageLink => ({
 
 export interface FreeMsg {
   _tag: 'FreeMsg'
-  message: Option<ReactNode>
+  message: Option<TranslToNode>
 }
-export const FreeMsg = (message?: ReactNode): FreeMsg => ({
+export const FreeMsg = (message?: TranslToNode): FreeMsg => ({
   _tag: 'FreeMsg',
   message: O.fromNullable(message)
 })

@@ -28,10 +28,13 @@ export const Answer = (label: string, leadsTo?: AnswerNext): Answer => {
 
 export type AnswerNext = Question | EndOutput
 export namespace AnswerNext {
+  export const isEndOutput = (a: AnswerNext): a is EndOutput => !isQuestion(a)
+
+  export const isQuestion = (a: AnswerNext): a is Question => a._tag === 'Question'
+  export const isLink = (a: AnswerNext): a is Link => a._tag === 'Link'
   export const isMessage = (a: AnswerNext): a is Message => a._tag === 'Message'
   export const isMessageLink = (a: AnswerNext): a is MessageLink => a._tag === 'MessageLink'
-  export const isQuestion = (a: AnswerNext): a is Question => a._tag === 'Question'
-  export const isEndOutput = (a: AnswerNext): a is EndOutput => !isQuestion(a)
+  export const isFreeMsg = (a: AnswerNext): a is FreeMsg => a._tag === 'FreeMsg'
 }
 
 export type EndOutput = Link | DisplayableEndOutput

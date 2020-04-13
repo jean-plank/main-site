@@ -63,7 +63,7 @@ export const Selects: FunctionComponent<Props> = ({ question, selected, setSelec
 
         if (answerChanged) {
           const newOutput: Option<EndOutput> = pipe(a.leadsTo, O.filter(AnswerNext.isEndOutput))
-          return O.some([[a], newOutput])
+          return ArrayWithEnd.some([a], newOutput)
         } else {
           return selected
         }

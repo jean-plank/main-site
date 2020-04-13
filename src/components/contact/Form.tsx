@@ -34,23 +34,8 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(O.none)
   const [freeMsg, setFreeMsg] = useState<Option<string>>(O.none)
 
-  const freeMsgIsEmpty = pipe(
-    freeMsg,
-    O.fold(
-      () => true,
-      _ => _.trim() === ''
-    )
-  )
-
-  const lastIsQuestionOrMessage = pipe(
-    ArrayWithEnd.lastA(selected),
-    O.chain(_ => _.leadsTo),
-    O.exists(
-      _ => AnswerNext.isQuestion(_) || AnswerNext.isMessage(_) || AnswerNext.isMessageLink(_)
-    )
-  )
-
-  const disabled = O.isNone(selected) || freeMsgIsEmpty || lastIsQuestionOrMessage
+  const disabled =
+    O.isNone(selected) || lastIsQuestionOrMessage() || (lastIsFreeMsg() && freeMsgIsEmpty())
 
   return (
     <Fragment>
@@ -61,8 +46,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
           question={question(transl.contact.form)}
         />
         {pipe(
-          selected,
-          O.chain(([, _]) => _),
+          ArrayWithEnd.last(selected),
           O.filter(EndOutput.isDisplayable),
           O.fold(
             () => null,
@@ -77,10 +61,38 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     </Fragment>
   )
 
+  function lastIsFreeMsg(): boolean {
+    return pipe(
+      ArrayWithEnd.lastA(selected),
+      O.chain(_ => _.leadsTo),
+      O.exists(AnswerNext.isFreeMsg)
+    )
+  }
+
+  function freeMsgIsEmpty(): boolean {
+    return pipe(
+      freeMsg,
+      O.fold(
+        () => true,
+        _ => _.trim() === ''
+      )
+    )
+  }
+
+  function lastIsQuestionOrMessage(): boolean {
+    return pipe(
+      ArrayWithEnd.lastA(selected),
+      O.chain(_ => _.leadsTo),
+      O.exists(
+        _ => AnswerNext.isQuestion(_) || AnswerNext.isMessage(_) || AnswerNext.isMessageLink(_)
+      )
+    )
+  }
+
   function submitForm() {
     pipe(
       selected,
-      O.map(([_1, _2]) => submitFormEndOpt(_1, _2))
+      O.map(_ => submitFormEndOpt(_.init, _.last))
     )
   }
 
@@ -88,7 +100,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     pipe(
       end,
       O.fold(
-        () => {},
+        () => send(answers),
         end => {
           switch (end._tag) {
             case 'Link':
@@ -100,13 +112,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
               break
 
             case 'FreeMsg':
-              pipe(
-                freeMsg,
-                O.map(msg => {
-                  const trimed = msg.trim()
-                  if (trimed !== '') send(answers, trimed)
-                })
-              )
+              send(answers, freeMsg)
               break
           }
         }
@@ -114,11 +120,22 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     )
   }
 
-  function send(answers: NonEmptyArray<Answer>, msg: string) {
+  function send(answers: NonEmptyArray<Answer>, msg: Option<string> = O.none) {
     pipe(
       T.of(
         (() => {
-          const formatted = [...answers.map(_ => _.label), '---', msg].join('\n')
+          const formatted = [
+            ...answers.map(_ => _.label),
+            ...pipe(
+              msg,
+              O.map(_ => _.trim()),
+              O.filter(_ => _ !== ''),
+              O.fold(
+                () => [],
+                _ => ['---', _]
+              )
+            )
+          ].join('\n')
           // TODO: send answers and freeMsg
           console.log(formatted)
         })()

@@ -34,8 +34,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(O.none)
   const [freeMsg, setFreeMsg] = useState<Option<string>>(O.none)
 
-  const disabled =
-    O.isNone(selected) || lastIsQuestionOrMessage() || (lastIsFreeMsg() && freeMsgIsEmpty())
+  const enabled = lastAnswerLeadsToNone() || (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined())
 
   return (
     <Fragment>
@@ -55,13 +54,23 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
         )}
       </div>
 
-      <Buttons.Primary disabled={disabled} onClick={submitForm}>
+      <Buttons.Primary disabled={!enabled} onClick={submitForm}>
         {transl.contact.send}
       </Buttons.Primary>
     </Fragment>
   )
 
-  function lastIsFreeMsg(): boolean {
+  function lastAnswerLeadsToNone(): boolean {
+    return pipe(
+      ArrayWithEnd.lastA(selected),
+      O.fold(
+        () => false,
+        _ => O.isNone(_.leadsTo)
+      )
+    )
+  }
+
+  function lastAnswerLeadsToFreeMsg(): boolean {
     return pipe(
       ArrayWithEnd.lastA(selected),
       O.chain(_ => _.leadsTo),
@@ -69,22 +78,12 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     )
   }
 
-  function freeMsgIsEmpty(): boolean {
+  function freeMsgIsDefined(): boolean {
     return pipe(
       freeMsg,
       O.fold(
-        () => true,
-        _ => _.trim() === ''
-      )
-    )
-  }
-
-  function lastIsQuestionOrMessage(): boolean {
-    return pipe(
-      ArrayWithEnd.lastA(selected),
-      O.chain(_ => _.leadsTo),
-      O.exists(
-        _ => AnswerNext.isQuestion(_) || AnswerNext.isMessage(_) || AnswerNext.isMessageLink(_)
+        () => false,
+        _ => _.trim() !== ''
       )
     )
   }

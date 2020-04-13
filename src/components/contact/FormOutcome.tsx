@@ -3,9 +3,10 @@ import * as O from 'fp-ts/lib/Option'
 import { css, jsx } from '@emotion/core'
 import { Option } from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
-import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent } from 'react'
+import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent, useContext } from 'react'
 
 import { PrettyTargetBlank } from '../PrettyTargetBlank'
+import AppContext from '../../contexts/AppContext'
 import { DisplayableEndOutput } from '../../models/choices'
 
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg }) => {
+  const transl = useContext(AppContext).translation.contact
+
   switch (end._tag) {
     case 'Message':
       return <div css={styles.container}>{end.value}</div>
@@ -40,7 +43,7 @@ export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg
             value={O.toUndefined(freeMsg)}
             onChange={updateFreeMsg}
             autoFocus={true}
-            placeholder='Oui.'
+            placeholder={transl.freeMsgPlaceholder}
             rows={4}
             css={styles.textarea}
           />

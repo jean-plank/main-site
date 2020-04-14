@@ -1,0 +1,30 @@
+{
+  "name": "main-site-shared",
+  "version": "1.0.0",
+  "description": "Jean Plank - The Series main site (shared)",
+  "files": [
+    "lib"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "preinstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Use \\`npx pnpm install\\` to install dependencies in this repository\\n') && process.exit(1)\"",
+    "clean": "rm -fr lib/*",
+    "prebuild": "npm run clean",
+    "build": "tsc -p ./tsconfig.build.json",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jean-plank/main-site.git"
+  },
+  "author": "Gurimarukin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jean-plank/main-site/issues"
+  },
+  "homepage": "https://github.com/jean-plank/main-site#readme",
+  "devDependencies": {
+    "fp-ts": "^2.5.3",
+    "fp-ts-contrib": "^0.1.15"
+  }
+}

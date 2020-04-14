@@ -71,14 +71,14 @@ export const Select: FunctionComponent<Props> = ({
               key={opt.value}
               onClick={select(O.some(opt.value))}
               css={_styles.option(styles.backgroundColorActive, styles.backgroundColorActiveActive)}
-              className={
-                pipe(
-                  selected,
-                  O.exists(_ => _.value === opt.value)
+              className={pipe(
+                selected,
+                O.filter(_ => _.value === opt.value),
+                O.fold(
+                  () => undefined,
+                  _ => SELECTED
                 )
-                  ? SELECTED
-                  : undefined
-              }
+              )}
             >
               {opt.label}
             </li>

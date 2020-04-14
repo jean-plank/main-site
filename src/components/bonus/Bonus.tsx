@@ -2,19 +2,20 @@
 import { css, jsx } from '@emotion/core'
 import { Fragment, FunctionComponent, useContext } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import bgNotFoundJpg from '../../../img/bg_not_found.jpg'
+import jp1Jpg from '../../../img/jp1.jpg'
 
-import AppContext from '../contexts/AppContext'
-import fadeIn from '../utils/css/fadeIn'
-import { fontFamily } from '../utils/css/fonts'
-import * as parallax from '../utils/css/parallax'
-import params from '../utils/css/params'
-import BonusBg from './BonusBg'
-import Game from './Game'
-import { Label } from './Label'
+import { BonusBg } from './BonusBg'
 import { Video, Videos } from './Videos'
+import { Label } from '../Label'
+import { Game } from '../game/Game'
+import { AppContext } from '../../contexts/AppContext'
+import { fadeIn } from '../../utils/css/fadeIn'
+import { fontFamily } from '../../utils/css/fonts'
+import { parallax } from '../../utils/css/parallax'
+import { params } from '../../utils/css/params'
 
-const Bonus: FunctionComponent = () => {
+export const Bonus: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
   return (
     <Fragment>
@@ -25,14 +26,14 @@ const Bonus: FunctionComponent = () => {
           <Game
             gameId={'thestory'}
             jpTitle={'Jean Plank'}
-            image={jpgs.jp1}
+            image={jp1Jpg}
             style={{ container: styles.thestory }}
           />
-          <Label>{transl.thestoryLabel}</Label>
+          <Label css={styles.label}>{transl.bonus.thestoryLabel}</Label>
         </div>
 
         <div css={[parallax.layerBase, styles.tutorialContainer]}>
-          <img src={transl.tutorialImg} css={styles.tutorial} />
+          <img src={transl.bonus.tutorialImg} css={styles.tutorial} />
         </div>
 
         <div css={[parallax.layerBack, styles.videosContainer]}>
@@ -42,7 +43,6 @@ const Bonus: FunctionComponent = () => {
     </Fragment>
   )
 }
-export default Bonus
 
 const videos: Video[] = [
   ['aeWfN6CinGY', `When i'm TWI !`],
@@ -79,15 +79,6 @@ const styles = {
   }),
 
   label: css({
-    maxWidth: '1100px',
-    margin: '0 1.67em',
-    background: `url('${jpgs.label}')`,
-    backgroundSize: 'cover',
-    padding: '0.5em 1em 0.3em',
-    border: '5px solid #8e6400',
-    boxShadow: '0 0 10px black',
-    fontSize: '0.9em',
-
     '& h4': {
       fontFamily: fontFamily.yarr,
       fontSize: '1.1em',
@@ -101,7 +92,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: `url('${jpgs.bg_not_found}')`,
+    background: `url('${bgNotFoundJpg}')`,
     backgroundSize: 'cover',
     boxShadow: '0 0 10px black'
   }),

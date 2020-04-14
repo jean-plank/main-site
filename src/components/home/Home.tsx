@@ -4,21 +4,25 @@ import * as O from 'fp-ts/lib/Option'
 import { pipe } from 'fp-ts/lib/pipeable'
 import { Fragment, FunctionComponent, ReactNode, useContext, useState } from 'react'
 
-import jpgs from '../../img/*.jpg'
+import backgroundJpg from '../../../img/background.jpg'
+import jp2Jpg from '../../../img/jp2.jpg'
+import jp3Jpg from '../../../img/jp3.jpg'
+import jp3bJpg from '../../../img/jp3b.jpg'
+import jp4Jpg from '../../../img/jp4.jpg'
 
-import AppContext from '../contexts/AppContext'
-import fadeIn from '../utils/css/fadeIn'
-import { fontFamily } from '../utils/css/fonts'
-import media from '../utils/css/media'
-import * as parallax from '../utils/css/parallax'
-import params from '../utils/css/params'
-import * as strokeBefore from '../utils/css/strokeBefore'
-import { AngleDown, AngleUp } from '../utils/svg'
-import Game from './Game'
-import { Label } from './Label'
-import SiteMap from './SiteMap'
+import { SiteMap } from './SiteMap'
+import { Label } from '../Label'
+import { Game } from '../game/Game'
+import { AppContext } from '../../contexts/AppContext'
+import { fadeIn } from '../../utils/css/fadeIn'
+import { fontFamily } from '../../utils/css/fonts'
+import { media } from '../../utils/css/media'
+import { parallax } from '../../utils/css/parallax'
+import { params } from '../../utils/css/params'
+import { strokeBefore } from '../../utils/css/strokeBefore'
+import { AngleDown, AngleUp } from '../../utils/svg'
 
-const Home: FunctionComponent = () => {
+export const Home: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
   const [pages, setPages] = useState<O.Option<HTMLElement[]>>(O.none)
 
@@ -31,14 +35,14 @@ const Home: FunctionComponent = () => {
 
   return (
     <Fragment>
-      <img src={jpgs.background} css={[parallax.layerBack, styles.bg]} />
+      <img src={backgroundJpg} css={[parallax.layerBack, styles.bg]} />
 
       <div ref={onMount} css={[parallax.layerBase, styles.main]}>
         <div id='jp1' css={styles.page}>
           <Game
             gameId='jp1'
             jpTitle='Jean Plank I'
-            image={jpgs.jp2}
+            image={jp2Jpg}
             footer={
               <Fragment>
                 {arrow('desktop', 'down')('#jp2')}
@@ -50,14 +54,14 @@ const Home: FunctionComponent = () => {
               game: styles.reverse
             }}
           />
-          <Label css={styles.revengefulLabel}>{transl.revengefulTrilogy}</Label>
+          <Label css={styles.revengefulLabel}>{transl.home.revengefulTrilogy}</Label>
         </div>
         <div id='jp2' css={[styles.page, styles.strokeH]}>
           <Game
             id='jp2a'
             gameId='jp2'
             jpTitle='Jean Plank II'
-            image={jpgs.jp3}
+            image={jp3Jpg}
             header={arrow('mobile', 'up')('#jp1')}
             footer={
               <Fragment>
@@ -71,7 +75,7 @@ const Home: FunctionComponent = () => {
             id='jp2b'
             gameId='jp2b'
             jpTitle='Jean Plank II'
-            image={jpgs.jp3b}
+            image={jp3bJpg}
             header={arrow('mobile', 'up')('#jp2a')}
             footer={arrow('mobile', 'down')('#jp3')}
             style={{
@@ -84,7 +88,7 @@ const Home: FunctionComponent = () => {
           <Game
             gameId='jp3'
             jpTitle='Jean Plank III'
-            image={jpgs.jp4}
+            image={jp4Jpg}
             header={arrow('mobile', 'up')('#jp2b')}
             style={{ container: styles.strokeVTop }}
           />
@@ -94,14 +98,14 @@ const Home: FunctionComponent = () => {
 
       {pipe(
         pages,
-        // tslint:disable-next-line: jsx-key
-        O.map(_ => <SiteMap sections={_} />),
-        O.toNullable
+        O.fold(
+          () => null,
+          _ => <SiteMap sections={_} />
+        )
       )}
     </Fragment>
   )
 }
-export default Home
 
 type Media = 'desktop' | 'mobile'
 type Direction = 'up' | 'down'
@@ -147,29 +151,18 @@ const styles = {
     paddingBottom: '0.25em',
 
     '& q': {
-      fontFamily: fontFamily.yarr,
-      fontSize: '1.1em',
-      letterSpacing: '0.03em'
+      fontFamily: fontFamily.baloopaaji2,
+      letterSpacing: '-1px',
+      fontSize: '1.1em'
     },
 
     '& a': {
       alignSelf: 'flex-end',
       display: 'flex',
       alignItems: 'center',
-      color: 'inherit',
-      transition: 'all 0.2s',
-      borderRadius: '2px',
-      padding: '0.1em',
-      marginTop: '-0.1em',
-
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
-      },
-
-      '& svg': {
-        height: '0.7em',
-        marginLeft: '0.4em'
-      }
+      fontFamily: fontFamily.yarr,
+      letterSpacing: '0.03em',
+      padding: '0.25em 0.1em 0'
     }
   }),
 

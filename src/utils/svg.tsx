@@ -9,25 +9,12 @@ interface Props {
   className?: string
 }
 
-export const AngleUp: SVGComponent = ({ className }) => (
-  <svg
-    focusable='false'
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 320 512'
-    className={className}
-  >
-    <path
-      fill='currentColor'
-      d='M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z'
-    />
-  </svg>
-)
-
 export const AngleDown: SVGComponent = ({ className }) => (
   <svg
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 320 512'
+    css={styles.base}
     className={className}
   >
     <path
@@ -37,25 +24,18 @@ export const AngleDown: SVGComponent = ({ className }) => (
   </svg>
 )
 
-export const ChevronDoubleDown: SVGComponent = ({ className }) => (
+export const AngleUp: SVGComponent = ({ className }) => (
   <svg
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 448 512'
+    viewBox='0 0 320 512'
+    css={styles.base}
     className={className}
   >
-    <g>
-      <path
-        fill='currentColor'
-        d='M207 285.54L12.7 91.14a23.9 23.9 0 0 1 0-33.9l22.7-22.7a24.08 24.08 0 0 1 33.9 0l154.7 154 154.7-154a23.9 23.9 0 0 1 33.9 0l22.7 22.7a23.9 23.9 0 0 1 0 33.9L241 285.54a24.2 24.2 0 0 1-34 0z'
-        css={styles.secondary}
-      />
-      <path
-        fill='currentColor'
-        d='M207 477.54L12.7 283.14a23.9 23.9 0 0 1 0-33.9l22.7-22.7a23.9 23.9 0 0 1 33.9 0l154.7 154 154.7-154a24.08 24.08 0 0 1 33.9 0l22.7 22.7a23.9 23.9 0 0 1 0 33.9L241 477.54a24.2 24.2 0 0 1-34 0z'
-        css={styles.primary}
-      />
-    </g>
+    <path
+      fill='currentColor'
+      d='M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z'
+    />
   </svg>
 )
 
@@ -64,6 +44,7 @@ export const Ban: SVGComponent = ({ className }) => (
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 512 512'
+    css={styles.base}
     className={className}
   >
     <g>
@@ -81,11 +62,50 @@ export const Ban: SVGComponent = ({ className }) => (
   </svg>
 )
 
+export const CaretLeft: SVGComponent = ({ className }) => (
+  <svg
+    focusable='false'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 192 512'
+    css={styles.base}
+    className={className}
+  >
+    <path
+      fill='currentColor'
+      d='M192 127.338v257.324c0 17.818-21.543 26.741-34.142 14.142L29.196 270.142c-7.81-7.81-7.81-20.474 0-28.284l128.662-128.662c12.599-12.6 34.142-3.676 34.142 14.142z'
+    />
+  </svg>
+)
+
+export const ChevronDoubleDown: SVGComponent = ({ className }) => (
+  <svg
+    focusable='false'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 448 512'
+    css={styles.base}
+    className={className}
+  >
+    <g>
+      <path
+        fill='currentColor'
+        d='M207 285.54L12.7 91.14a23.9 23.9 0 0 1 0-33.9l22.7-22.7a24.08 24.08 0 0 1 33.9 0l154.7 154 154.7-154a23.9 23.9 0 0 1 33.9 0l22.7 22.7a23.9 23.9 0 0 1 0 33.9L241 285.54a24.2 24.2 0 0 1-34 0z'
+        css={styles.secondary}
+      />
+      <path
+        fill='currentColor'
+        d='M207 477.54L12.7 283.14a23.9 23.9 0 0 1 0-33.9l22.7-22.7a23.9 23.9 0 0 1 33.9 0l154.7 154 154.7-154a24.08 24.08 0 0 1 33.9 0l22.7 22.7a23.9 23.9 0 0 1 0 33.9L241 477.54a24.2 24.2 0 0 1-34 0z'
+        css={styles.primary}
+      />
+    </g>
+  </svg>
+)
+
 export const ExternalLink: SVGComponent = ({ className }) => (
   <svg
     focusable='false'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 512 512'
+    css={styles.base}
     className={className}
   >
     <g className='fa-group'>
@@ -104,6 +124,10 @@ export const ExternalLink: SVGComponent = ({ className }) => (
 )
 
 const styles = {
+  base: css({
+    height: '1em'
+  }),
+
   primary: css({}),
 
   secondary: css({

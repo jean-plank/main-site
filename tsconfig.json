@@ -1,24 +1,22 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "outDir": "./dist",
-        "module": "esnext",
-        "target": "es5",
-        "lib": ["es6", "dom"],
-        "sourceMap": true,
-        "allowJs": false,
-        "jsx": "react",
-        "moduleResolution": "node",
-        "rootDir": ".",
-        "esModuleInterop": true,
-        "alwaysStrict": true,
-        "forceConsistentCasingInFileNames": true,
-        "importHelpers": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "strictNullChecks": true
-    }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "allowJs": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": ".",
+    "esModuleInterop": true,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
+  }
 }

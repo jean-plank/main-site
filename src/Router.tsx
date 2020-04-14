@@ -5,11 +5,11 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import * as R from 'fp-ts/lib/Record'
 import { FunctionComponent, ReactElement, useContext, useEffect } from 'react'
 
-import Bonus from './components/Bonus'
-import { Maintenance } from './components/Maintenance'
-import Home from './components/Home'
-import NotFound from './components/NotFound'
-import AppContext from './contexts/AppContext'
+import { Bonus } from './components/bonus/Bonus'
+import { Contact } from './components/contact/Contact'
+import { Home } from './components/home/Home'
+import { NotFound } from './components/NotFound'
+import { AppContext } from './contexts/AppContext'
 import { Translation } from './contexts/translation'
 import { OptionHelpers } from './utils/OptionHelpers'
 
@@ -17,7 +17,7 @@ interface Props {
   path: string
 }
 
-const Router: FunctionComponent<Props> = ({ path }) => {
+export const Router: FunctionComponent<Props> = ({ path }) => {
   const transl = useContext(AppContext).translation
   const [subTitle, node] = route(transl)(path)
   const title = ['Jean Plank', ...OptionHelpers.toArray(subTitle)].join(' | ')
@@ -28,19 +28,18 @@ const Router: FunctionComponent<Props> = ({ path }) => {
 
   return node
 }
-export default Router
 
-/* tslint:disable: jsx-key */
+/* eslint-disable react/jsx-key */
 const route = (transl: Translation) => (path: string): [O.Option<string>, ReactElement] =>
   pipe(
     R.lookup(path, {
       [routes.home]: [O.none, <Home />],
-      [routes.bonus]: [O.some(transl.bonus), <Bonus />],
-      [routes.contact]: [O.some(transl.contact.title), <Maintenance />]
+      [routes.bonus]: [O.some(transl.documentTitle.bonus), <Bonus />],
+      [routes.contact]: [O.some(transl.documentTitle.contact), <Contact />]
     }),
-    O.getOrElse(() => [O.some(transl.notFound.title), <NotFound />])
+    O.getOrElse(() => [O.some(transl.documentTitle.notFound), <NotFound />])
   )
-/* tslint:enable: jsx-key */
+/* eslint-enable react/jsx-key */
 
 export const routes = {
   home: '/',

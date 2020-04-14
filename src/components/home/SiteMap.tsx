@@ -136,6 +136,7 @@ const styles = {
       }
     }
   }),
+
   barrel: css({
     display: 'block',
     height: '100%',

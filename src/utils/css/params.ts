@@ -1,4 +1,4 @@
-export default {
+export const params = {
   fontSize: {
     desktop: '26pt',
     mobile: '18pt'

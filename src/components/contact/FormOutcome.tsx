@@ -6,7 +6,7 @@ import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent, useContext } from 'react'
 
 import { PrettyTargetBlank } from '../PrettyTargetBlank'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 import { DisplayableEndOutput } from '../../models/form'
 
 interface Props {

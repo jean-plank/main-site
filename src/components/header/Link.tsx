@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import React, { FunctionComponent, useContext } from 'react'
 
-import HistoryContext from '../../contexts/HistoryContext'
+import { HistoryContext } from '../../contexts/HistoryContext'
 
 interface Props {
   to: string
@@ -10,7 +10,7 @@ interface Props {
   className?: string
 }
 
-const Link: FunctionComponent<Props> = ({ to, target, className, children }) => {
+export const Link: FunctionComponent<Props> = ({ to, target, className, children }) => {
   const history = useContext(HistoryContext)
 
   return (
@@ -24,4 +24,3 @@ const Link: FunctionComponent<Props> = ({ to, target, className, children }) => 
     history.push(to)
   }
 }
-export default Link

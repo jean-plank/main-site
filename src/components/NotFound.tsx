@@ -5,11 +5,11 @@ import { FunctionComponent, useContext } from 'react'
 import plage3Jpg from '../../img/plage3.jpg'
 import jpPerduPng from '../../img/jp_perdu.png'
 
-import AppContext from '../contexts/AppContext'
-import fadeIn from '../utils/css/fadeIn'
-import params from '../utils/css/params'
+import { AppContext } from '../contexts/AppContext'
+import { fadeIn } from '../utils/css/fadeIn'
+import { params } from '../utils/css/params'
 
-const NotFound: FunctionComponent = () => {
+export const NotFound: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
   return (
     <div css={styles.container}>
@@ -21,7 +21,6 @@ const NotFound: FunctionComponent = () => {
     </div>
   )
 }
-export default NotFound
 
 const styles = {
   container: css({

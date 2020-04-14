@@ -2,17 +2,17 @@
 import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext, useRef, useState } from 'react'
 
-import Header from './header/Header'
-import AppContext from '../contexts/AppContext'
-import HistoryContext from '../contexts/HistoryContext'
+import { Header } from './header/Header'
+import { AppContext } from '../contexts/AppContext'
+import { HistoryContext } from '../contexts/HistoryContext'
 import { defaultLanguage, LANG_KEY, Language, translations } from '../contexts/translation'
 import { Router } from '../Router'
 import { fonts, fontFamily } from '../utils/css/fonts'
-import media from '../utils/css/media'
-import * as parallax from '../utils/css/parallax'
-import params from '../utils/css/params'
+import { media } from '../utils/css/media'
+import { parallax } from '../utils/css/parallax'
+import { params } from '../utils/css/params'
 
-const App: FunctionComponent = () => {
+export const App: FunctionComponent = () => {
   const history = useContext(HistoryContext)
   const [path, setPath] = useState(history.location.pathname)
   history.listen(location => setPath(location.pathname))
@@ -39,7 +39,6 @@ const App: FunctionComponent = () => {
     setLang(lang)
   }
 }
-export default App
 
 const styles = {
   app: css({

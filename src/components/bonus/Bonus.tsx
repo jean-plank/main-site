@@ -5,17 +5,17 @@ import { Fragment, FunctionComponent, useContext } from 'react'
 import bgNotFoundJpg from '../../../img/bg_not_found.jpg'
 import jp1Jpg from '../../../img/jp1.jpg'
 
-import BonusBg from './BonusBg'
+import { BonusBg } from './BonusBg'
 import { Video, Videos } from './Videos'
 import { Label } from '../Label'
 import { Game } from '../game/Game'
-import AppContext from '../../contexts/AppContext'
-import fadeIn from '../../utils/css/fadeIn'
+import { AppContext } from '../../contexts/AppContext'
+import { fadeIn } from '../../utils/css/fadeIn'
 import { fontFamily } from '../../utils/css/fonts'
-import * as parallax from '../../utils/css/parallax'
-import params from '../../utils/css/params'
+import { parallax } from '../../utils/css/parallax'
+import { params } from '../../utils/css/params'
 
-const Bonus: FunctionComponent = () => {
+export const Bonus: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
   return (
     <Fragment>
@@ -43,7 +43,6 @@ const Bonus: FunctionComponent = () => {
     </Fragment>
   )
 }
-export default Bonus
 
 const videos: Video[] = [
   ['aeWfN6CinGY', `When i'm TWI !`],

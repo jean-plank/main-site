@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 
 import { Ban } from '../../utils/svg'
 import { fontFamily } from '../../utils/css/fonts'
-import params from '../../utils/css/params'
+import { params } from '../../utils/css/params'
 
 export const Under18: FunctionComponent = ({ children }) => (
   <div css={styles18.container}>

@@ -3,9 +3,9 @@ import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext } from 'react'
 
 import { TargetBlank } from '../TargetBlank'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 import { fontFamily } from '../../utils/css/fonts'
-import params from '../../utils/css/params'
+import { params } from '../../utils/css/params'
 
 type Id = string
 type Title = string

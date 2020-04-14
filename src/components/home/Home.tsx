@@ -10,19 +10,19 @@ import jp3Jpg from '../../../img/jp3.jpg'
 import jp3bJpg from '../../../img/jp3b.jpg'
 import jp4Jpg from '../../../img/jp4.jpg'
 
-import SiteMap from './SiteMap'
+import { SiteMap } from './SiteMap'
 import { Label } from '../Label'
 import { Game } from '../game/Game'
-import AppContext from '../../contexts/AppContext'
-import fadeIn from '../../utils/css/fadeIn'
+import { AppContext } from '../../contexts/AppContext'
+import { fadeIn } from '../../utils/css/fadeIn'
 import { fontFamily } from '../../utils/css/fonts'
-import media from '../../utils/css/media'
-import * as parallax from '../../utils/css/parallax'
-import params from '../../utils/css/params'
-import * as strokeBefore from '../../utils/css/strokeBefore'
+import { media } from '../../utils/css/media'
+import { parallax } from '../../utils/css/parallax'
+import { params } from '../../utils/css/params'
+import { strokeBefore } from '../../utils/css/strokeBefore'
 import { AngleDown, AngleUp } from '../../utils/svg'
 
-const Home: FunctionComponent = () => {
+export const Home: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
   const [pages, setPages] = useState<O.Option<HTMLElement[]>>(O.none)
 
@@ -106,7 +106,6 @@ const Home: FunctionComponent = () => {
     </Fragment>
   )
 }
-export default Home
 
 type Media = 'desktop' | 'mobile'
 type Direction = 'up' | 'down'

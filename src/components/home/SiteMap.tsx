@@ -11,15 +11,15 @@ import barrelPng from '../../../img/barrel.png'
 import gunpowderPng from '../../../img/gunpowder.png'
 import sparklePng from '../../../img/sparkle.png'
 
-import AppContext from '../../contexts/AppContext'
-import fadeIn from '../../utils/css/fadeIn'
-import media from '../../utils/css/media'
+import { AppContext } from '../../contexts/AppContext'
+import { fadeIn } from '../../utils/css/fadeIn'
+import { media } from '../../utils/css/media'
 
 interface Props {
   sections: HTMLElement[]
 }
 
-const SiteMap: FunctionComponent<Props> = ({ sections }) => {
+export const SiteMap: FunctionComponent<Props> = ({ sections }) => {
   const [current, setCurrent] = useState(-1)
 
   const parallaxRef = useContext(AppContext).parallaxRef
@@ -73,7 +73,6 @@ const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     O.toNullable
   )
 }
-export default SiteMap
 
 function findCurrent(scrollTop: number, sections: HTMLElement[]): number {
   const findCurrentRec = (

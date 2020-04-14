@@ -10,7 +10,7 @@ import { FunctionComponent, useContext, useState, Fragment } from 'react'
 import { Buttons } from './Buttons'
 import { Selects } from './Selects'
 import { FormOutcome } from './FormOutcome'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 import { translations } from '../../contexts/translation'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 import {

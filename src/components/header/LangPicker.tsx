@@ -4,7 +4,7 @@ import { FunctionComponent, useState, MouseEventHandler } from 'react'
 
 import { Language, languages } from '../../contexts/translation'
 import { useClickOutside } from '../../hooks/useClickOutside'
-import params from '../../utils/css/params'
+import { params } from '../../utils/css/params'
 
 interface Props {
   currentLang: Language
@@ -12,7 +12,7 @@ interface Props {
   styles?: SerializedStyles
 }
 
-const LangPicker: FunctionComponent<Props> = ({
+export const LangPicker: FunctionComponent<Props> = ({
   currentLang,
   setLanguage,
   styles: overroadStyles
@@ -57,7 +57,6 @@ const LangPicker: FunctionComponent<Props> = ({
     }
   }
 }
-export default LangPicker
 
 const dropDownBorderWidth = '1px'
 const arrowBorderWidth = '6px'

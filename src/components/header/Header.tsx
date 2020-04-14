@@ -4,21 +4,21 @@ import { FunctionComponent, useContext } from 'react'
 
 import fireGif from '../../../img/fire.gif'
 
-import AppContext from '../../contexts/AppContext'
-import HistoryContext from '../../contexts/HistoryContext'
-import { Language } from '../../contexts/translation'
+import { LangPicker } from './LangPicker'
+import { Link } from './Link'
 import { routes } from '../../Router'
+import { AppContext } from '../../contexts/AppContext'
+import { HistoryContext } from '../../contexts/HistoryContext'
+import { Language } from '../../contexts/translation'
 import { fontFamily } from '../../utils/css/fonts'
-import params from '../../utils/css/params'
-import LangPicker from './LangPicker'
-import Link from './Link'
+import { params } from '../../utils/css/params'
 
 interface Props {
   currentLang: Language
   setLanguage: (lang: Language) => void
 }
 
-const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
+export const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
   const transl = useContext(AppContext).translation
   const path = useContext(HistoryContext).location.pathname
 
@@ -46,7 +46,6 @@ const Header: FunctionComponent<Props> = ({ currentLang, setLanguage }) => {
     </div>
   )
 }
-export default Header
 
 const HeaderLink: FunctionComponent<{ path: string; to: string }> = ({ path, to, children }) => (
   <Link to={to} css={styles.link} className={to === path ? 'current' : undefined}>

@@ -9,7 +9,7 @@ import { Do } from 'fp-ts-contrib/lib/Do'
 import { Fragment, FunctionComponent, Dispatch, useContext } from 'react'
 
 import { Select, SelectValue, SelectOption } from '../Select'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 import { Question, Answer, EndOutput, AnswerNext } from '../../models/form'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 

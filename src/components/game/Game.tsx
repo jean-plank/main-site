@@ -8,11 +8,11 @@ import ratioHolder from '../../../img/ratio_holder.png'
 
 import { Under18 } from './Under18'
 import { TargetBlank } from '../TargetBlank'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 import { GameId } from '../../contexts/translation'
 import { fontFamily } from '../../utils/css/fonts'
-import media from '../../utils/css/media'
-import params from '../../utils/css/params'
+import { media } from '../../utils/css/media'
+import { params } from '../../utils/css/params'
 
 interface Props {
   id?: string

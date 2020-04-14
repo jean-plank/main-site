@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/core'
 import { FunctionComponent, Fragment, useContext } from 'react'
 
 import { Buttons } from './Buttons'
-import AppContext from '../../contexts/AppContext'
+import { AppContext } from '../../contexts/AppContext'
 
 interface Props {
   resetForm: () => void

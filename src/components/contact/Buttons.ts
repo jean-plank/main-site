@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
+import { CSSObject } from '@emotion/core'
 
 import { fontFamily } from '../../utils/css/fonts'
-import { CSSObject } from '@emotion/core'
 
 export namespace Buttons {
   export const Primary = styled.button(common(), {

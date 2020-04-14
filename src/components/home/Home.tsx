@@ -163,11 +163,6 @@ const styles = {
       fontFamily: fontFamily.yarr,
       letterSpacing: '0.03em',
       padding: '0.25em 0.1em 0'
-
-      // '& svg': {
-      //   height: '0.7em',
-      //   marginLeft: '0.4em'
-      // }
     }
   }),
 

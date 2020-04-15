@@ -1,17 +1,18 @@
 {
-  "name": "main-site-shared",
+  "name": "main-site-server",
   "version": "1.0.0",
-  "description": "Jean Plank - The Series main site (shared)",
-  "files": [
-    "lib"
-  ],
-  "sideEffects": false,
+  "description": "Jean Plank - The Series main site (server)",
+  "main": "src/index.ts",
   "scripts": {
     "preinstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Use \\`npx pnpm install\\` to install dependencies in this repository\\n') && process.exit(1)\"",
-    "clean": "rm -fr lib/*",
+    "compile": "tsc",
+    "~compile": "tsc -w",
+    "run": "ts-node src/index.ts",
+    "~run": "nodemon -e js,ts,json -x \"npm run --silent run\"",
+    "clean": "rm -fr dist/*",
     "prebuild": "npm run clean",
     "build": "tsc -p ./tsconfig.build.json",
-    "lint": "eslint --cache --fix --max-warnings 0 --ext .ts,.tsx src"
+    "lint": "eslint --cache --fix --max-warnings 0 --ext .ts src/"
   },
   "repository": {
     "type": "git",
@@ -24,14 +25,16 @@
   },
   "homepage": "https://github.com/jean-plank/main-site#readme",
   "devDependencies": {
+    "@type-config/strict": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.3",
-    "fp-ts": "^2.5.3",
-    "fp-ts-contrib": "^0.1.15",
+    "main-site-shared": "link:../shared",
+    "nodemon": "^2.0.3",
     "prettier": "^2.0.4",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3"
   }
 }

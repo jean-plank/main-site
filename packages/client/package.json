@@ -8,7 +8,7 @@
     "~compile": "tsc -w --pretty false",
     "start": "webpack-dev-server --config webpack.dev.js",
     "clean": "rm -fr dist/*",
-    "prebuild": "pnpm run clean",
+    "prebuild": "npm run clean",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint --cache --fix --max-warnings 0 --ext .ts,.tsx src"
   },

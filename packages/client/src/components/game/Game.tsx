@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/core'
-import * as O from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, ReactNode, useContext } from 'react'
+
+import { Maybe, pipe } from 'main-site-shared/lib/fp'
 
 import ratioHolder from '../../../img/ratio_holder.png'
 
@@ -64,7 +64,7 @@ export const Game: FunctionComponent<Props> = ({
   )
 
   function noLinks(): boolean {
-    return O.isNone(gameTransl.links.launch) && O.isNone(gameTransl.links.dl)
+    return Maybe.isNone(gameTransl.links.launch) && Maybe.isNone(gameTransl.links.dl)
   }
 
   function launchDl(): ReactNode {
@@ -80,7 +80,7 @@ export const Game: FunctionComponent<Props> = ({
       <div css={styles.launchDl}>
         {pipe(
           links.dl,
-          O.fold(
+          Maybe.fold(
             () => null,
             dl => (
               <a href={dl} download={true}>
@@ -91,7 +91,7 @@ export const Game: FunctionComponent<Props> = ({
         )}
         {pipe(
           links.launch,
-          O.fold(
+          Maybe.fold(
             () => null,
             launch => (
               <TargetBlank href={launch} css={styles.launch}>

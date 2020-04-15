@@ -1,12 +1,8 @@
 /** @jsx jsx */
-import * as A from 'fp-ts/lib/Array'
-import * as Nea from 'fp-ts/lib/NonEmptyArray'
-import * as O from 'fp-ts/lib/Option'
 import { css, jsx } from '@emotion/core'
-import { Option } from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
-import { Do } from 'fp-ts-contrib/lib/Do'
 import { Fragment, FunctionComponent, Dispatch, useContext } from 'react'
+
+import { Do, Maybe, NonEmptyArray, pipe, List } from 'main-site-shared/lib/fp'
 
 import { Select, SelectValue, SelectOption } from '../Select'
 import { AppContext } from '../../contexts/AppContext'
@@ -22,12 +18,12 @@ interface Props {
 export const Selects: FunctionComponent<Props> = ({ question, selected, setSelected }) => {
   const transl = useContext(AppContext).translation.contact.form
 
-  const selectedAnswer: Option<Answer> = ArrayWithEnd.head(selected)
+  const selectedAnswer: Maybe<Answer> = ArrayWithEnd.head(selected)
 
-  const leadsTo: Option<Props> = Do(O.option)
+  const leadsTo: Maybe<Props> = Do(Maybe.option)
     .bind('selectedAnswer', selectedAnswer)
     .bindL('question', ({ selectedAnswer }) =>
-      O.option.filter(selectedAnswer.leadsTo, AnswerNext.isQuestion)
+      Maybe.option.filter(selectedAnswer.leadsTo, AnswerNext.isQuestion)
     )
     .return(({ selectedAnswer, question }) => ({
       question,
@@ -41,15 +37,15 @@ export const Selects: FunctionComponent<Props> = ({ question, selected, setSelec
         <span>{question.value(transl)}</span>
 
         <Select
-          options={pipe(question.answers, Nea.map(toSelectOption))}
-          selected={pipe(selectedAnswer, O.map(toSelectOption))}
+          options={pipe(question.answers, NonEmptyArray.map(toSelectOption))}
+          selected={pipe(selectedAnswer, Maybe.map(toSelectOption))}
           setSelected={setSelectedAnswer}
           styles={styles.select}
         />
       </div>
       {pipe(
         leadsTo,
-        O.fold(
+        Maybe.fold(
           () => null,
           _ => <Selects {..._} />
         )
@@ -64,23 +60,23 @@ export const Selects: FunctionComponent<Props> = ({ question, selected, setSelec
     }
   }
 
-  function setSelectedAnswer(a: Option<SelectValue>): void {
+  function setSelectedAnswer(a: Maybe<SelectValue>): void {
     const newSelected: ArrayWithEnd<Answer, EndOutput> = pipe(
       a,
-      O.chain(k =>
+      Maybe.chain(k =>
         pipe(
           question.answers,
-          A.findFirst(_ => _.value === k)
+          List.findFirst(_ => _.value === k)
         )
       ),
-      O.chain(a => {
+      Maybe.chain(a => {
         const answerChanged = !pipe(
           selectedAnswer,
-          O.exists(_ => _.value === a.value)
+          Maybe.exists(_ => _.value === a.value)
         )
 
         if (answerChanged) {
-          const newOutput: Option<EndOutput> = pipe(a.leadsTo, O.filter(AnswerNext.isEndOutput))
+          const newOutput: Maybe<EndOutput> = pipe(a.leadsTo, Maybe.filter(AnswerNext.isEndOutput))
           return ArrayWithEnd.some([a], newOutput)
         } else {
           return selected

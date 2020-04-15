@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import * as O from 'fp-ts/lib/Option'
 import { css, jsx } from '@emotion/core'
-import { Option } from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, Dispatch, SetStateAction, ChangeEvent, useContext } from 'react'
+
+import { Maybe, pipe } from 'main-site-shared/lib/fp'
 
 import { PrettyTargetBlank } from '../PrettyTargetBlank'
 import { AppContext } from '../../contexts/AppContext'
@@ -11,8 +10,8 @@ import { DisplayableEndOutput } from '../../models/form'
 
 interface Props {
   end: DisplayableEndOutput
-  freeMsg: Option<string>
-  setFreeMsg: Dispatch<SetStateAction<Option<string>>>
+  freeMsg: Maybe<string>
+  setFreeMsg: Dispatch<SetStateAction<Maybe<string>>>
 }
 
 export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg }) => {
@@ -34,13 +33,13 @@ export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg
         <div css={styles.container}>
           {pipe(
             end.message,
-            O.fold(
+            Maybe.fold(
               () => null,
               _ => <span css={styles.msg}>{_(transl.form)}</span>
             )
           )}
           <textarea
-            value={O.toUndefined(freeMsg)}
+            value={Maybe.toUndefined(freeMsg)}
             onChange={updateFreeMsg}
             autoFocus={true}
             placeholder={transl.freeMsgPlaceholder}
@@ -52,7 +51,7 @@ export const FormOutcome: FunctionComponent<Props> = ({ end, freeMsg, setFreeMsg
   }
 
   function updateFreeMsg(e: ChangeEvent<HTMLTextAreaElement>) {
-    setFreeMsg(O.some(e.target.value))
+    setFreeMsg(Maybe.some(e.target.value))
   }
 }
 

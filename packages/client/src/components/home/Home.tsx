@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { css, jsx, ObjectInterpolation, SerializedStyles } from '@emotion/core'
-import * as O from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { Fragment, FunctionComponent, ReactNode, useContext, useState } from 'react'
+
+import { Maybe, pipe } from 'main-site-shared/lib/fp'
 
 import backgroundJpg from '../../../img/background.jpg'
 import jp2Jpg from '../../../img/jp2.jpg'
@@ -24,12 +24,12 @@ import { AngleDown, AngleUp } from '../../utils/svg'
 
 export const Home: FunctionComponent = () => {
   const transl = useContext(AppContext).translation
-  const [pages, setPages] = useState<O.Option<HTMLElement[]>>(O.none)
+  const [pages, setPages] = useState<Maybe<HTMLElement[]>>(Maybe.none)
 
   const onMount = (elt: HTMLElement | null) => {
-    if (elt !== null && O.isNone(pages)) {
+    if (elt !== null && Maybe.isNone(pages)) {
       const res = Array.from(elt.children).filter(_ => _ instanceof HTMLElement) as HTMLElement[]
-      setPages(O.some(res))
+      setPages(Maybe.some(res))
     }
   }
 
@@ -98,7 +98,7 @@ export const Home: FunctionComponent = () => {
 
       {pipe(
         pages,
-        O.fold(
+        Maybe.fold(
           () => null,
           _ => <SiteMap sections={_} />
         )

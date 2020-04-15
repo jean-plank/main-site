@@ -1,11 +1,10 @@
 /** @jsx jsx */
+import * as ReactDom from 'react-dom'
 import { css, jsx, SerializedStyles } from '@emotion/core'
-import * as A from 'fp-ts/lib/Array'
-import * as O from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { randomInt } from 'fp-ts/lib/Random'
 import { FunctionComponent, useContext, useEffect, useMemo, useState } from 'react'
-import * as ReactDom from 'react-dom'
+
+import { Maybe, pipe, List } from 'main-site-shared/lib/fp'
 
 import barrelPng from '../../../img/barrel.png'
 import gunpowderPng from '../../../img/gunpowder.png'
@@ -24,11 +23,11 @@ export const SiteMap: FunctionComponent<Props> = ({ sections }) => {
 
   const parallaxRef = useContext(AppContext).parallaxRef
 
-  const eltAndOnScroll = useMemo<O.Option<[HTMLElement, () => void]>>(
+  const eltAndOnScroll = useMemo<Maybe<[HTMLElement, () => void]>>(
     () =>
       pipe(
-        O.fromNullable(parallaxRef.current),
-        O.map(elt => [elt, () => setCurrent(findCurrent(elt.scrollTop, sections))])
+        Maybe.fromNullable(parallaxRef.current),
+        Maybe.map(elt => [elt, () => setCurrent(findCurrent(elt.scrollTop, sections))])
       ),
     [parallaxRef, setCurrent, sections]
   )
@@ -37,7 +36,7 @@ export const SiteMap: FunctionComponent<Props> = ({ sections }) => {
     () =>
       pipe(
         eltAndOnScroll,
-        O.fold(
+        Maybe.fold(
           () => () => {},
           ([elt, onScroll]) => {
             onScroll()
@@ -55,8 +54,8 @@ export const SiteMap: FunctionComponent<Props> = ({ sections }) => {
   )
 
   return pipe(
-    O.fromNullable(document.getElementById('overlay')),
-    O.map(elt =>
+    Maybe.fromNullable(document.getElementById('overlay')),
+    Maybe.map(elt =>
       ReactDom.createPortal(
         <div css={styles.sitemap}>
           {sestionsWithRotation.map(([elt, deg], i) => (
@@ -70,7 +69,7 @@ export const SiteMap: FunctionComponent<Props> = ({ sections }) => {
         elt
       )
     ),
-    O.toNullable
+    Maybe.toNullable
   )
 }
 
@@ -89,7 +88,7 @@ function findCurrent(scrollTop: number, sections: HTMLElement[]): number {
 
     return findCurrentRec(tail, i + 1, top, i)
   }
-  if (A.isEmpty(sections)) return -1
+  if (List.isEmpty(sections)) return -1
   return findCurrentRec(sections, 0, 0, 0)
 }
 

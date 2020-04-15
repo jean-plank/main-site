@@ -1,4 +1,5 @@
 import * as _Array from 'fp-ts/lib/Array'
+import * as _NonEmptyArray from 'fp-ts/lib/NonEmptyArray'
 import * as _Record from 'fp-ts/lib/Record'
 import * as _Option from 'fp-ts/lib/Option'
 import * as _Either from 'fp-ts/lib/Either'
@@ -30,6 +31,12 @@ export const List = {
   exists: <A>(predicate: Predicate<A>) => (l: A[]): boolean =>
     pipe(l, List.findIndex(predicate), Maybe.isSome)
 }
+
+/**
+ * NonEmptyArray
+ */
+export type NonEmptyArray<A> = _NonEmptyArray.NonEmptyArray<A>
+export const NonEmptyArray = _NonEmptyArray
 
 /**
  * Record

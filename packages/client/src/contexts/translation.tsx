@@ -1,7 +1,7 @@
-import * as A from 'fp-ts/lib/Array'
 import { eqString } from 'fp-ts/lib/Eq'
-import * as O from 'fp-ts/lib/Option'
 import React, { ReactNode } from 'react'
+
+import { Maybe, List } from 'main-site-shared/lib/fp'
 
 import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import tutorialEnJpg from '../../img/tutorial_en.jpg'
@@ -12,7 +12,7 @@ export const LANG_KEY = 'lang'
 
 export type Language = 'fr' | 'en'
 export const languages: Language[] = ['fr', 'en']
-const isLanguage = (lang: string): lang is Language => A.elem(eqString)(lang, languages)
+const isLanguage = (lang: string): lang is Language => List.elem(eqString)(lang, languages)
 
 export interface Translation {
   notFound: {
@@ -114,8 +114,8 @@ interface GameTranslation {
   title: string
   summary: ReactNode
   links: {
-    launch: O.Option<string>
-    dl: O.Option<string>
+    launch: Maybe<string>
+    dl: Maybe<string>
   }
 }
 
@@ -250,8 +250,8 @@ export const translations: Record<Language, Translation> = {
         title: 'The Story',
         summary: 'Jean Plank fait une escale pour se ravitailler.',
         links: {
-          launch: O.some('fr/thestory'),
-          dl: O.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip')
+          launch: Maybe.some('fr/thestory'),
+          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip')
         }
       },
 
@@ -265,8 +265,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.some('fr/naissancedesflammesdelavengeance'),
-          dl: O.some(
+          launch: Maybe.some('fr/naissancedesflammesdelavengeance'),
+          dl: Maybe.some(
             'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip'
           )
         }
@@ -283,8 +283,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.some('fr/lesflammesdelavengeance'),
-          dl: O.some(
+          launch: Maybe.some('fr/lesflammesdelavengeance'),
+          dl: Maybe.some(
             'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Les Flammes de la Vengeance.zip'
           )
         }
@@ -302,8 +302,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.some('fr/valhallauakbar'),
-          dl: O.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip')
+          launch: Maybe.some('fr/valhallauakbar'),
+          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip')
         }
       },
 
@@ -311,8 +311,8 @@ export const translations: Record<Language, Translation> = {
         title: "La Vengeance Est un Plat Qui se Mange À l'Eau de la Mer",
         summary: '',
         links: {
-          launch: O.none,
-          dl: O.none
+          launch: Maybe.none,
+          dl: Maybe.none
         }
       }
     }
@@ -448,8 +448,8 @@ export const translations: Record<Language, Translation> = {
         title: 'The Story',
         summary: 'Jean Plank makes a stop to refuel.',
         links: {
-          launch: O.some('en/thestory'),
-          dl: O.some('https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip')
+          launch: Maybe.some('en/thestory'),
+          dl: Maybe.some('https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip')
         }
       },
 
@@ -463,8 +463,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.some('en/birthoftheflamesofrevenge'),
-          dl: O.some(
+          launch: Maybe.some('en/birthoftheflamesofrevenge'),
+          dl: Maybe.some(
             'https://dl.blbl.ch/jean-plank/en/Jean Plank I - Birth of the Flames of Revenge.zip'
           )
         }
@@ -481,8 +481,10 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.some('en/theflamesofrevenge'),
-          dl: O.some('https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip')
+          launch: Maybe.some('en/theflamesofrevenge'),
+          dl: Maybe.some(
+            'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip'
+          )
         }
       },
 
@@ -498,8 +500,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: O.none,
-          dl: O.none
+          launch: Maybe.none,
+          dl: Maybe.none
         }
       },
 
@@ -507,8 +509,8 @@ export const translations: Record<Language, Translation> = {
         title: 'Revenge Is a Dish Better Served With the Water of the Sea',
         summary: '',
         links: {
-          launch: O.none,
-          dl: O.none
+          launch: Maybe.none,
+          dl: Maybe.none
         }
       }
     }

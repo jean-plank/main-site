@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import * as O from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
-import * as R from 'fp-ts/lib/Record'
 import { FunctionComponent, ReactElement, useContext, useEffect } from 'react'
+
+import { Maybe, pipe, Dict } from 'main-site-shared/lib/fp'
 
 import { Bonus } from './components/bonus/Bonus'
 import { Contact } from './components/contact/Contact'
@@ -30,14 +29,14 @@ export const Router: FunctionComponent<Props> = ({ path }) => {
 }
 
 /* eslint-disable react/jsx-key */
-const route = (transl: Translation) => (path: string): [O.Option<string>, ReactElement] =>
+const route = (transl: Translation) => (path: string): [Maybe<string>, ReactElement] =>
   pipe(
-    R.lookup(path, {
-      [routes.home]: [O.none, <Home />],
-      [routes.bonus]: [O.some(transl.documentTitle.bonus), <Bonus />],
-      [routes.contact]: [O.some(transl.documentTitle.contact), <Contact />]
+    Dict.lookup(path, {
+      [routes.home]: [Maybe.none, <Home />],
+      [routes.bonus]: [Maybe.some(transl.documentTitle.bonus), <Bonus />],
+      [routes.contact]: [Maybe.some(transl.documentTitle.contact), <Contact />]
     }),
-    O.getOrElse(() => [O.some(transl.documentTitle.notFound), <NotFound />])
+    Maybe.getOrElse(() => [Maybe.some(transl.documentTitle.notFound), <NotFound />])
   )
 /* eslint-enable react/jsx-key */
 

@@ -1,11 +1,8 @@
 /** @jsx jsx */
-import * as O from 'fp-ts/lib/Option'
-import * as T from 'fp-ts/lib/Task'
 import { css, jsx } from '@emotion/core'
-import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
-import { Option } from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, useContext, useState, Fragment } from 'react'
+
+import { Maybe, pipe, NonEmptyArray, Future } from 'main-site-shared/lib/fp'
 
 import { Buttons } from './Buttons'
 import { Selects } from './Selects'
@@ -31,8 +28,8 @@ interface Props {
 export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   const transl = useContext(AppContext).translation
 
-  const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(O.none)
-  const [freeMsg, setFreeMsg] = useState<Option<string>>(O.none)
+  const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(Maybe.none)
+  const [freeMsg, setFreeMsg] = useState<Maybe<string>>(Maybe.none)
 
   const enabled = lastAnswerLeadsToNone() || (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined())
 
@@ -42,8 +39,8 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
         <Selects selected={selected} setSelected={setSelected} question={question} />
         {pipe(
           ArrayWithEnd.last(selected),
-          O.filter(EndOutput.isDisplayable),
-          O.fold(
+          Maybe.filter(EndOutput.isDisplayable),
+          Maybe.fold(
             () => null,
             _ => <FormOutcome end={_} freeMsg={freeMsg} setFreeMsg={setFreeMsg} />
           )
@@ -59,9 +56,9 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   function lastAnswerLeadsToNone(): boolean {
     return pipe(
       ArrayWithEnd.lastA(selected),
-      O.fold(
+      Maybe.fold(
         () => false,
-        _ => O.isNone(_.leadsTo)
+        _ => Maybe.isNone(_.leadsTo)
       )
     )
   }
@@ -69,15 +66,15 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   function lastAnswerLeadsToFreeMsg(): boolean {
     return pipe(
       ArrayWithEnd.lastA(selected),
-      O.chain(_ => _.leadsTo),
-      O.exists(AnswerNext.isFreeMsg)
+      Maybe.chain(_ => _.leadsTo),
+      Maybe.exists(AnswerNext.isFreeMsg)
     )
   }
 
   function freeMsgIsDefined(): boolean {
     return pipe(
       freeMsg,
-      O.fold(
+      Maybe.fold(
         () => false,
         _ => _.trim() !== ''
       )
@@ -87,14 +84,14 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   function submitForm() {
     pipe(
       selected,
-      O.map(_ => submitFormEndOpt(_.init, _.last))
+      Maybe.map(_ => submitFormEndOpt(_.init, _.last))
     )
   }
 
-  function submitFormEndOpt(answers: NonEmptyArray<Answer>, end: Option<EndOutput>) {
+  function submitFormEndOpt(answers: NonEmptyArray<Answer>, end: Maybe<EndOutput>) {
     pipe(
       end,
-      O.fold(
+      Maybe.fold(
         () => send(answers),
         end => {
           switch (end._tag) {
@@ -115,27 +112,26 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     )
   }
 
-  function send(answers: NonEmptyArray<Answer>, msg: Option<string> = O.none) {
+  function send(answers: NonEmptyArray<Answer>, msg: Maybe<string> = Maybe.none) {
     pipe(
-      T.of(
-        (() => {
-          const formatted = [
-            ...answers.map(_ => _.label(translations.fr.contact.form)),
-            ...pipe(
-              msg,
-              O.map(_ => _.trim()),
-              O.filter(_ => _ !== ''),
-              O.fold(
-                () => [],
-                _ => ['---', _]
-              )
+      Future.unit,
+      Future.map(_ => {
+        const formatted = [
+          ...answers.map(_ => _.label(translations.fr.contact.form)),
+          ...pipe(
+            msg,
+            Maybe.map(_ => _.trim()),
+            Maybe.filter(_ => _ !== ''),
+            Maybe.fold(
+              () => [],
+              _ => ['---', _]
             )
-          ].join('\n')
-          // TODO: send answers and freeMsg
-          console.log(formatted)
-        })()
-      ),
-      T.map(_ => onSubmit())
+          )
+        ].join('\n')
+        // TODO: send answers and freeMsg
+        console.log(formatted)
+      }),
+      Future.map(_ => onSubmit())
     )()
   }
 }

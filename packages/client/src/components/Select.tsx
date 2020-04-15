@@ -1,10 +1,8 @@
 /** @jsx jsx */
-import * as O from 'fp-ts/lib/Option'
 import { css, jsx, SerializedStyles } from '@emotion/core'
-import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
-import { Option } from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
 import { FunctionComponent, Dispatch, useState, MouseEventHandler, SetStateAction } from 'react'
+
+import { Maybe, pipe, NonEmptyArray } from 'main-site-shared/lib/fp'
 
 import { useClickOutside } from '../hooks/useClickOutside'
 import { CaretLeft } from '../utils/svg'
@@ -18,8 +16,8 @@ export interface SelectOption {
 
 interface Props {
   options: NonEmptyArray<SelectOption>
-  selected: Option<SelectOption>
-  setSelected: Dispatch<SetStateAction<Option<SelectValue>>>
+  selected: Maybe<SelectOption>
+  setSelected: Dispatch<SetStateAction<Maybe<SelectValue>>>
   styles?: Partial<{
     container: SerializedStyles
     backgroundColor: string
@@ -53,7 +51,7 @@ export const Select: FunctionComponent<Props> = ({
         <span css={_styles.value}>
           {pipe(
             selected,
-            O.fold(
+            Maybe.fold(
               () => ' ',
               _ => _.label
             )
@@ -69,12 +67,12 @@ export const Select: FunctionComponent<Props> = ({
           {options.map(opt => (
             <li
               key={opt.value}
-              onClick={select(O.some(opt.value))}
+              onClick={select(Maybe.some(opt.value))}
               css={_styles.option(styles.backgroundColorActive, styles.backgroundColorActiveActive)}
               className={pipe(
                 selected,
-                O.filter(_ => _.value === opt.value),
-                O.fold(
+                Maybe.filter(_ => _.value === opt.value),
+                Maybe.fold(
                   () => undefined,
                   _ => SELECTED
                 )
@@ -96,7 +94,7 @@ export const Select: FunctionComponent<Props> = ({
     setIsOpen(_ => !_)
   }
 
-  function select(opt: Option<SelectValue>): MouseEventHandler {
+  function select(opt: Maybe<SelectValue>): MouseEventHandler {
     return _ => {
       setSelected(opt)
       setIsOpen(false)

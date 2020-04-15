@@ -1,7 +1,7 @@
-import * as O from 'fp-ts/lib/Option'
-import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray'
-import { Option } from 'fp-ts/lib/Option'
 import { ReactNode } from 'react'
+
+import { Maybe, NonEmptyArray } from 'main-site-shared/lib/fp'
+
 import { FormTranslation } from '../contexts/translation'
 
 type TranslToString = (transl: FormTranslation) => string
@@ -26,12 +26,12 @@ export const Question = (
 export interface Answer {
   label: TranslToString
   value: string
-  leadsTo: Option<AnswerNext>
+  leadsTo: Maybe<AnswerNext>
 }
 
 export const Answer = (label: TranslToString, leadsTo?: AnswerNext): Answer => {
   const value = Math.random().toString(36).substring(2)
-  return { label, value, leadsTo: O.fromNullable(leadsTo) }
+  return { label, value, leadsTo: Maybe.fromNullable(leadsTo) }
 }
 
 export type AnswerNext = Question | EndOutput
@@ -80,9 +80,9 @@ export const MessageLink = (link: string, label: TranslToString): MessageLink =>
 
 export interface FreeMsg {
   _tag: 'FreeMsg'
-  message: Option<TranslToNode>
+  message: Maybe<TranslToNode>
 }
 export const FreeMsg = (message?: TranslToNode): FreeMsg => ({
   _tag: 'FreeMsg',
-  message: O.fromNullable(message)
+  message: Maybe.fromNullable(message)
 })

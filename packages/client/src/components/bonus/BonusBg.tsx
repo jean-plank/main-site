@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-import * as O from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
-import { FunctionComponent } from 'react'
 import * as ReactDom from 'react-dom'
+import { css, jsx } from '@emotion/core'
+import { FunctionComponent } from 'react'
+
+import { pipe, Maybe } from 'main-site-shared/lib/fp'
 
 import oldBackgroundJpg from '../../../img/old_background.jpg'
 
@@ -11,9 +11,9 @@ import { fadeIn } from '../../utils/css/fadeIn'
 
 export const BonusBg: FunctionComponent = () =>
   pipe(
-    O.fromNullable(document.getElementById('bg')),
-    O.map(elt => ReactDom.createPortal(<img src={oldBackgroundJpg} css={style} />, elt)),
-    O.toNullable
+    Maybe.fromNullable(document.getElementById('bg')),
+    Maybe.map(elt => ReactDom.createPortal(<img src={oldBackgroundJpg} css={style} />, elt)),
+    Maybe.toNullable
   )
 
 const style = css({

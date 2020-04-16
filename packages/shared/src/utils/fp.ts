@@ -73,6 +73,12 @@ export const Try = {
 }
 
 /**
+ * Task
+ */
+export type Task<A> = _Task.Task<A>
+export const Task = _Task
+
+/**
  * Future
  */
 export type Future<A> = _Task.Task<Try<A>>

@@ -3,12 +3,12 @@ import { css, jsx } from '@emotion/core'
 import { FunctionComponent, useContext, useState, Fragment } from 'react'
 
 import { Maybe, pipe, NonEmptyArray, Future } from 'main-site-shared/lib/fp'
+import { FormPayload } from 'main-site-shared/lib/models/form/FormPayload'
 
 import { Buttons } from './Buttons'
 import { Selects } from './Selects'
 import { FormOutcome } from './FormOutcome'
 import { AppContext } from '../../contexts/AppContext'
-import { translations } from '../../contexts/translation'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 import {
   Question,
@@ -112,50 +112,42 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     )
   }
 
-  function send(answers: NonEmptyArray<Answer>, msg: Maybe<string> = Maybe.none) {
+  function send(answers: NonEmptyArray<Answer>, freeMsg: Maybe<string> = Maybe.none) {
+    const payload = FormPayload.codec.encode({
+      answers: pipe(
+        answers,
+        NonEmptyArray.map(_ => _.value)
+      ),
+      freeMsg
+    })
     pipe(
       Future.unit,
       Future.map(_ => {
-        const formatted = [
-          ...answers.map(_ => _.label(translations.fr.contact.form)),
-          ...pipe(
-            msg,
-            Maybe.map(_ => _.trim()),
-            Maybe.filter(_ => _ !== ''),
-            Maybe.fold(
-              () => [],
-              _ => ['---', _]
-            )
-          )
-        ].join('\n')
-        // TODO: send answers and freeMsg
-        console.log(formatted)
+        // TODO: send payload
+        console.log(JSON.stringify(payload, null, 2))
       }),
-      Future.map(_ => onSubmit())
-    )()
+      Future.map(_ => onSubmit()),
+      Future.runUnsafe
+    )
   }
 }
 
 const question = Question(
   _ => _.whatDoYouWant,
   Answer(
-    _ => _.devsAreAssholes,
+    'devsAreAssholes',
     Message(_ => _.butICant)
   ),
   Answer(
-    _ => _.devsAreAwesome,
-    Question(
-      _ => _.whatElse,
-      Answer(_ => _.congrats),
-      Answer(_ => _.congratsSonOfABitch, FreeMsg())
-    )
+    'devsAreAwesome',
+    Question(_ => _.whatElse, Answer('congrats'), Answer('congratsSonOfABitch', FreeMsg()))
   ),
   Answer(
-    _ => _.iWannaSuggestScene,
+    'iWannaSuggestScene',
     Question(
       _ => _.whichCharacter,
       Answer(
-        _ => 'Jean Plank',
+        'jp',
         FreeMsg(_ => (
           <Fragment>
             {_.jpNoNeedToIntroduceMe}
@@ -166,19 +158,19 @@ const question = Question(
         ))
       ),
       Answer(
-        _ => _.luchien,
+        'luchien',
         FreeMsg(_ => _.sceneDescription)
       ),
       Answer(
-        _ => _.mf,
+        'mf',
         FreeMsg(_ => _.sceneDescription)
       ),
       Answer(
-        _ => _.stGede,
+        'stGede',
         FreeMsg(_ => _.sceneDescription)
       ),
       Answer(
-        _ => _.haddock,
+        'haddock',
         FreeMsg(_ => (
           <Fragment>
             {_.haddockTintin}
@@ -189,11 +181,11 @@ const question = Question(
         ))
       ),
       Answer(
-        _ => _.kaarthus,
+        'kaarthus',
         FreeMsg(_ => _.sceneDescription)
       ),
       Answer(
-        _ => _.rammus,
+        'rammus',
         FreeMsg(_ => (
           <Fragment>
             {_.rammusOk}
@@ -204,56 +196,56 @@ const question = Question(
         ))
       ),
       Answer(
-        _ => _.pikachu,
+        'pikachu',
         FreeMsg(_ => _.sceneDescription)
       ),
       Answer(
-        _ => _.otherWithPrecision,
+        'otherWithPrecision',
         FreeMsg(_ => _.sceneDescription)
       )
     )
   ),
   Answer(
-    _ => _.iAmATalentedMusician,
+    'iAmATalentedMusician',
     FreeMsg(_ => _.giveUsYourContact)
   ),
   Answer(
-    _ => _.iAmShocked,
+    'iAmShocked',
     Question(
       _ => _.why,
       Answer(
-        _ => _.itsRacist,
+        'itsRacist',
         Question(
           _ => _.forWho,
-          Answer(_ => _.niggers, Link('http://le-cran.fr')),
+          Answer('niggers', Link('http://le-cran.fr')),
           Answer(
-            _ => _.chineses,
+            'chineses',
             MessageLink('https://t.co/zh0cyds07K', _ => _.itCouldBeWorse)
           ),
           Answer(
-            _ => _.vikings,
+            'vikings',
             Link('http://www.jeuxvideo.com/forums/1-51-42348195-1-0-1-0-le-racisme-anti-viking.htm')
           ),
-          Answer(_ => _.pirates),
-          Answer(_ => _.niggers),
-          Answer(_ => _.aLotOfPeople)
+          Answer('pirates'),
+          Answer('niggers'),
+          Answer('aLotOfPeople')
         )
       ),
-      Answer(_ => _.itsSexist),
-      Answer(_ => _.itsHomo),
-      Answer(_ => _.itsReligonUnfriendly),
-      Answer(_ => _.itsPedophile),
-      Answer(_ => _.itsTerroristic, Link('https://twitter.com/Gendarmerie')),
-      Answer(_ => _.itsNotFunny, Link('https://youtu.be/psCSnnioq0M')),
-      Answer(_ => _.noneOfThis, FreeMsg())
+      Answer('itsSexist'),
+      Answer('itsHomo'),
+      Answer('itsReligonUnfriendly'),
+      Answer('itsPedophile'),
+      Answer('itsTerroristic', Link('https://twitter.com/Gendarmerie')),
+      Answer('itsNotFunny', Link('https://youtu.be/psCSnnioq0M')),
+      Answer('noneOfThis', FreeMsg())
     )
   ),
   Answer(
-    _ => _.technicalProblem,
+    'technicalProblem',
     Question(
       _ => _.whichOne,
       Answer(
-        _ => _.onelineVersionDoesntWork,
+        'onlineVersionDoesntWork',
         Message(_ => (
           <Fragment>
             {_.blameYourself}
@@ -264,14 +256,14 @@ const question = Question(
         ))
       ),
       Answer(
-        _ => _.imLeftHanded,
+        'imLeftHanded',
         Message(_ => _.trueIndeed)
       ),
-      Answer(_ => _.needMoarOars, Link('https://downloadmoreram.com'))
+      Answer('needMoarOars', Link('https://downloadmoreram.com'))
     )
   ),
   Answer(
-    _ => _.mySuggestionIsSoAwesome,
+    'mySuggestionIsSoAwesome',
     FreeMsg(_ => _.ohWell)
   )
 )

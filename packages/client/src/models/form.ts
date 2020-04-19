@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
 import { Maybe, NonEmptyArray } from 'main-site-shared/lib/fp'
-
-import { FormTranslation } from '../contexts/translation'
+import { FormTranslation } from 'main-site-shared/lib/models/form/FormTranslation'
+import { FormTranslationKeyAnswer } from 'main-site-shared/lib/models/form/FormTranslationKey'
 
 type TranslToString = (transl: FormTranslation) => string
 type TranslToNode = (transl: FormTranslation) => ReactNode
@@ -25,14 +25,15 @@ export const Question = (
 
 export interface Answer {
   label: TranslToString
-  value: string
+  value: FormTranslationKeyAnswer
   leadsTo: Maybe<AnswerNext>
 }
 
-export const Answer = (label: TranslToString, leadsTo?: AnswerNext): Answer => {
-  const value = Math.random().toString(36).substring(2)
-  return { label, value, leadsTo: Maybe.fromNullable(leadsTo) }
-}
+export const Answer = (value: FormTranslationKeyAnswer, leadsTo?: AnswerNext): Answer => ({
+  label: _ => _[value],
+  value,
+  leadsTo: Maybe.fromNullable(leadsTo)
+})
 
 export type AnswerNext = Question | EndOutput
 export namespace AnswerNext {

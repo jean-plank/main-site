@@ -6,11 +6,13 @@ import { failure } from 'io-ts/lib/PathReporter'
 
 import { pipe } from 'main-site-shared/lib/fp'
 
+import { ContactController } from './controllers/ContactController'
 import { Route } from './models/Route'
 
-export const Routes = (): Route[] => [
+export const Routes = (contactController: ContactController): Route[] => [
   ['get', '/hello/', hello],
-  ['get', '/hello/:name', helloName]
+  ['get', '/hello/:name', helloName],
+  ['post', '/contact', contactController.submitForm]
 ]
 
 const hello: H.Middleware<H.StatusOpen, H.ResponseEnded, never, void> = pipe(
@@ -20,21 +22,21 @@ const hello: H.Middleware<H.StatusOpen, H.ResponseEnded, never, void> = pipe(
 )
 
 const helloName = pipe(
-  fromRequestHandler(express.text(), () => undefined),
-  H.ichain(() => H.decodeParam('name', t.string.decode)),
-  H.mapLeft(e => `invalid body: ${failure(e).join('\n')}`),
+  fromRequestHandler(express.text(), _ => undefined),
+  H.ichain(_ => H.decodeParam('name', t.string.decode)),
+  H.mapLeft(e => `invalid param: ${failure(e).join('\n')}`),
   H.ichain(name =>
     pipe(
       H.status<string>(H.Status.OK),
-      H.ichain(() => H.closeHeaders()),
-      H.ichain(() => H.send(`Hello, ${name}.`))
+      H.ichain(_ => H.closeHeaders()),
+      H.ichain(_ => H.send(`Hello, ${name}.`))
     )
   ),
   H.orElse(msg =>
     pipe(
       H.status(H.Status.BadRequest),
-      H.ichain(() => H.closeHeaders()),
-      H.ichain(() => H.send(msg))
+      H.ichain(_ => H.closeHeaders()),
+      H.ichain(_ => H.send(msg))
     )
   )
 )

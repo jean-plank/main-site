@@ -92,22 +92,17 @@ export const Application = (config: Config): IO<unknown> => {
   }
 
   function logConnection(conn: ExpressConnection<H.ResponseEnded>): Task<unknown> {
-    return pipe(
-      logger.debug(
-        conn.getMethod(),
-        conn.getOriginalUrl(),
-        '-',
-        ...pipe(
-          conn,
-          getStatus,
-          Maybe.fold(
-            () => [],
-            _ => [_.toString()]
-          )
-        )
-      ),
-      Task.fromIO
+    const method = conn.getMethod()
+    const uri = conn.getOriginalUrl()
+    const status = pipe(
+      conn,
+      getStatus,
+      Maybe.fold(
+        () => [],
+        _ => [_.toString()]
+      )
     )
+    return pipe(logger.debug(method, uri, '-', ...status), Task.fromIO)
   }
 
   function onError(error: any): IO<void> {

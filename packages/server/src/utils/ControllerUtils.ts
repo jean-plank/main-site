@@ -8,12 +8,17 @@ import { EndedMiddleware } from '../models/EndedMiddleware'
 
 export namespace ControllerUtils {
   export const withJsonBody = <A>(decoder: (u: unknown) => Either<unknown, A>) => (
-    f: (a: A) => EndedMiddleware
+    f: (a: A, req: Request) => EndedMiddleware
   ): EndedMiddleware =>
     pipe(
-      fromRequestHandler(express.json(), _ => undefined),
-      H.ichain(_ => H.decodeBody(decoder)),
-      H.ichain(f),
+      fromRequestHandler(express.json(), req => req),
+      H.ichain(req =>
+        pipe(
+          H.decodeBody(decoder),
+          H.map<A, [A, Request]>(_ => [_, { ip: req.ip }])
+        )
+      ),
+      H.ichain(([a, req]) => f(a, req)),
       H.orElse(_ =>
         pipe(
           H.status(H.Status.BadRequest),
@@ -22,4 +27,8 @@ export namespace ControllerUtils {
         )
       )
     )
+}
+
+interface Request {
+  ip: string
 }

@@ -35,11 +35,17 @@ export const FpCollection = <A, O>(
       Future.chain(_ => Future.apply(() => _.createIndexes(indexSpecs, options)))
     )
 
-  const insertOne = (doc: A): Future<InsertOneWriteOpResult<WithId<O>>> =>
-    pipe(
+  const insertOne = (doc: A): Future<InsertOneWriteOpResult<WithId<O>>> => {
+    const encoded = codec.encode(doc)
+    const res = pipe(
       collection(),
-      Future.chain(_ => Future.apply(() => _.insertOne(codec.encode(doc))))
+      Future.chain(_ => Future.apply(() => _.insertOne(encoded)))
     )
+    return pipe(
+      Future.fromIOEither(logger.debug('inserted', encoded)),
+      Future.chain(_ => res)
+    )
+  }
 
   const findOne = (filter: FilterQuery<O>, options?: FindOneOptions): Future<Maybe<A>> =>
     pipe(

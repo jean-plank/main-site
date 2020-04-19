@@ -1,4 +1,4 @@
-import { Future } from 'main-site-shared/lib/fp'
+import { Future, pipe } from 'main-site-shared/lib/fp'
 
 import { PartialLogger } from './Logger'
 import { ContactForm } from '../models/ContactForm'

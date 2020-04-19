@@ -1,4 +1,10 @@
 {
   "logLevel": "debug",
-  "port": 8676
+  "port": 8676,
+  "db": {
+    "host": "localhost:27017",
+    "dbName": "jp-main-site",
+    "user": "user",
+    "password": "password"
+  }
 }

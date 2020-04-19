@@ -1,18 +1,15 @@
-import { Future, pipe } from 'main-site-shared/lib/fp'
+import { Future } from 'main-site-shared/lib/fp'
 
 import { PartialLogger } from './Logger'
 import { ContactForm } from '../models/ContactForm'
+import { ContactPersistence } from '../persistence/ContactPersistence'
 
 export type ContactService = ReturnType<typeof ContactService>
 
-export const ContactService = (Logger: PartialLogger) => {
-  const logger = Logger('ContactService')
+export const ContactService = (Logger: PartialLogger, contactPersistence: ContactPersistence) => {
+  const _logger = Logger('ContactService')
 
-  const create = (form: ContactForm): Future<boolean> =>
-    pipe(
-      Future.fromIOEither(logger.info('created', form)),
-      Future.map(_ => true)
-    )
+  const insertOne = (form: ContactForm): Future<boolean> => contactPersistence.insertOne(form)
 
-  return { create }
+  return { insertOne }
 }

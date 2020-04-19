@@ -15,7 +15,7 @@ export const ContactController = (Logger: PartialLogger, contactService: Contact
 
   const submitForm: EndedMiddleware = ControllerUtils.withJsonBody(FormPayload.codec.decode)(form =>
     pipe(
-      contactService.create(form),
+      contactService.insertOne(form),
       _ => H.fromTaskEither<H.StatusOpen, unknown, boolean>(_),
       H.ichain(created => (created ? EndedMiddleware.OK() : EndedMiddleware.BadRequest()))
     )

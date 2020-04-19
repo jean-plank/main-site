@@ -1,8 +1,18 @@
-import { pipe, IO } from 'main-site-shared/lib/fp'
+import { pipe, Future } from 'main-site-shared/lib/fp'
 
-import { Application } from './Application'
 import { Config } from './config/Config'
+import { Context } from './Context'
 
-const main = (): IO<unknown> => pipe(Config.load(), IO.chain(Application))
+const main = (): Future<unknown> =>
+  pipe(
+    Future.fromIOEither(Config.load()),
+    Future.chain(config => {
+      const { ensureIndexes, startWebServer } = Context(config)
+      return pipe(
+        ensureIndexes(),
+        Future.chain(_ => Future.fromIOEither(startWebServer()))
+      )
+    })
+  )
 
-IO.runUnsafe(main())
+Future.runUnsafe(main())

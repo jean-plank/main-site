@@ -2,7 +2,7 @@ import * as H from 'hyper-ts'
 import express from 'express'
 import { fromRequestHandler } from 'hyper-ts/lib/express'
 
-import { pipe, todo, Either } from 'main-site-shared/lib/fp'
+import { pipe, Either } from 'main-site-shared/lib/fp'
 import { FormPayload } from 'main-site-shared/lib/models/form/FormPayload'
 
 import { EndedMiddleware } from '../models/EndedMiddleware'

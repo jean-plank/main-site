@@ -1,14 +1,12 @@
 import * as H from 'hyper-ts'
-import * as TE from 'fp-ts/lib/TaskEither'
-import express, { RequestHandler, ErrorRequestHandler } from 'express'
+import express, { ErrorRequestHandler } from 'express'
 import { toRequestHandler, ExpressConnection, toArray, Action } from 'hyper-ts/lib/express'
 
-import { Do, pipe, IO, Task, Either, List, Maybe, Try, Future, todo } from 'main-site-shared/lib/fp'
+import { Do, pipe, IO, Task, Either, List, Maybe, Try, Future } from 'main-site-shared/lib/fp'
 
 import { Context } from './Context'
 import { Config } from './config/Config'
 import { EndedMiddleware } from './models/EndedMiddleware'
-import { PartialLogger } from './services/Logger'
 
 export const Application = (config: Config): IO<unknown> => {
   const { Logger, routes } = Context(config)

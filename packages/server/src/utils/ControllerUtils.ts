@@ -12,10 +12,10 @@ export namespace ControllerUtils {
   ): EndedMiddleware =>
     pipe(
       fromRequestHandler(express.json(), req => req),
-      H.ichain(req =>
+      H.ichain(({ ip }) =>
         pipe(
           H.decodeBody(decoder),
-          H.map<A, [A, Request]>(_ => [_, { ip: req.ip }])
+          H.map<A, [A, Request]>(_ => [_, { ip }])
         )
       ),
       H.ichain(([a, req]) => f(a, req)),

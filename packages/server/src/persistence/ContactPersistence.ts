@@ -2,9 +2,9 @@ import { Collection } from 'mongodb'
 
 import { Future, pipe } from 'main-site-shared/lib/fp'
 
-import { PartialLogger } from '../services/Logger'
+import { FpCollection } from './FpCollection'
 import { ContactForm } from '../models/ContactForm'
-import { FpCollection } from '../utils/FpCollection'
+import { PartialLogger } from '../services/Logger'
 
 export type ContactPersistence = ReturnType<typeof ContactPersistence>
 

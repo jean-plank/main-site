@@ -2,12 +2,12 @@ import { MongoClient, Collection } from 'mongodb'
 
 import { pipe, Future } from 'main-site-shared/lib/fp'
 
-import { Routes } from './Routes'
 import { startWebServer as _startWebServer } from './Webserver'
 import { Config } from './config/Config'
 import { ContactController } from './controllers/ContactController'
 import { Route } from './models/Route'
 import { ContactPersistence } from './persistence/ContactPersistence'
+import { Routes } from './route/Routes'
 import { ContactService } from './services/ContactService'
 import { PartialLogger } from './services/Logger'
 

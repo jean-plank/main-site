@@ -24,8 +24,9 @@ export const Videos: FunctionComponent<Props> = ({ videos }) => {
       <h2 css={styles.title}>{transl.bonus.videos}</h2>
       <div css={styles.videos}>
         {videos.map(([id, title], i) => {
-          // const embed = `https://www.youtube.com/embed/${id}`
+          // const img = `https://www.youtube.com/embed/${id}`
           // const img = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+          // const img = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
           const img = `https://i.ytimg.com/vi/${id}/hq720.jpg`
           return (
             <TargetBlank key={i} href={`https://youtu.be/${id}`} css={styles.video}>

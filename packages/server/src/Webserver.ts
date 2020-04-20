@@ -4,10 +4,10 @@ import { toRequestHandler, ExpressConnection, toArray, Action } from 'hyper-ts/l
 
 import { Do, pipe, IO, Task, Either, List, Maybe, Future } from 'main-site-shared/lib/fp'
 
-import { PartialLogger, Logger } from './Logger'
-import { Config } from '../config/Config'
-import { EndedMiddleware } from '../models/EndedMiddleware'
-import { Route } from '../models/Route'
+import { Config } from './config/Config'
+import { EndedMiddleware } from './models/EndedMiddleware'
+import { Route } from './models/Route'
+import { PartialLogger, Logger } from './services/Logger'
 
 export const startWebServer = (
   Logger: PartialLogger,

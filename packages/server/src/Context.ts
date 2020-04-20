@@ -3,13 +3,13 @@ import { MongoClient, Collection } from 'mongodb'
 import { pipe, Future } from 'main-site-shared/lib/fp'
 
 import { Routes } from './Routes'
+import { startWebServer as _startWebServer } from './Webserver'
 import { Config } from './config/Config'
 import { ContactController } from './controllers/ContactController'
 import { Route } from './models/Route'
 import { ContactPersistence } from './persistence/ContactPersistence'
 import { ContactService } from './services/ContactService'
 import { PartialLogger } from './services/Logger'
-import { startWebServer as _startWebServer } from './services/Webserver'
 
 export const Context = (config: Config) => {
   const Logger = PartialLogger(config.logLevel)

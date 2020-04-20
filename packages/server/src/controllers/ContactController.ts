@@ -3,10 +3,10 @@ import * as H from 'hyper-ts'
 import { pipe } from 'main-site-shared/lib/fp'
 import { FormPayload } from 'main-site-shared/lib/models/form/FormPayload'
 
+import { ControllerUtils } from './ControllerUtils'
 import { EndedMiddleware } from '../models/EndedMiddleware'
 import { ContactService } from '../services/ContactService'
 import { PartialLogger } from '../services/Logger'
-import { ControllerUtils } from '../utils/ControllerUtils'
 
 export type ContactController = ReturnType<typeof ContactController>
 

@@ -5,8 +5,10 @@ import { pipe, Future } from 'main-site-shared/lib/fp'
 import { startWebServer as _startWebServer } from './Webserver'
 import { Config } from './config/Config'
 import { ContactController } from './controllers/ContactController'
+import { MsDuration } from './models/MsDuration'
 import { Route } from './models/Route'
 import { ContactPersistence } from './persistence/ContactPersistence'
+import { RateLimiter } from './route/RateLimiter'
 import { Routes } from './route/Routes'
 import { ContactService } from './services/ContactService'
 import { PartialLogger } from './services/Logger'
@@ -36,7 +38,8 @@ export const Context = (config: Config) => {
 
   const contactController = ContactController(Logger, contactService)
 
-  const routes: Route[] = Routes(contactController)
+  const rateLimiter = RateLimiter(Logger, MsDuration.days(1))
+  const routes: Route[] = Routes(rateLimiter, contactController)
   const startWebServer = () => _startWebServer(Logger, config, routes)
 
   return { Logger, ensureIndexes, startWebServer }

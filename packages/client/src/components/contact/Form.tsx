@@ -132,7 +132,7 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
     })
     pipe(
       Future.fromIOEither(IO.apply(() => setAsyncState(AsyncState.Loading))),
-      Future.chain(_ => HttpUtils.post(`${Config.apiHost}/contact`, payload)),
+      Future.chain(_ => HttpUtils.post(`${Config.apiHost}/api/contact`, payload)),
       Future.chain(res =>
         pipe(
           Future.apply(() => res.text()),

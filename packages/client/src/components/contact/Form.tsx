@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { FunctionComponent, useContext, useState, Fragment } from 'react'
+import { FunctionComponent, ReactNode, useContext, useState, Fragment } from 'react'
 
-import { Maybe, pipe, NonEmptyArray, Future } from 'main-site-shared/lib/fp'
+import { Maybe, pipe, NonEmptyArray, Future, IO } from 'main-site-shared/lib/fp'
 import { FormPayload } from 'main-site-shared/lib/models/form/FormPayload'
 
 import { Buttons } from './Buttons'
@@ -11,6 +11,7 @@ import { FormOutcome } from './FormOutcome'
 import { Config } from '../../config/Config'
 import { AppContext } from '../../contexts/AppContext'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
+import { AsyncState } from '../../models/AsyncState'
 import {
   Question,
   Answer,
@@ -22,6 +23,7 @@ import {
   MessageLink
 } from '../../models/form'
 import { HttpUtils } from '../../utils/HttpUtils'
+import { Dharmachakra } from '../../utils/svg'
 
 interface Props {
   onSubmit: () => void
@@ -32,8 +34,11 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
 
   const [selected, setSelected] = useState<ArrayWithEnd<Answer, EndOutput>>(Maybe.none)
   const [freeMsg, setFreeMsg] = useState<Maybe<string>>(Maybe.none)
+  const [asyncState, setAsyncState] = useState<AsyncState<void>>(AsyncState.Success(undefined))
 
-  const enabled = lastAnswerLeadsToNone() || (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined())
+  const enabled =
+    !AsyncState.isLoading(asyncState) &&
+    (lastAnswerLeadsToNone() || (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined()))
 
   return (
     <Fragment>
@@ -49,9 +54,12 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
         )}
       </div>
 
-      <Buttons.Primary disabled={!enabled} onClick={submitForm}>
-        {transl.contact.send}
-      </Buttons.Primary>
+      <div css={styles.footer}>
+        <span css={styles.error}>{AsyncState.isError(asyncState) ? asyncState.message : null}</span>
+        <Buttons.Primary disabled={!enabled} onClick={submitForm}>
+          {AsyncState.isLoading(asyncState) ? <Dharmachakra /> : transl.contact.send}
+        </Buttons.Primary>
+      </div>
     </Fragment>
   )
 
@@ -123,12 +131,34 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
       freeMsg
     })
     pipe(
-      HttpUtils.post(`${Config.apiHost}/contact`, payload),
-      // TODO: handle error
-      Future.map(res => console.log('res =', res)),
-      Future.map(_ => onSubmit()),
+      Future.fromIOEither(IO.apply(() => setAsyncState(AsyncState.Loading))),
+      Future.chain(_ => HttpUtils.post(`${Config.apiHost}/contact`, payload)),
+      Future.chain(res =>
+        pipe(
+          Future.apply(() => res.text()),
+          Future.chain(body => handleResponse(res, body))
+        )
+      ),
       Future.runUnsafe
     )
+  }
+
+  function handleResponse(res: Response, body: string): Future<void> {
+    return pipe(
+      res.ok
+        ? pipe(
+            IO.apply(() => setAsyncState(AsyncState.Success(undefined))),
+            IO.chain(_ => IO.apply(() => onSubmit()))
+          )
+        : IO.apply(() => setAsyncState(AsyncState.Error(errorMessage(res, body)))),
+      Future.fromIOEither
+    )
+  }
+
+  function errorMessage(res: Response, body: string): ReactNode {
+    return res.status === 401 && body === 'Too many requests'
+      ? transl.contact.errors.tooManyRequests
+      : transl.contact.errors.otherError
   }
 }
 
@@ -271,5 +301,20 @@ const question = Question(
 const styles = {
   selects: css({
     width: '100%'
+  }),
+
+  footer: css({
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }),
+
+  error: css({
+    display: 'flex',
+    textAlign: 'center',
+    fontSize: '0.9em',
+    color: 'darkred',
+    marginBottom: '0.67em'
   })
 }

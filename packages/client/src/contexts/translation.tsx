@@ -44,6 +44,10 @@ export interface Translation {
     msgWasSent: string
     increaseTheSentence: string
     submitAnotherAnswer: string
+    errors: {
+      tooManyRequests: ReactNode
+      otherError: string
+    }
     form: FormTranslation
   }
   game: {
@@ -122,6 +126,16 @@ export const translations: Record<Language, Translation> = {
       msgWasSent: 'Le message a bien été envoyé.',
       increaseTheSentence: 'Alourdir la peine',
       submitAnotherAnswer: 'Soumettre une autre réponse',
+      errors: {
+        tooManyRequests: (
+          <>
+            J'ai évidemment mis une limite sur le nombre de requêtes que l'on peut faire.
+            <br />
+            Réessaie dans un petit moment, gros malin...
+          </>
+        ),
+        otherError: "Oupsi, petite erreur lors de l'envoi"
+      },
       form: FormTranslation.fr
     },
 
@@ -265,6 +279,16 @@ export const translations: Record<Language, Translation> = {
       msgWasSent: 'The message has been sent.',
       increaseTheSentence: 'Increase the sentence',
       submitAnotherAnswer: 'Submit another answer',
+      errors: {
+        tooManyRequests: (
+          <>
+            I've obviously put a limit on the number of requests that can be made
+            <br />
+            Try again in a little while, smart-ass...
+          </>
+        ),
+        otherError: 'Oopsi, something went wrong'
+      },
       form: FormTranslation.en
     },
 

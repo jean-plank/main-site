@@ -1,0 +1,12 @@
+{
+  "isDev": true,
+  "logLevel": "debug",
+  "port": 8676,
+  "allowedOrigins": ["*"],
+  "db": {
+    "host": "localhost:27017",
+    "dbName": "jp-main-site",
+    "user": "user",
+    "password": "password"
+  }
+}

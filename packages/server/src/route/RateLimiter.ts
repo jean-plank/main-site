@@ -1,10 +1,9 @@
 import * as H from 'hyper-ts'
-import { Request } from 'express'
-import { ExpressConnection } from 'hyper-ts/lib/express'
 import { isDeepStrictEqual } from 'util'
 
-import { pipe, List, Maybe, Future } from 'main-site-shared/lib/fp'
+import { pipe, List, Maybe } from 'main-site-shared/lib/fp'
 
+import { ControllerUtils } from './ControllerUtils'
 import { EndedMiddleware } from '../models/EndedMiddleware'
 import { MsDuration } from '../models/MsDuration'
 import { PartialLogger } from '../services/Logger'
@@ -18,15 +17,9 @@ export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
 
   setTimeout(() => (requests = []), MsDuration.unwrap(lifeTime))
 
-  const limit = (limit: number, window: MsDuration) => (
-    middleware: EndedMiddleware
-  ): EndedMiddleware => {
-    const reqMiddleware: H.Middleware<H.StatusOpen, H.StatusOpen, Error, Request> = (
-      conn: H.Connection<H.StatusOpen>
-    ) => Future.right([(conn as ExpressConnection<H.StatusOpen>).req, conn])
-
-    return pipe(
-      reqMiddleware,
+  return (limit: number, window: MsDuration) => (middleware: EndedMiddleware): EndedMiddleware =>
+    pipe(
+      ControllerUtils.withRequest,
       H.ichain(({ path, ip }) => {
         const key = Key(path, ip)
         const now = Date.now()
@@ -60,9 +53,6 @@ export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
         return result
       })
     )
-  }
-
-  return { limit }
 }
 
 interface History {

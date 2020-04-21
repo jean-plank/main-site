@@ -12,6 +12,7 @@ import { LogLevelOrOff } from '../models/LogLevel'
  */
 
 export interface Config {
+  isDev: boolean
   logLevel: LogLevelOrOff
   port: number
   allowedOrigins: Maybe<NonEmptyArray<string>>
@@ -19,12 +20,13 @@ export interface Config {
 }
 
 export function Config(
+  isDev: boolean,
   logLevel: LogLevelOrOff,
   port: number,
   allowedOrigins: Maybe<NonEmptyArray<string>>,
   db: DbConfig
 ): Config {
-  return { logLevel, port, allowedOrigins, db }
+  return { isDev, logLevel, port, allowedOrigins, db }
 }
 
 export namespace Config {
@@ -45,12 +47,15 @@ export namespace Config {
 const readConfig = (reader: ConfReader): ValidatedNea<Config> =>
   pipe(
     sequenceT(Either.getValidation(NonEmptyArray.getSemigroup<string>()))(
+      reader.read(t.boolean)('isDev'),
       reader.read(LogLevelOrOff.codec)('logLevel'),
       reader.read(t.number)('port'),
       reader.readOpt(nonEmptyArray(t.string))('allowedOrigins'),
       DbConfig.read(reader)
     ),
-    Either.map(([logLevel, port, allowedOrigins, db]) => Config(logLevel, port, allowedOrigins, db))
+    Either.map(([isDev, logLevel, port, allowedOrigins, db]) =>
+      Config(isDev, logLevel, port, allowedOrigins, db)
+    )
   )
 
 /**

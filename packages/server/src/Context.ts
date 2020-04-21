@@ -10,6 +10,7 @@ import { Route } from './models/Route'
 import { ContactPersistence } from './persistence/ContactPersistence'
 import { RateLimiter } from './route/RateLimiter'
 import { Routes } from './route/Routes'
+import { WithIp } from './route/WithIp'
 import { ContactService } from './services/ContactService'
 import { PartialLogger } from './services/Logger'
 
@@ -36,7 +37,9 @@ export const Context = (config: Config) => {
 
   const contactService = ContactService(Logger, contactPersistence)
 
-  const contactController = ContactController(Logger, contactService)
+  const withIp = WithIp(Logger, config)
+
+  const contactController = ContactController(Logger, withIp, contactService)
 
   const rateLimiter = RateLimiter(Logger, MsDuration.days(1))
   const routes: Route[] = Routes(rateLimiter, contactController)

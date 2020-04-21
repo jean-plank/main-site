@@ -38,7 +38,9 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
 
   const enabled =
     !AsyncState.isLoading(asyncState) &&
-    (lastAnswerLeadsToNone() || (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined()))
+    (lastAnswerLeadsToNone() ||
+      lastAnswerLeadsToLink() ||
+      (lastAnswerLeadsToFreeMsg() && freeMsgIsDefined()))
 
   return (
     <Fragment>
@@ -70,6 +72,14 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
         () => false,
         _ => Maybe.isNone(_.leadsTo)
       )
+    )
+  }
+
+  function lastAnswerLeadsToLink(): boolean {
+    return pipe(
+      ArrayWithEnd.lastA(selected),
+      Maybe.chain(_ => _.leadsTo),
+      Maybe.exists(AnswerNext.isLink)
     )
   }
 

@@ -1,7 +1,8 @@
 import * as t from 'io-ts'
 import { sequenceT } from 'fp-ts/lib/Apply'
+import { nonEmptyArray } from 'io-ts-types/lib/nonEmptyArray'
 
-import { IO, pipe, Either, NonEmptyArray } from 'main-site-shared/lib/fp'
+import { IO, pipe, Either, NonEmptyArray, Maybe } from 'main-site-shared/lib/fp'
 
 import { ConfReader, ValidatedNea } from './ConfReader'
 import { LogLevelOrOff } from '../models/LogLevel'
@@ -13,11 +14,17 @@ import { LogLevelOrOff } from '../models/LogLevel'
 export interface Config {
   logLevel: LogLevelOrOff
   port: number
+  allowedOrigins: Maybe<NonEmptyArray<string>>
   db: DbConfig
 }
 
-export function Config(logLevel: LogLevelOrOff, port: number, db: DbConfig): Config {
-  return { logLevel, port, db }
+export function Config(
+  logLevel: LogLevelOrOff,
+  port: number,
+  allowedOrigins: Maybe<NonEmptyArray<string>>,
+  db: DbConfig
+): Config {
+  return { logLevel, port, allowedOrigins, db }
 }
 
 export namespace Config {
@@ -38,11 +45,12 @@ export namespace Config {
 const readConfig = (reader: ConfReader): ValidatedNea<Config> =>
   pipe(
     sequenceT(Either.getValidation(NonEmptyArray.getSemigroup<string>()))(
-      reader(LogLevelOrOff.codec)('logLevel'),
-      reader(t.number)('port'),
+      reader.read(LogLevelOrOff.codec)('logLevel'),
+      reader.read(t.number)('port'),
+      reader.readOpt(nonEmptyArray(t.string))('allowedOrigins'),
       DbConfig.read(reader)
     ),
-    Either.map(([logLevel, port, db]) => Config(logLevel, port, db))
+    Either.map(([logLevel, port, allowedOrigins, db]) => Config(logLevel, port, allowedOrigins, db))
   )
 
 /**
@@ -64,10 +72,10 @@ export namespace DbConfig {
   export const read = (reader: ConfReader): ValidatedNea<DbConfig> =>
     pipe(
       sequenceT(Either.getValidation(NonEmptyArray.getSemigroup<string>()))(
-        reader(t.string)('db', 'host'),
-        reader(t.string)('db', 'dbName'),
-        reader(t.string)('db', 'user'),
-        reader(t.string)('db', 'password')
+        reader.read(t.string)('db', 'host'),
+        reader.read(t.string)('db', 'dbName'),
+        reader.read(t.string)('db', 'user'),
+        reader.read(t.string)('db', 'password')
       ),
       Either.map(([host, dbName, user, password]) => DbConfig(host, dbName, user, password))
     )

@@ -15,9 +15,12 @@ import { FileUtils } from '../utils/FileUtils'
 
 export type ValidatedNea<A> = Either<NonEmptyArray<string>, A>
 
-export type ConfReader = <A>(
-  codec: t.Decoder<unknown, A>
-) => (path: string, ...paths: string[]) => ValidatedNea<A>
+export interface ConfReader {
+  read: <A>(codec: t.Decoder<unknown, A>) => (path: string, ...paths: string[]) => ValidatedNea<A>
+  readOpt: <A>(
+    codec: t.Decoder<unknown, A>
+  ) => (path: string, ...paths: string[]) => ValidatedNea<Maybe<A>>
+}
 
 export namespace ConfReader {
   export const fromFiles = (path: string, ...paths: string[]): IO<ConfReader> =>
@@ -28,38 +31,58 @@ export namespace ConfReader {
       )
     )
 
-  export const fromJsons = (json: unknown, ...jsons: unknown[]): ConfReader => <A>(
-    codec: t.Decoder<unknown, A>
-  ) => (path: string, ...paths: string[]): ValidatedNea<A> => {
-    const allPaths: NonEmptyArray<string> = [path, ...paths]
+  export const fromJsons = (json: unknown, ...jsons: unknown[]): ConfReader => {
+    const read = <A>(codec: t.Decoder<unknown, A>) => (
+      path: string,
+      ...paths: string[]
+    ): ValidatedNea<A> =>
+      pipe(
+        readOpt(codec)(path, ...paths),
+        Either.chain(_ =>
+          pipe(
+            _,
+            Maybe.fold(() => Either.left(NonEmptyArray.of('missing key')), Either.right)
+          )
+        )
+      )
 
-    const valueForPath = pipe(
-      jsons.reduce<Maybe<unknown>>(
-        (acc, json) =>
+    const readOpt = <A>(codec: t.Decoder<unknown, A>) => (
+      path: string,
+      ...paths: string[]
+    ): ValidatedNea<Maybe<A>> => {
+      const allPaths: NonEmptyArray<string> = [path, ...paths]
+
+      const valueForPath = pipe(
+        jsons,
+        List.reduce(readPath(allPaths, json), (acc, json) =>
           pipe(
             acc,
             Maybe.alt(() => readPath(allPaths, json))
-          ),
-        readPath(allPaths, json)
-      ),
-      Either.fromOption(() => NonEmptyArray.of('missing key'))
-    )
+          )
+        )
+      )
 
-    return pipe(
-      valueForPath,
-      Either.chain(val =>
-        pipe(
+      return pipe(
+        valueForPath,
+        Maybe.fold(() => Either.right(Maybe.none), decodeVal)
+      )
+
+      function decodeVal(val: unknown): ValidatedNea<Maybe<A>> {
+        return pipe(
           codec.decode(val),
           Either.mapLeft(
             errors =>
               errors.map(
                 _ => `expected ${codec.name} got ${JSON.stringify(_.value)}`
               ) as NonEmptyArray<string>
-          )
+          ),
+          Either.map(Maybe.some),
+          Either.mapLeft(NonEmptyArray.map(_ => `key ${allPaths.join('.')}: ${_}`))
         )
-      ),
-      Either.mapLeft(NonEmptyArray.map(_ => `key ${allPaths.join('.')}: ${_}`))
-    )
+      }
+    }
+
+    return { read, readOpt }
   }
 }
 

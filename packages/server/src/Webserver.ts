@@ -2,7 +2,18 @@ import * as H from 'hyper-ts'
 import express, { ErrorRequestHandler } from 'express'
 import { toRequestHandler, ExpressConnection, toArray, Action } from 'hyper-ts/lib/express'
 
-import { Do, pipe, IO, Task, Either, List, Maybe, Future } from 'main-site-shared/lib/fp'
+import {
+  Do,
+  pipe,
+  IO,
+  Task,
+  Either,
+  List,
+  Maybe,
+  Future,
+  NonEmptyArray,
+  Dict
+} from 'main-site-shared/lib/fp'
 
 import { Config } from './config/Config'
 import { EndedMiddleware } from './models/EndedMiddleware'
@@ -18,18 +29,33 @@ export const startWebServer = (
 
   const withCors = pipe(
     IO.apply(() => express()),
-    IO.chain(_ =>
-      IO.apply(() =>
-        _.use((req, res, next) => {
-          // TODO: extract authorized origins to conf
-          res.append('Access-Control-Allow-Origin', 'http://192.168.1.1:8675')
-          res.header(
-            'Access-Control-Allow-Headers',
-            'Origin, X-Requested-With, Content-Type, Accept'
-          )
-          if (req.method === 'OPTIONS') res.send()
-          else next()
-        })
+    IO.chain(app =>
+      pipe(
+        config.allowedOrigins,
+        Maybe.fold(
+          () => IO.apply(() => app),
+          allowedOrigins =>
+            IO.apply(() =>
+              app.use((req, res, next) =>
+                pipe(
+                  Dict.lookup('origin', req.headers),
+                  Maybe.filter(containedIn(allowedOrigins)),
+                  Maybe.fold(
+                    () => next(),
+                    origin => {
+                      res.append('Access-Control-Allow-Origin', origin)
+                      res.header(
+                        'Access-Control-Allow-Headers',
+                        'Origin, X-Requested-With, Content-Type, Accept'
+                      )
+                      if (req.method === 'OPTIONS') res.send()
+                      else next()
+                    }
+                  )
+                )
+              )
+            )
+        )
       )
     )
   )
@@ -93,6 +119,12 @@ export const startWebServer = (
     return error.stack === undefined ? logger.error(error) : logger.error(error.stack)
   }
 }
+
+const containedIn = <A>(allowedOrigins: NonEmptyArray<A>) => <B>(elem: A | B): elem is A =>
+  pipe(
+    allowedOrigins,
+    List.exists(_ => _ === elem)
+  )
 
 const logConnection = (logger: Logger, conn: ExpressConnection<H.ResponseEnded>): Task<unknown> => {
   const method = conn.getMethod()

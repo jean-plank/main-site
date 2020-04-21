@@ -11,7 +11,10 @@ export namespace ControllerUtils {
     f: (a: A, req: Request) => EndedMiddleware
   ): EndedMiddleware =>
     pipe(
-      fromRequestHandler(express.json(), ({ ip }) => ({ ip })),
+      fromRequestHandler(express.json(), (req) => {
+        console.log('req.ips =', req.ips)
+        console.log('req.headers =', req.headers)
+        return ({ ip: req.ip })}),
       H.ichain(req =>
         pipe(
           H.decodeBody(decoder),

@@ -37,13 +37,15 @@ export const FpCollection = <A, O>(
 
   const insertOne = (doc: A): Future<InsertOneWriteOpResult<WithId<O>>> => {
     const encoded = codec.encode(doc)
-    const res = pipe(
-      collection(),
-      Future.chain(_ => Future.apply(() => _.insertOne(encoded)))
-    )
     return pipe(
-      Future.fromIOEither(logger.debug('inserted', encoded)),
-      Future.chain(_ => res)
+      collection(),
+      Future.chain(_ => Future.apply(() => _.insertOne(encoded))),
+      Future.chain(res =>
+        pipe(
+          Future.fromIOEither(logger.debug('inserted', encoded)),
+          Future.map(_ => res)
+        )
+      )
     )
   }
 

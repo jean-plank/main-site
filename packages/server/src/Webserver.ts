@@ -16,17 +16,33 @@ export const startWebServer = (
 ): IO<unknown> => {
   const logger = Logger('WebServer')
 
+  const withCors = pipe(
+    IO.apply(() => express()),
+    IO.chain(_ =>
+      IO.apply(() =>
+        _.use((req, res, next) => {
+          // TODO: extract authorized origins to conf
+          res.append('Access-Control-Allow-Origin', 'http://192.168.1.1:8675')
+          res.header(
+            'Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept'
+          )
+          if (req.method === 'OPTIONS') res.send()
+          else next()
+        })
+      )
+    )
+  )
+
   return pipe(
     routes,
-    List.reduce(
-      IO.apply(() => express()),
-      (ioApp, [method, path, middleware]) =>
-        pipe(
-          ioApp,
-          IO.chain(app =>
-            IO.apply(() => app[method](path, pipe(middleware, withTry, withLog, toRequestHandler)))
-          )
+    List.reduce(withCors, (ioApp, [method, path, middleware]) =>
+      pipe(
+        ioApp,
+        IO.chain(app =>
+          IO.apply(() => app[method](path, pipe(middleware, withTry, withLog, toRequestHandler)))
         )
+      )
     ),
     IO.chain(_ =>
       IO.apply(() => _.use(pipe(EndedMiddleware.NotFound(), withLog, toRequestHandler)))

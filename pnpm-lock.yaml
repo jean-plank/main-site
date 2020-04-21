@@ -18,6 +18,7 @@ importers:
       awesome-typescript-loader: 5.2.1_typescript@3.8.3
       css-loader: 3.5.2_webpack@4.42.1
       csstype: 2.6.10
+      dotenv-webpack: 1.7.0_webpack@4.42.1
       eslint: 6.8.0
       eslint-config-prettier: 6.10.1_eslint@6.8.0
       eslint-plugin-prettier: 3.1.3_eslint@6.8.0+prettier@2.0.4
@@ -57,6 +58,7 @@ importers:
       awesome-typescript-loader: ^5.2.1
       css-loader: ^3.5.2
       csstype: ^2.6.10
+      dotenv-webpack: ^1.7.0
       eslint: ^6.8.0
       eslint-config-prettier: ^6.10.1
       eslint-plugin-prettier: ^3.1.3
@@ -2037,6 +2039,27 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-uEUyaDKoSQ1M4Oq8l45hSE26SnTxL6snNnqvK/VWx5wJhmff5z0FUVJDKDanor/6w3kzE3i7XZOk+7wC0EXr1A==
+  /dotenv-defaults/1.1.1:
+    dependencies:
+      dotenv: 6.2.0
+    dev: true
+    resolution:
+      integrity: sha512-6fPRo9o/3MxKvmRZBD3oNFdxODdhJtIy1zcJeUSCs6HCy4tarUpd+G67UTU9tF6OWXeSPqsm4fPAB+2eY9Rt9Q==
+  /dotenv-webpack/1.7.0_webpack@4.42.1:
+    dependencies:
+      dotenv-defaults: 1.1.1
+      webpack: 4.42.1_webpack@4.42.1
+    dev: true
+    peerDependencies:
+      webpack: ^1 || ^2 || ^3 || ^4
+    resolution:
+      integrity: sha512-wwNtOBW/6gLQSkb8p43y0Wts970A3xtNiG/mpwj9MLUhtPCQG6i+/DSXXoNN7fbPCU/vQ7JjwGmgOeGZSSZnsw==
+  /dotenv/6.2.0:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
   /duplexer3/0.1.4:
     dev: true
     resolution:

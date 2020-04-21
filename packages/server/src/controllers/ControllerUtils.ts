@@ -19,13 +19,7 @@ export namespace ControllerUtils {
         )
       ),
       H.ichain(([a, req]) => f(a, req)),
-      H.orElse(_ =>
-        pipe(
-          H.status(H.Status.BadRequest),
-          H.ichain(_ => H.closeHeaders()),
-          H.ichain(_ => H.send(''))
-        )
-      )
+      H.orElse(_ => EndedMiddleware.BadRequest())
     )
 }
 

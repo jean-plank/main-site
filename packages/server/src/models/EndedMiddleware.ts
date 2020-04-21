@@ -8,8 +8,8 @@ export function EndedMiddleware(status: H.Status): (message?: string) => EndedMi
   return (message = '') =>
     pipe(
       H.status(status),
-      H.ichain(() => H.closeHeaders()),
-      H.ichain(() => H.send(message))
+      H.ichain(_ => H.closeHeaders()),
+      H.ichain(_ => H.send(message))
     )
 }
 

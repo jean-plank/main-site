@@ -8,6 +8,7 @@ import { FormPayload } from 'main-site-shared/lib/models/form/FormPayload'
 import { Buttons } from './Buttons'
 import { Selects } from './Selects'
 import { FormOutcome } from './FormOutcome'
+import { Config } from '../../config/Config'
 import { AppContext } from '../../contexts/AppContext'
 import { ArrayWithEnd } from '../../models/ArrayWithEnd'
 import {
@@ -20,6 +21,7 @@ import {
   AnswerNext,
   MessageLink
 } from '../../models/form'
+import { HttpUtils } from '../../utils/HttpUtils'
 
 interface Props {
   onSubmit: () => void
@@ -121,11 +123,9 @@ export const Form: FunctionComponent<Props> = ({ onSubmit }) => {
       freeMsg
     })
     pipe(
-      Future.unit,
-      Future.map(_ => {
-        // TODO: send payload
-        console.log(JSON.stringify(payload, null, 2))
-      }),
+      HttpUtils.post(`${Config.apiHost}/contact`, payload),
+      // TODO: handle error
+      Future.map(res => console.log('res =', res)),
       Future.map(_ => onSubmit()),
       Future.runUnsafe
     )

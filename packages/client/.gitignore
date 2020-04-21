@@ -1,6 +1,7 @@
-/node_modules
 /.cache
+/.env
 /.eslintcache
 /dist
 /en
 /fr
+/node_modules

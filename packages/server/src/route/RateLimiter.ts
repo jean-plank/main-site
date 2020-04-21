@@ -1,9 +1,9 @@
 import * as H from 'hyper-ts'
-import express from 'express'
-import { fromRequestHandler } from 'hyper-ts/lib/express'
+import { Request } from 'express'
+import { ExpressConnection } from 'hyper-ts/lib/express'
 import { isDeepStrictEqual } from 'util'
 
-import { pipe, List, Maybe } from 'main-site-shared/lib/fp'
+import { pipe, List, Maybe, Future } from 'main-site-shared/lib/fp'
 
 import { EndedMiddleware } from '../models/EndedMiddleware'
 import { MsDuration } from '../models/MsDuration'
@@ -16,16 +16,17 @@ export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
 
   let requests: History[] = []
 
-  setTimeout(() => {
-    requests = []
-    console.log('resetted map')
-  }, MsDuration.unwrap(lifeTime))
+  setTimeout(() => (requests = []), MsDuration.unwrap(lifeTime))
 
   const limit = (limit: number, window: MsDuration) => (
     middleware: EndedMiddleware
-  ): EndedMiddleware =>
-    pipe(
-      fromRequestHandler(express.text({ type: '*/*' }), req => req),
+  ): EndedMiddleware => {
+    const reqMiddleware: H.Middleware<H.StatusOpen, H.StatusOpen, Error, Request> = (
+      conn: H.Connection<H.StatusOpen>
+    ) => Future.right([(conn as ExpressConnection<H.StatusOpen>).req, conn])
+
+    return pipe(
+      reqMiddleware,
       H.ichain(({ path, ip }) => {
         const key = Key(path, ip)
         const now = Date.now()
@@ -59,6 +60,7 @@ export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
         return result
       })
     )
+  }
 
   return { limit }
 }

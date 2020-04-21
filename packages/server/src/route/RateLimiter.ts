@@ -3,14 +3,14 @@ import { isDeepStrictEqual } from 'util'
 
 import { pipe, List, Maybe } from 'main-site-shared/lib/fp'
 
-import { ControllerUtils } from './ControllerUtils'
+import { WithIp } from './WithIp'
 import { EndedMiddleware } from '../models/EndedMiddleware'
 import { MsDuration } from '../models/MsDuration'
 import { PartialLogger } from '../services/Logger'
 
 export type RateLimiter = ReturnType<typeof RateLimiter>
 
-export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
+export const RateLimiter = (Logger: PartialLogger, withIp: WithIp, lifeTime: MsDuration) => {
   const logger = Logger('RateLimiter')
 
   let requests: History[] = []
@@ -18,41 +18,38 @@ export const RateLimiter = (Logger: PartialLogger, lifeTime: MsDuration) => {
   setTimeout(() => (requests = []), MsDuration.unwrap(lifeTime))
 
   return (limit: number, window: MsDuration) => (middleware: EndedMiddleware): EndedMiddleware =>
-    pipe(
-      ControllerUtils.withRequest,
-      H.ichain(({ path, ip }) => {
-        const key = Key(path, ip)
-        const now = Date.now()
-        const windowStart = now - MsDuration.unwrap(window)
+    withIp('route with rate limiting')((ip, { path }) => {
+      const key = Key(path, ip)
+      const now = Date.now()
+      const windowStart = now - MsDuration.unwrap(window)
 
-        const [newRequests, result]: [History[], EndedMiddleware] = pipe(
-          requests,
-          List.findIndex(_ => isDeepStrictEqual(_.key, key)),
-          Maybe.fold(
-            () => [[History(key, [now])], middleware],
-            i => {
-              const { history } = requests[i]
-              const cleaned = history.filter(_ => _ > windowStart)
+      const [newRequests, result]: [History[], EndedMiddleware] = pipe(
+        requests,
+        List.findIndex(_ => isDeepStrictEqual(_.key, key)),
+        Maybe.fold(
+          () => [[History(key, [now])], middleware],
+          i => {
+            const { history } = requests[i]
+            const cleaned = history.filter(_ => _ > windowStart)
 
-              if (cleaned.length >= limit) {
-                const res = pipe(
-                  logger.warn(`Too many request on route "${path}" with ip "${ip}"`),
-                  H.fromIOEither,
-                  H.ichain(_ => EndedMiddleware.Unauthorized('Too many requests'))
-                )
-                return [requests, res]
-              }
-
-              const newHistory = History(key, List.snoc(cleaned, now))
-              return [List.unsafeUpdateAt(i, newHistory, requests), middleware]
+            if (cleaned.length >= limit) {
+              const res = pipe(
+                logger.warn(`Too many request on route "${path}" with ip "${ip}"`),
+                H.fromIOEither,
+                H.ichain(_ => EndedMiddleware.Unauthorized('Too many requests'))
+              )
+              return [requests, res]
             }
-          )
-        )
 
-        requests = newRequests
-        return result
-      })
-    )
+            const newHistory = History(key, List.snoc(cleaned, now))
+            return [List.unsafeUpdateAt(i, newHistory, requests), middleware]
+          }
+        )
+      )
+
+      requests = newRequests
+      return result
+    })
 }
 
 interface History {

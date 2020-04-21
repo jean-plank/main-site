@@ -41,7 +41,7 @@ export const Context = (config: Config) => {
 
   const contactController = ContactController(Logger, withIp, contactService)
 
-  const rateLimiter = RateLimiter(Logger, MsDuration.days(1))
+  const rateLimiter = RateLimiter(Logger, withIp, MsDuration.days(1))
   const routes: Route[] = Routes(rateLimiter, contactController)
   const startWebServer = () => _startWebServer(Logger, config, routes)
 

@@ -97,7 +97,7 @@ export const translations: Record<Language, Translation> = {
     home: {
       revengefulTrilogy: (
         <>
-          <q>"Une tragédie vengeresse en trois actes."</q>
+          <q>“Une tragédie vengeresse en trois actes.”</q>
           <PrettyTargetBlank href='https://twitter.com/MohamedZdong'>
             Maitre ZDONG
           </PrettyTargetBlank>
@@ -250,7 +250,7 @@ export const translations: Record<Language, Translation> = {
     home: {
       revengefulTrilogy: (
         <>
-          <q>"A revengeful tragedy in three acts."</q>
+          <q>“A revengeful tragedy in three acts.”</q>
           <PrettyTargetBlank href='https://twitter.com/MohamedZdong'>
             Master ZDONG
           </PrettyTargetBlank>

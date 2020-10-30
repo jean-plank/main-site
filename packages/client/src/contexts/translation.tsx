@@ -1,12 +1,10 @@
 import { eqString } from 'fp-ts/lib/Eq'
+import { List, Maybe, pipe } from 'main-site-shared/lib/fp'
+import { FormTranslation } from 'main-site-shared/lib/models/form/FormTranslation'
 import React, { ReactNode } from 'react'
 
-import { Maybe, List } from 'main-site-shared/lib/fp'
-import { FormTranslation } from 'main-site-shared/lib/models/form/FormTranslation'
-
-import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import tutorialEnJpg from '../../img/tutorial_en.jpg'
-
+import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import { PrettyTargetBlank } from '../components/PrettyTargetBlank'
 
 export const LANG_KEY = 'lang'
@@ -379,6 +377,12 @@ export const translations: Record<Language, Translation> = {
   }
 }
 
-const pref = localStorage.getItem(LANG_KEY)
-const lang = pref === null ? navigator.language.split('-')[0] : pref
-export const defaultLanguage: Language = isLanguage(lang) ? lang : 'en'
+export const defaultLanguage: Language = pipe(
+  localStorage.getItem(LANG_KEY),
+  Maybe.fromNullable,
+  Maybe.alt(() =>
+    List.lookup(0, [...navigator.languages.map(l => l.split('-')[0]), navigator.language])
+  ),
+  Maybe.filter(isLanguage),
+  Maybe.getOrElse(() => 'en')
+)

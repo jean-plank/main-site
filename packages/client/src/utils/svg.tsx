@@ -123,7 +123,7 @@ export const ExternalLink: SVGComponent = ({ className }) => (
     css={styles.base}
     className={className}
   >
-    <g className='fa-group'>
+    <g>
       <path
         fill='currentColor'
         d='M400 320h32a16 16 0 0 1 16 16v128a48 48 0 0 1-48 48H48a48 48 0 0 1-48-48V112a48 48 0 0 1 48-48h160a16 16 0 0 1 16 16v32a16 16 0 0 1-16 16H64v320h320V336a16 16 0 0 1 16-16z'

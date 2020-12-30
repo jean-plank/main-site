@@ -1,12 +1,10 @@
 import { eqString } from 'fp-ts/lib/Eq'
+import { List, Maybe, pipe } from 'main-site-shared/lib/fp'
+import { FormTranslation } from 'main-site-shared/lib/models/form/FormTranslation'
 import React, { ReactNode } from 'react'
 
-import { Maybe, List } from 'main-site-shared/lib/fp'
-import { FormTranslation } from 'main-site-shared/lib/models/form/FormTranslation'
-
-import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import tutorialEnJpg from '../../img/tutorial_en.jpg'
-
+import tutorialFrJpg from '../../img/tutorial_fr.jpg'
 import { PrettyTargetBlank } from '../components/PrettyTargetBlank'
 
 export const LANG_KEY = 'lang'
@@ -14,6 +12,8 @@ export const LANG_KEY = 'lang'
 export type Language = 'fr' | 'en'
 export const languages: Language[] = ['fr', 'en']
 const isLanguage = (lang: string): lang is Language => List.elem(eqString)(lang, languages)
+
+const DL_BASE_URL = 'https://dl.alshain.blbl.ch/jp'
 
 export interface Translation {
   notFound: {
@@ -158,7 +158,7 @@ export const translations: Record<Language, Translation> = {
         summary: 'Jean Plank fait une escale pour se ravitailler.',
         links: {
           launch: Maybe.some('fr/thestory'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank - The Story.zip`)
         }
       },
 
@@ -174,7 +174,7 @@ export const translations: Record<Language, Translation> = {
         links: {
           launch: Maybe.some('fr/naissancedesflammesdelavengeance'),
           dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip'
+            `${DL_BASE_URL}/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip`
           )
         }
       },
@@ -191,9 +191,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('fr/lesflammesdelavengeance'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Les Flammes de la Vengeance.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank II - Les Flammes de la Vengeance.zip`)
         }
       },
 
@@ -210,7 +208,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('fr/valhallauakbar'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank II - Valhalla U Akbar.zip`)
         }
       },
 
@@ -311,7 +309,7 @@ export const translations: Record<Language, Translation> = {
         summary: 'Jean Plank makes a stop to refuel.',
         links: {
           launch: Maybe.some('en/thestory'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank - The Story.zip`)
         }
       },
 
@@ -326,9 +324,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('en/birthoftheflamesofrevenge'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/en/Jean Plank I - Birth of the Flames of Revenge.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank I - Birth of the Flames of Revenge.zip`)
         }
       },
 
@@ -344,9 +340,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('en/theflamesofrevenge'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank II - The Flames of Revenge.zip`)
         }
       },
 
@@ -379,6 +373,12 @@ export const translations: Record<Language, Translation> = {
   }
 }
 
-const pref = localStorage.getItem(LANG_KEY)
-const lang = pref === null ? navigator.language.split('-')[0] : pref
-export const defaultLanguage: Language = isLanguage(lang) ? lang : 'en'
+export const defaultLanguage: Language = pipe(
+  localStorage.getItem(LANG_KEY),
+  Maybe.fromNullable,
+  Maybe.alt(() =>
+    List.lookup(0, [...navigator.languages.map(l => l.split('-')[0]), navigator.language])
+  ),
+  Maybe.filter(isLanguage),
+  Maybe.getOrElse(() => 'en')
+)

@@ -13,6 +13,8 @@ export type Language = 'fr' | 'en'
 export const languages: Language[] = ['fr', 'en']
 const isLanguage = (lang: string): lang is Language => List.elem(eqString)(lang, languages)
 
+const DL_BASE_URL = 'https://dl.alshain.blbl.ch/jp'
+
 export interface Translation {
   notFound: {
     message: string
@@ -156,7 +158,7 @@ export const translations: Record<Language, Translation> = {
         summary: 'Jean Plank fait une escale pour se ravitailler.',
         links: {
           launch: Maybe.some('fr/thestory'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank - The Story.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank - The Story.zip`)
         }
       },
 
@@ -172,7 +174,7 @@ export const translations: Record<Language, Translation> = {
         links: {
           launch: Maybe.some('fr/naissancedesflammesdelavengeance'),
           dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip'
+            `${DL_BASE_URL}/fr/Jean Plank I - Naissance des Flammes de la Vengeance.zip`
           )
         }
       },
@@ -189,9 +191,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('fr/lesflammesdelavengeance'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Les Flammes de la Vengeance.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank II - Les Flammes de la Vengeance.zip`)
         }
       },
 
@@ -208,7 +208,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('fr/valhallauakbar'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/fr/Jean Plank II - Valhalla U Akbar.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/fr/Jean Plank II - Valhalla U Akbar.zip`)
         }
       },
 
@@ -309,7 +309,7 @@ export const translations: Record<Language, Translation> = {
         summary: 'Jean Plank makes a stop to refuel.',
         links: {
           launch: Maybe.some('en/thestory'),
-          dl: Maybe.some('https://dl.blbl.ch/jean-plank/en/Jean Plank - The Story.zip')
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank - The Story.zip`)
         }
       },
 
@@ -324,9 +324,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('en/birthoftheflamesofrevenge'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/en/Jean Plank I - Birth of the Flames of Revenge.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank I - Birth of the Flames of Revenge.zip`)
         }
       },
 
@@ -342,9 +340,7 @@ export const translations: Record<Language, Translation> = {
         ),
         links: {
           launch: Maybe.some('en/theflamesofrevenge'),
-          dl: Maybe.some(
-            'https://dl.blbl.ch/jean-plank/en/Jean Plank II - The Flames of Revenge.zip'
-          )
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank II - The Flames of Revenge.zip`)
         }
       },
 

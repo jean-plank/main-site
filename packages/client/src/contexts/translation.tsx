@@ -345,7 +345,7 @@ export const translations: Record<Language, Translation> = {
       },
 
       jp2b: {
-        title: 'Valhalla Ouakbar',
+        title: 'Valhalla U Akbar',
         summary: (
           <>
             <i>Sequel to the second ending of Jean Plank I</i>
@@ -356,8 +356,8 @@ export const translations: Record<Language, Translation> = {
           </>
         ),
         links: {
-          launch: Maybe.none,
-          dl: Maybe.none
+          launch: Maybe.some('en/valhallauakbar'),
+          dl: Maybe.some(`${DL_BASE_URL}/en/Jean Plank II - Valhalla U Akbar.zip`)
         }
       },
 
